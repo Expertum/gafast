@@ -10,8 +10,82 @@
 
 <include gem='hobo_bootstrap_ui'/>
 
+ 
+
 <include src="taglibs/auto/rapid/cards"/>
 <include src="taglibs/auto/rapid/pages"/>
 <include src="taglibs/auto/rapid/forms"/>
 
 <include src="application"/>
+ 
+
+<def tag="view" for="HoboFields::Types::EmailAddress"><a href="mailto:#{this}"><%= this %></a></def>
+
+<def tag="modal-alert">
+  <div class="modal modal-block modal-error hide fade" id="ga-modal-alert">
+    <div class="modal-header alert alert-error">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Error</h3>
+    </div>
+    <div class="modal-body">
+      <p>One fine body…</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</def>
+
+<extend tag="form" for="Upload">
+  <old-form merge multipart>
+    <field-list: fields="upload"/>
+  </old-form>
+</extend>
+
+<extend tag="main-nav">
+  <navigation class="main-nav" merge-attrs param="default" unless="&current_user.guest?">
+    <nav-item with="&Filial" class="#{'active' if (page_is?('filials') and ((params[:reports] == false) || (params[:reports] == nil)))}">
+      <ht key="filial.nav_item" count="100">
+        <model-name-human count="100"/>
+      </ht>
+    </nav-item>
+    <nav-item with="&News" class="#{'active' if page_is?('news')}"><ht key="news.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&User" class="#{'active' if page_is?('users')}" if="&current_user.administrator?"><ht key="user.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+  </navigation>
+</extend>
+
+<extend tag="page">
+  <old-page merge without-live-search lang="#{I18n.locale.to_s}">
+    <app-name: replace>
+        <div param='app-name'><a class="brand" href='#{base_url}/'>Gration Farm System</a></div>
+    </app-name:>
+    <account-nav:>
+      <logged-in-as:>
+        <a to='&current_user'><i class="icon-user"></i> <name/> </a>
+      </logged-in-as:>
+      <account: replace/>
+      <log-out:>
+        <a href='&logout_url'><i class="icon-off"></i></a>
+      </log-out:>
+    </account-nav:>
+    <footer: class="container bootstrap-content">
+      <div class="row">
+      <div class="span12 main-column">
+      <span class="copyright pull-left"> Copyright &copy; 2015-2015 <a href="http://expertum-ave.com">"Expertum Ave"</a>.
+        <t key="copyright.all_rights">All rights reserved</t>. GFS ver. <%= GFS_VERSION -%>.
+      </span>
+      <do if="&current_user.administrator?">
+        <span class="controls">
+        | <a href="/front/clear_cache"
+          onClick="new Hobo.ajaxRequest('/front/clear_cache', [''], { message:'Обнуляю кеш' }); return false;">
+          Сбросить кеш</a>
+        | <a href="/front/stats">Стастика</a> |
+        </span>
+      </do>
+      </div>
+      </div>
+    </footer:>
+  </old-page>
+</extend>
+
+

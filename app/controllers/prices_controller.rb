@@ -24,7 +24,8 @@ class PricesController < ApplicationController
 
 
     params[:enddate]   = Date.today.to_s                if params[:enddate].  blank? and !params[:startdate].blank?
-    params[:startdate] = Date.parse('2013-01-01').to_s  if params[:startdate].blank? and !params[:enddate].  blank?
+    params[:startdate] = Date.parse('2015-01-01').to_s  if params[:startdate].blank? and !params[:enddate].  blank?
+    @s = params[:date_order]
     if !params[:startdate].blank? and !params[:enddate].blank? then
          @prices = @prices.where("#{@s} between ? and ?", Date.parse(params[:startdate]) ,Date.parse(params[:enddate]))
     end

@@ -1,3 +1,224 @@
 <!-- this file is included by front_site.dryml, admin_site.dryml et al, so
 you can place common code in this file. -->
 
+<!-- A `<select>` menu containing the values of an 'enum string'.
+
+### Attributes
+
+ - `labels` - A hash that gives custom labels for the values of the enum.  This attribute is present for backwards compatibility.   A better way to customize the labels is to use the translation framework.   The key for enum 'e' on field 'f' for model 'm' would be `activerecord.attributes.m.f.e`.
+ - `titleize` - Set to false to have the value itself (rather than `value.titleize`) be the default label if translation fails. Default: true
+ - `first-option` - a string to be used for an extra option in the first position. E.g. "Please choose..."
+ - `first-value` - the value to be used with the `first-option`. Typically not used, meaning the option has a blank value.
+   -->
+<def tag="input" for="HoboFields::Types::EnumString" attrs="labels, titleize, first-option, first-value"><%
+  labels ||= {}
+  labels = HashWithIndifferentAccess.new(labels)
+  titleize = true if titleize.nil? && labels.empty?
+  options = this_type.values.map {|v|
+    default = labels[v] || v
+    default = default.titleize if titleize
+    [I18n.t("activerecord.attributes.#{this_parent.class.to_s.downcase}/#{this_field}s.#{v}",
+      :default => default),
+        v, { :name => param_name_for_this }]
+  }
+  %>
+    <%= radio_buttons(options, this) %>
+</def>
+
+<def tag="select-one-or-new">
+  <%# Partial %>
+  <div part="select-one-or-new" id="select-one-or-new-#{this_field}" class="pull-left">
+    <div class="input-append">
+      <select-one id="select-one-or-new-#{this_type}" limit="10000"/>
+      <%# Button that triggers the modal %>
+      <modal-open-button modal="myModal-#{this_field}">+</modal-open-button>
+    </div>
+  </div>
+
+  <%# Modal %>
+  <modal id="myModal-#{this_field}">
+    <modal:>
+      <formlet with="&this_type.new" update="select-one-or-new-#{this_field}"
+             complete="$('#myModal-#{this_field}').modal('hide')">
+        <modal-header><%= t('hobo.actions.create', :model => t('activerecord.models.'+this_type.to_s.downcase+'.one') )  %></modal-header>
+        <div class="modal-body">
+          <table-list columns="3">
+            <owner-fio-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_owner_fio" name="strahovatel[owner_fio]" type="text"/>
+            </owner-fio-view:>
+            <owner-telephone-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_owner_telephone" name="strahovatel[owner_telephone]" type="text"/>
+            </owner-telephone-view:>
+            <ins-number-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_ins_number" name="strahovatel[ins_number]" type="text"/>
+            </ins-number-view:>
+            <date_pidpus_policy-view:>
+              <input class="bootstrap-datepicker" placeholder="--> обовя’зкове поле <--" id="strahovatel_date_pidpus_policy" name="strahovatel[date_pidpus_policy]" type="text" data-date-format="dd.mm.yyyy"/>
+            </date_pidpus_policy-view:>
+            <srok_deyst_policy_ot-view:>
+              <input class="bootstrap-datepicker" placeholder="--> обовя’зкове поле <--" id="strahovatel_srok_deyst_policy_ot" name="strahovatel[srok_deyst_policy_ot]" type="text" data-date-format="dd.mm.yyyy"/>
+            </srok_deyst_policy_ot-view:>
+            <srok_deyst_policy_do-view:>
+              <input class="bootstrap-datepicker" placeholder="--> обовя’зкове поле <--" id="strahovatel_srok_deyst_policy_do" name="strahovatel[srok_deyst_policy_do]" type="text" data-date-format="dd.mm.yyyy"/>
+            </srok_deyst_policy_do-view:>
+            <date_oplat_policy-view:>
+              <input class="bootstrap-datepicker" placeholder="--> обовя’зкове поле <--" id="strahovatel_date_oplat_policy" name="strahovatel[date_oplat_policy]" type="text" data-date-format="dd.mm.yyyy"/>
+            </date_oplat_policy-view:>
+            <property-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_property" name="strahovatel[property]" type="text"/>
+            </property-view:>
+            <ser_prava-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_ser_prava" name="strahovatel[ser_prava]" type="text"/>
+            </ser_prava-view:>
+            <nom_prava-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_nom_prava" name="strahovatel[nom_prava]" type="text"/>
+            </nom_prava-view:>
+            <driver_date_birth-view:>
+              <input class="bootstrap-datepicker" placeholder="--> обовя’зкове поле <--" id="strahovatel_driver_date_birth" name="strahovatel[driver_date_birth]" type="text" data-date-format="dd.mm.yyyy"/>
+            </driver_date_birth-view:>
+            <driver_adress-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_driver_adress" name="strahovatel[driver_adress]" type="text"/>
+            </driver_adress-view:>
+            <franshiza-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_franshiza" name="strahovatel[franshiza]" type="text"  />
+            </franshiza-view:>
+            <suma_strah-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_suma_strah" name="strahovatel[suma_strah]" type="text"  />
+            </suma_strah-view:>
+            <suma_strah_plat-view:>
+              <input placeholder="--> обовя’зкове поле <--" id="strahovatel_suma_strah_plat" name="strahovatel[suma_strah_plat]" type="text"  />
+            </suma_strah_plat-view:>
+          </table-list>
+        </div>
+        <modal-form-footer/>
+      </formlet>
+    </modal:>
+  </modal>
+</def>
+
+<def attrs='size, columns, force-all' tag='with-table-grouped'><%
+  field_names = with_fields_helper(attributes)
+  field_names = field_names.select {|f| can_view?(this, f)} unless force_all
+  columns = 1 unless columns
+  columns = columns.to_i
+  size = 12 unless size
+  size = size.to_i
+  span_size = size / columns
+  field_names_groups = field_names.in_groups(columns, false)
+  row_classes = "row"
+  row_classes += " columns" if columns > 1
+  %><div class='#{row_classes}' merge-attrs> <%
+  field_names_groups.each do |field_names_group|
+    %> <table class='table table-bordered table-striped span#{span_size}'> <%
+    field_names_group.each do |field|
+      %><set-scoped field-name='&field'><%
+      if field == "this"
+        %><do param='default'/><%
+      else
+        %><with field='&field'><do param='default'/></with><%
+      end
+      %></set-scoped><%
+    end
+    %> </table> <%
+  end
+  %> </div>
+</def>
+
+<def attrs='size, columns, tag, no-edit, required, no-blanks, input-attrs' tag='table-list'>
+  <% tag ||= scope.in_form ? "input" : "view"; no_edit ||= "skip" -%>
+  <% required ||= "" ; required = comma_split(required.gsub('-', '_')) -%>
+  <div merge-attrs='&amp;attributes - attrs_for(:with_fields)'>
+    <legend param if='&all_parameters[:legend]'/>
+    <with-table-grouped size='&size' merge-attrs='&amp;attributes &amp; attrs_for(:with_fields)' param columns='&columns'>
+
+    <% field_name = this_field_name
+       input_attrs ||= {}
+       input_attrs[:no_edit] = no_edit if tag == "input" && no_edit == "disable"
+       field_method = scope.field_name.to_s.sub('?', '').gsub('.', '-')
+       id_for_this = param_name_for_this.gsub('[', '_').gsub(']', '')
+       error_class = this_parent.errors[this_field].empty? ? "" : "error"
+    -%>
+      <tr class='control-group #{&apos;required&apos; if required.include?(scope.field_name)} #{error_class}' param='#{field_method}-field' unless='&(tag == &apos;input&apos; && no_edit == &apos;skip&apos; && !can_edit?) || ((tag == &apos;view&apos; || tag == &apos;uneditable-input&apos;) && no_blanks && this.blank?)'>
+        <th>
+            <%= field_name %>
+        </th>
+
+        <td>
+          <do param='#{field_method}-view'>
+            <do param='view'><call-tag tag='&tag' param='#{field_method}-tag' merge-attrs='&amp;input_attrs'/></do>
+          </do>
+          <p class='help-block' param='#{field_method}-help' if='&tag.to_sym == :input && (!this_field_help.blank? || parameters.include?("#{field_method}_help".to_sym))'>
+            <%= this_field_help %>
+          </p>
+        </td>
+
+      </tr>
+    </with-table-grouped>
+  </div>
+</def>
+
+<extend tag="table-plus">
+  <old-table-plus merge>
+    <search-filter:>
+      <clear-form: class="form-search" remove-class="form-horizontal" style="display: inline;" with="&nil" />
+      <clear-submit: value="&t(&apos;hobo.table_plus.clear_label&apos;, :default=>&apos;Cleara&apos;)" class="btn-small"/>
+    </search-filter:>
+  </old-table-plus>
+</extend>
+
+<def attrs='label, in-place, image, confirm, fade, subsite' tag='delete-link'><%
+  url = object_url(this, :method => :delete, :subsite => subsite)
+  if url && can_delete?
+    in_place = !(this == @this && request.method.downcase == "get") if in_place.nil?
+    update_attrs, attributes = attributes.partition_hash(HoboRapidHelper::AJAX_UPDATE_ATTRS)
+    ajax_attrs, attributes = attributes.partition_hash(HoboRapidHelper::AJAX_ATTRS)
+    if image
+      attributes[:src] ||= image_path(image)
+      attributes[:type] ||= 'image'
+    else
+      attributes[:type] ||= 'submit'
+    end
+    label ||= t("hobo.actions.remove", :default=>"Remove")
+    confirm = t("hobo.messages.confirm", :default=>"Are you sure?") if confirm.nil?
+    ajax_attrs[:confirm] = confirm if confirm
+
+    add_classes!(attributes,
+                 image ? "image-button" : "button",
+                 "delete-button delete-#{this.class.name.underscore.dasherize}-button")
+
+    if in_place && update_attrs.blank?
+      data_rapid = data_rapid(:delete_button)
+      ajax_attrs[:update] ||= ""   # force form ajax
+    elsif !update_attrs.blank?
+      ajax_attrs.merge!(update_attrs)
+      data_rapid = nil
+    else
+      data_rapid = nil
+    end
+  end
+%>
+  <if test='&url && can_delete?'>
+    <form class="button_to delete-#{this.class.name.underscore.dasherize}-form" method='delete' action='&url' merge-attrs='&amp;ajax_attrs' data-rapid='&data_rapid' data-rapid-context='&typed_id'>
+      <a href="#" onClick="$(this).parents('form').submit(); return false;" merge><i class="icon-trash"> </i></a>
+    </form>
+  </if>
+</def>
+
+<def tag="input" for="Ctime">
+  <timepicker merge/>
+</def>
+
+<def tag="timepicker" attrs="name">
+  <div class="input-append bootstrap-timepicker">
+    <% attrs = deunderscore_attributes(attributes)
+       attrs["class"] += " input-small" %>
+    <%= text_field_tag(name, this, attrs) %>
+    <span class="add-on"> <i class="icon-time"></i> </span>
+  </div>
+        <script type="text/javascript">
+          $('#<%= sanitize_to_id(name) %>').timepicker({
+                minuteStep: 5,
+                showMeridian: false,
+            });
+        </script>
+</def>
