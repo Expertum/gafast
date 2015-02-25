@@ -7,6 +7,9 @@ class PricesRead < ActiveRecord::Base
   end
   attr_accessible 
 
+  belongs_to :price
+  belongs_to :user
+
   # --- Permissions --- #
 
   def create_permitted?

@@ -1,0 +1,14 @@
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Release Date</th>
+    <th>Price</th>
+  </tr>
+  <% @orders.each do |order| %>
+  <tr>
+    <td><%= order.id %></td>
+    <td><%= order.crash_date %></td>
+  </tr>
+  <% end %>
+</table>

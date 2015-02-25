@@ -18,10 +18,11 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem "jquery-fileupload-rails"
 end
 
 gem 'jquery-rails'
-
+gem 'spreadsheet'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -46,5 +47,8 @@ gem "hobo_bootstrap", "2.0.1"
 gem "hobo_jquery_ui", "2.0.1"
 gem "hobo_bootstrap_ui", "2.0.1"
 gem "jquery-ui-themes", "~> 0.0.4"
-gem 'thin'
 gem 'rails-i18n', '~> 3.0.0' # For 3.x
+gem "russian"
+gem "thin"
+gem 'paperclip', '~> 3.0'
+gem "ru_propisju"

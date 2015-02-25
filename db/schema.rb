@@ -11,13 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150225115709) do
+ActiveRecord::Schema.define(:version => 20150225211458) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "recipient_id"
+    t.integer  "poster_id"
+    t.integer  "price_id"
   end
+
+  add_index "comments", ["poster_id"], :name => "index_comments_on_poster_id"
+  add_index "comments", ["price_id"], :name => "index_comments_on_price_id"
+  add_index "comments", ["recipient_id"], :name => "index_comments_on_recipient_id"
 
   create_table "filials", :force => true do |t|
     t.string   "name"
@@ -32,7 +39,16 @@ ActiveRecord::Schema.define(:version => 20150225115709) do
     t.string   "action"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "params"
+    t.string   "ht_key"
+    t.string   "message"
+    t.integer  "logable_id"
+    t.string   "logable_type"
+    t.integer  "user_id"
   end
+
+  add_index "logs", ["logable_type", "logable_id"], :name => "index_logs_on_logable_type_and_logable_id"
+  add_index "logs", ["user_id"], :name => "index_logs_on_user_id"
 
   create_table "news", :force => true do |t|
     t.string   "title"
@@ -65,12 +81,23 @@ ActiveRecord::Schema.define(:version => 20150225115709) do
   create_table "prices_reads", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "price_id"
+    t.integer  "user_id"
   end
+
+  add_index "prices_reads", ["price_id"], :name => "index_prices_reads_on_price_id"
+  add_index "prices_reads", ["user_id"], :name => "index_prices_reads_on_user_id"
 
   create_table "uploads", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "uploadable_id"
+    t.string   "uploadable_type"
+    t.integer  "poster_id"
   end
+
+  add_index "uploads", ["poster_id"], :name => "index_uploads_on_poster_id"
+  add_index "uploads", ["uploadable_type", "uploadable_id"], :name => "index_uploads_on_uploadable_type_and_uploadable_id"
 
   create_table "users", :force => true do |t|
     t.string   "crypted_password",          :limit => 40

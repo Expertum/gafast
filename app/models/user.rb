@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
     email_address :email_address, :login => true
     phone_number  :string
     administrator :boolean, :default => false
-    role          enum_string(:callcenter,:adjuster,:company_admin), :required
+    role          enum_string(:farmaceft,:prov_manager,:courier), :required
     receive_messages :boolean, :default => true
     position      :string, :required
 
@@ -18,6 +18,11 @@ class User < ActiveRecord::Base
                   :name, :email_address, :password, :password_confirmation, :current_password
 
   validates :filial, :presence => true
+
+  # Проверки на роль пользователя
+  def farmaceft?          ;role == :farmaceft;    end
+  def prov_manager?       ;role == :prov_manager;      end
+  def courier?            ;role == :courier; end
 
 
   # - Assossiations ---------------------------------
@@ -60,7 +65,7 @@ class User < ActiveRecord::Base
 
     create :invite,
            :available_to => "acting_user if acting_user.administrator?",
-           :params => [:name, :email_address, :phone_number, :role, :type_u, :position, :filial],
+           :params => [:name, :email_address, :phone_number, :role, :position, :filial],
            :new_key => true,
            :become => :invited do
        UserMailer.invite(self, lifecycle.key).deliver
@@ -96,12 +101,10 @@ class User < ActiveRecord::Base
         :email_address, :crypted_password, :current_password, :password, :password_confirmation))
     # Note: crypted_password has attr_protected so although it is permitted to change, it cannot be changed
     # directly from a form submission.
-    acting_user.company_admin? && only_changed?(:name, :role, :type, :filial, :phone_number)
   end
 
   def destroy_permitted?
     return true if acting_user.administrator?
-    acting_user.company_admin?
   end
 
   def view_permitted?(field)

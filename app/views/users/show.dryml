@@ -1,0 +1,16 @@
+<show-page>
+    <content-header:>
+
+      <a class="btn pull-right" action='account' if="&can_edit?">Змiнити пароль</a>
+      <a class="btn pull-right" action='edit' if="&can_edit?">Змiнити</a>
+
+      <h2>
+        <ht key="user.show.heading" name="#{name(:no_wrapper => true)}">
+          User <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="administrator, receive_messages"/>
+    </content-header:>
+
+</show-page>

@@ -7,4 +7,10 @@ class UserMailer < ActionMailer::Base
           :to      => user.email_address )
   end
 
+  def invite(user, key)
+    @user, @key = user, key
+    mail( :subject => "Invitation to #{app_name}",
+          :to      => user.email_address )
+  end
+
 end

@@ -1,0 +1,17 @@
+<index-page>
+    <title:><t key="activerecord.models.user.other">Users</t> <%= " : GSS"-%></title:>
+    <new-link: replace>
+      <a class="btn pull-right btn-primary new-link new-user-link" href="/users/invite" rel="nofollow" if="&current_user.administrator?">
+        <t key="user.invite.heading">Invite User</t>
+      </a>
+    </new-link>
+    <collection: replace>
+      <table-plus fields="this, email_address, phone_number, filial, role, last_active_at, state, actions">
+         <actions-heading:></actions-heading:>
+         <actions-view:><bootstrap-table-actions/></actions-view:>
+      </table-plus>
+    </collection:>
+    <new-form: replace/>
+    <bottom-page-nav: replace/>
+</index-page>
+

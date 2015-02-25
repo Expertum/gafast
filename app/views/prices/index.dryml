@@ -1,0 +1,97 @@
+<def tag="orders-filters">
+    <div class='filters' merge-attrs param="default">
+        <form action="orders.js" class="filter-menu" method="get" update="list-table">
+          <div  style="float:left;">
+            <span><t key="activerecord.attributes.order.state">State</t>:</span>
+              <%= select_tag "state", options_for_select([['Всi', ''],
+                ['Усне повiдомлення','ustnoe_uvedomlenie'], ['Збiр документiв','sbor_documentov'],
+                ['На розглядi','rassmotrenie'], ['Погодження', 'vizir'],['Виплата','vyplata'], ['Виплачено','vyplacheno'], 
+                ['Закрито за вiдмовою','zakritie_otkaz'],
+                ['Вiдмова','otkaz']], params[:state] || ''), :style => 'width: 170px' %>
+          </div>
+          <div  style="float:left;margin-left:5px;">
+            <span><t key="activerecord.attributes.order.type_order">Type order</t>:</span>
+              <%= select_tag "type_order", options_for_select([['Всi', ''],
+                ['ОСАГО','GO'], ['KACKO','KACKO'], ['Перестрахування','perestrah'], ['Кредитні ризики','credit'], ['Майно','estate'], 
+                ['НВ','HB'], ['ДМС','DMC'], ['НС','HC'], ['ОМС','OMC'], ['НВТ','HBT'], ['ВТО','BTO'], ['ДЦВ','DCB']], 
+                params[:type_order] || ''), :style => 'width: 120px' %>
+          </div>
+          <div style="float:left; margin-left: 10px;">
+            Вибiр сорт. по датi:
+              <%= select_tag "date_order", options_for_select([['Створення', 'created_at'],
+                ['Дата ДТП','crash_date'], ['Дата повiдомлення вiд потерпiлого','victims_date'],
+                ['Дата оплаты','date_viplaty'], ['Дата створення акта','acts_date']],
+                params[:date_order] || ''), :style => 'width: 130px' %>
+            <input style="width:100px;" type="text" placeholder="вiд" class="bootstrap-datepicker" name="startdate" 
+                   value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
+            <input style="width:100px;margin-left:3px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate" 
+                   value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
+          </div>
+          <button type="submit" class="btn" style="margin-left: 10px; "><i class="icon-ok"></i> Ok</button>
+          <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');" class="btn">
+            <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
+          </button>
+        </form>
+        <script>$(function() {
+          $('.bootstrap-datepicker').datepicker();
+          $('select#state').change(function() { jQuery(this).closest('form').submit(); });
+          $('select#type_order').change(function() { jQuery(this).closest('form').submit(); });
+          })</script>
+    </div>
+</def>
+
+<index-page>
+    <title:><t key="activerecord.models.order.other">Orders</t> <%= " : GSS"-%></title:>
+    <collection: replace>
+<%if params[:statistic] %>
+     В розробцi
+<%else%>
+<p>
+  <t key="activerecord.attributes.order.report">Report</t>:
+  <%= link_to "Excel-ЦВ", orders_path(format: "xls", :params => session) %>
+</p>
+      <table-plus part="list-table" update="list-table"
+        fields="&Order.viewable_fields(current_user.role)">
+        <search-filter: replace/>
+        <prepend-header:><orders-filters style='float:left;'/><span class="badge" style="float:right;"><%= unless current_user.role == 'callcenter'
+                                                                                                           this.count
+                                                                                                           end%></span></prepend-header:>
+         <actions-heading:></actions-heading:>
+         <actions-view:><bootstrap-table-actions/></actions-view:>
+         <crash-date-view:><view/><br/>
+         <% unless this_parent.crash_date.nil? || this_parent.strahovatel.date_pidpus_policy.nil? %>
+             <% if (this_parent.crash_date - this_parent.strahovatel.date_pidpus_policy).to_i <= 5 %>
+                 <span class="label label-warning">!!! 5 ДНІВ ДО ПОДІЇЇ !!!</span>
+                 <%=(this_parent.strahovatel.date_pidpus_policy).strftime("%d.%m.%Y")%>
+              <%end%>        
+             <%end%>
+        </crash-date-view:>
+         <strahovatel-view:>
+           <view/><br/>
+            <% if this_parent.yregulir %>
+              <span class="label label-info">!!! ЄВРО-протокол !!!</span><br/>
+            <%end%>
+           <span style="font-size: small; color: grey;"><%= this.property%> <%= this.gos_nomer%></span>
+         </strahovatel-view:>
+         <victims-view:>
+           <view/><br/>
+           <span style="font-size: small; color: grey;"><%= this.map{|x| x.property+' '+x.gos_nomer}.join(',')%></span>
+         </victims-view:>
+         <srok_yreg-view:>
+           <%if this == false%>
+             <span class="label label-important">Відсутня дата повідомлення</span>
+           <%else%>
+             <%if this_parent.state == 'vyplacheno'%>
+             <span class="label label-success">Виплачено</span>
+             <%else%>
+             <view/>
+             <%end%>
+           <%end%>
+         </srok_yreg-view:>
+         <notes-view:><view with="&this.to_s.truncate(20)" /></notes-view:>
+      </table-plus>
+<%end%>
+    </collection:>
+    <bottom-page-nav: replace/>
+</index-page>
+
