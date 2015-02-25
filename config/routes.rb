@@ -1,7 +1,7 @@
 Gafast::Application.routes.draw do
   match ENV['RAILS_RELATIVE_URL_ROOT'] => 'front#index' if ENV['RAILS_RELATIVE_URL_ROOT']
 
-  root :to => 'front#index'
+  root :to => 'prices#index'
 
   match 'users/:id/reset_password_from_email/:key' => 'users#reset_password', :as => 'reset_password_from_email'
 
@@ -10,6 +10,12 @@ Gafast::Application.routes.draw do
   match 'users/:id/activate_from_email/:key' => 'users#activate', :as => 'activate_from_email'
 
   match 'search' => 'front#search', :as => 'site_search'
+
+  match 'index' => 'prices#index'
+
+  resources :prices do
+      resources :uploads
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

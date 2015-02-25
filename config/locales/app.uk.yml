@@ -1,0 +1,623 @@
+# Hobo application translation file for Russian .
+# Please , add the specific models and attributes for your application .
+
+uk:
+  hobo:
+    table_plus:
+      submit_label: Пошук
+
+  date:
+    month_names: [~ , січня , лютого , березня , квітня, травня , червня , липня , серпня , вересня , жовтня, листопада, грудня ]
+
+  perelicdoc:
+    doc1 : Повідомлення
+    doc2 : Договір / поліс
+    doc3 : Паспорт
+    doc4 : IНН
+    doc5 : Техпасспорт
+    doc6 : Посвідчення водія
+    doc7 : Постанова суду
+    doc8 : Експертиза
+    doc9 : Довіреність
+    doc10 : Заява на виплату
+    doc11 : Кредитний договір
+    doc12 : Договір застави
+    doc13 : Довідка банку
+    doc14 : Довідка по залишку кредиту
+    doc15 : Форма-2
+    doc16 : Статутні документи підприємства
+    doc17 : Наказ про прийняття на роботу
+    doc18 : Наказ про закріплення на ТЗ
+    doc19 : Рахунок СТО
+    doc20 : Аудатекс
+    doc21 : Довідка з ДАІ
+
+  copyright :
+    all_rights : Всі права захищені.
+
+  Order:
+    actions:
+      new: Додати випадок
+  order:
+    new:
+      heading: Додати випадок
+      title: Додати випадок
+    index:
+      heading: Список випадків
+    edit:
+      heading: Редагувати випадок
+    messages:
+      create:
+        success: Випадок був створений без помилок
+  filial:
+    new:
+      heading : Створити фiлiю
+      title: Створити фiлiю
+    index :
+      heading : Список філій
+    edit :
+      heading : Редагувати філія
+    messages :
+      none : Оберіть філію
+      create :
+        success : Філія був створений без помилок
+  zapit:
+    index:
+      heading: Список запитiв
+    edit:
+      heading: Редагувати запит
+    messages:
+      none : Оберати запит
+      create :
+        success : Запит був створений без помилок
+    new_for_owner:
+      heading: Створити Запит
+      title: Стоврити Запит
+  Strahovatel:
+    actions:
+      new: Додати страхувальника
+  strahovatel :
+    new:
+      heading : Створити страхувальника
+      title: Створити страхувальника
+    index :
+      heading : Список страхувальників
+    edit :
+      heading : Редагувати страхувальника
+      title: Редагувати страхувальника
+    messages :
+      none : Виберіть страхувальника
+      create :
+        success : Страхувальник був створений без помилок
+  user :
+    invite :
+      heading : Запросити користувача
+    messages :
+      none : Виберіть користувача
+    index :
+      heading : Список користувачів
+    edit :
+      heading : Редагувати користувача
+    actions :
+      invite : Запросити
+  Victim:
+    actions:
+      new: Додати потерпiлого
+  victim :
+    index :
+      heading : Список потерпілих
+    edit :
+      heading : Редагувати потерпілої
+    messages :
+      create :
+        success : Потерпілий був створений без помилок
+
+  attributes :
+    created_at : Створено
+    updated_at : Оновлено
+
+  activerecord :
+    models :
+      user :
+        one : Користувач
+        few : Користувача
+        many : користувачів
+        other : Користувачі
+      filial :
+        one : Філія
+        few : Філії
+        many : Філій
+        other : Філії
+      order :
+        one : Випадок
+        few : Випадку
+        many : Випадків
+        other : Випадки
+      comment :
+        one : Коментар
+        few : Коментаря
+        many : Коментарів
+        other : Коментарі
+      victim :
+        one : Потерпілий
+        few : Потерпілих
+        many : Потерпілих
+        other : Потерпілі
+      strahovatel :
+        one : Страхувальник
+        few : Страхувальника
+        many : Страхувальників
+        other : Страхувальники
+      perelicdoc :
+        one : Документ
+        few : Документа
+        many : Документів
+        other : Документи
+      news :
+        one : Новина
+        few : Новини
+        many : Новин
+        other : Новини
+      act :
+        one : Страховий Акт
+        few : Страхових Акта
+        many : Страхових Актів
+        other : Страхові Акти
+      zapit :
+        one : Запит
+        few : Запити
+        many : Запитiв
+        other : Запити
+    attribute_help :
+      zapit:
+        pidpis: П.I.Б. пiдписуючоi особи
+        shapka: До кого запит
+      order :
+        filial : Місце подачі повідомлення
+        adjuster : Відповідальний за справу
+    attributes :
+      user :
+        User: Користувачi
+        name : П.І.Б.
+        email_address : Email
+        role : Роль
+        type_u: Спецiалiзацiя
+        filial : Філія
+        phone_number : Номер тел.
+        state : Стан
+        last_active_at : Остання активність
+        receive_messages : Розсилка повідомлень
+        current_password : Поточний пароль
+        position: Посада
+      user/roles :
+        callcenter : Спеціаліст РД
+        adjuster : Спеціаліст ГО
+        company_admin : Адміністратор компанії
+      user/type_us :
+        strah: Страховик
+        buh: Бухгалтер
+        spec_yreg: Спецiалiст врегулювання
+        nach_yreg: Начальник врегулювання
+        expert: Експерт
+        urist: Юрист
+        urist_consul: Юрист консул
+        SB: Служба безпеки
+        pred_prav: Голова правлiння
+
+      comment :
+        content : Зміст
+        poster : Автор
+      log:
+        user: Користувач
+        message: Повiдомлення
+      act :
+        coin: Ланцюг виплат
+        vic_select: Вибір потерпілого
+        ez: Коеф. фiз. зносу
+        ez_dg: Джерело Ез
+        summ_zn_dg: Джерело Сз
+        dod_vitrat_dg: Джерело Сдв
+        summ_p_viplat_dg: Джерело Спв
+        cvr: Вартiсть вiдновл. ремонту
+        cvr_dg: Джерело Свр
+        cc: Замiненнi деталi
+        cm: Використаннi матерiали
+        cp: Виконаннi роботи
+        summ_zn: Сума зниження
+        dod_vitrat: Додатковi витрати по справi
+        summ_p_viplat: Сума попереднiх виплат по данiй справi
+        Act: Акт
+        poster: Користувач
+        act_name : Назва / Номер
+        summ : Сума виплати
+        vigod_name : Одержувач страх. вiдшк.
+        vigod_ipn : IНН
+        nomer_rah : № рахунку
+        kart_rah : Транз. рахунок
+        bank_name : Назва Банку
+        bank_edrpo : код ЄДРПОУ
+        bank_mfo : МФО
+        p_purpose: Призначення платежу
+        name : Ім`я
+        password : Пароль
+        current_password : Поточний пароль
+        password_confirmation : Підтвердження пароля
+        email_address : Електронна адреса
+        phone_number : Номер телефону
+        last_active_at : Остання активність
+        receive_messages : Повідомлення поштою
+        state : Статус
+        filial : Філія
+        role : Роль
+        User : Користувачі
+        lifecycle :
+          states :
+            active : Зареєструвався
+            invited : Запрошений
+      zapit:
+        view_zapit: Показати Запит
+        add_zapit: Додати Запит
+        Zapit: Запит
+        posada: Посада
+        shapka: Шапка
+        text_z: Текст
+        pidpis: Пiдпис
+        type_z: Тип
+        order: Випадок
+        poster: Користувач
+      filial :
+        orders: Випадки
+        Filial : Філія
+        actions : Дії
+        name : Назва філії
+        contact_name : Контактна особа
+        telephone : Телефон
+        notes : Примітки
+        state : Регіон
+        c_o: Кiлькiсть випадкiв 
+        c_p: Страхові платежі кiл.
+        sum_p_f: Сумма плат.
+        s_s: Сер. вел. заявл. збиткiв
+        p_z: Процент збитк. заявлен. збит.
+        sum_otkaz: Сума по вiдмовам
+        c_r_ur: Кiл. регрес. по Юр. ос.
+        sum_r_ur: Сума по регресам Юр. ос.
+        c_r_fz: Кiл. регрес. по Фз. ос.
+        summ_r_fz: Сума по регресам Фз. ос.
+        p_z_r: Відсоток збитковості (за мінусом відмов та регресів)
+        c_v: Кiл. виплат
+        s_v: Середній розмір виплат
+        p_z_v: Відсоток збитковості (с-ві пл-жі/виплати)
+        suma_z: Сума збитку
+        c_otkaz: Кiлькiсть вiдмов
+        c_rezerv: Резерв
+        c_zver_vic: Кілкість звернень від потерпілих
+        suma_v: Сума выплат
+        messages :
+          none : Оберіть філію
+        edit :
+          heading : Редагування даних
+      order/type_orders :
+        GO : ОСАГО
+        KACKO : KACKO
+        perestrah : Перестрахування
+        credit : Кредитні ризики
+        estate : Майно
+        HB : НВ
+        DMC : ДМС
+        HC : НС
+        OMC : ОМС
+        HBT : НВТ
+        BTO : ВТО
+        DCB : ДЦВ
+      order/misces :
+        filia : Філія
+        expert : Експерт
+        GO : Головний Офiс
+        SB: Служба Безпеки
+        ur_yprav : Юр. управління
+        arhiv : Архів
+      order/regress_types :
+        fizik : Фіз. особа
+        urik : Юр. особа
+      order/regress_tos :
+        from : Від
+        to : До
+      zapit/type_zs :
+        k1 : Запит до мед. установи (KACKO)
+        k2 : Запит до слідчих органів (KACKO)
+        k3 : Запит метоцентр (KACKO)
+        k4 : Запит МНС (KACKO)
+        k5 : Запрос ДАI (KACKO) 
+        k6 : Запрос на банк (KACKO)
+        k7 : Запрос суд (KACKO)
+        g1 : Запит до мед. установи (ОСАГО)
+        g2 : Запит до слідчих органів (ОСАГО)
+        g3 : Запрос ДАI (ОСАГО)
+        g4 : Запрос суд (ОСАГО)
+      strahovatel/owner_males :
+        male : Чоловік
+        female : Жін
+      strahovatel/driver_males :
+        male : Чоловік
+        female : Жін
+      strahovatel/owner_status_osobs :
+        fizik : Фіз. особа
+        urik : Юр. особа
+      order/driver_males :
+        male : Чоловік
+        female : Жін
+      order/driver_status_osobs :
+        fizik : Фіз. особа
+        urik : Юр. особа
+      strahovatel/driver_status_osobs :
+        fizik : Фіз. особа
+        urik : Юр. особа
+      victim/owner_males :
+        male : Чоловік
+        female : Жін
+      victim/driver_males :
+        male : Чоловік
+        female : Жін
+      victim/owner_status_osobs :
+        fizik : Фіз. особа
+        urik : Юр. особа
+      order/risks :
+        dtp : ДТП
+        pdto : ПДТО
+        ivp : ІВП
+        ugon : Угон
+      expertise:
+        gration_id: Гратион
+        gration_state: Статус
+        expertise_type: Тип
+        oblast: Регiон
+        kontakt: Конт. лице
+        telephone: Номер тел.
+        object: Майно
+      expertise/gration_states:
+        new: Нова
+        wait_sign: Чекає на підпис
+        inwork: В роботі
+        taken: На огляді
+        wait_calc: В розрахунковому відділі
+        taken_calc: На розрахунку
+        calculated: Звіт готовий
+        agreed: Узгоджена
+        closed: Закрита
+        inbuh: Бугалтерія
+        paid: Сплачено
+        canceled: Відмінена
+        auction: На аукціоні
+        closed_auction: Аукціон закритий
+        wait_auction: На перевірці
+      expertise/expertise_types:
+        damage: Оцiнка збитку
+        price: Ринкова вартiсть
+        runout: Знос
+        remains: Залишки
+        review: Рецензiя
+        trasologiya: Трасологiя
+      victim :
+        sub_property: Модель/Хар. майна
+        date_vic_povidom: Дата повiдомлення
+        ser_prava : Серiя вод. прав
+        nom_prava : Номер вод. прав
+        order : Випадок
+        perelicdoc_assignments : Відповідальний за випадок
+        perelicdocs : Перелік документів
+        Victim : Потерпілий
+        owner_fio : ФIО госп. майна
+        owner_date_birth : Дата народження госп.
+        owner_male : Стать
+        owner_ind_code : IНН госп.
+        owner_telephone : Номер тел.
+        owner_adress : Адреса господаря
+        owner_status_osob : Статус особини госп.
+        owner_resident : Резидент госп.
+        owner_stag_vogd : Стаж водіння госп.
+        ins_number : Номер страх. поліса
+        property : Марка/Майно
+        driver_fio : ФIО вод. майна
+        driver_date_birth : Дата народження вод.
+        driver_male : Стать
+        driver_ind_code : IНН вод.
+        driver_telephone : Номер тел.
+        driver_adress : Адреса вод.
+        driver_status_osob : Статус особини вод.
+        driver_resident : Резидент вод.
+        driver_stag_vogd : Стаж водіння вод.
+        gos_nomer : Держ. номер
+        god_vipyska : Рік випуску
+        vin_code : VIN код
+        notes : Примiтки
+        damage_vict : Пошкодження ТЗ
+      strahovatel :
+        orders: Випадки
+        sub_property: Модель/Хар. майна
+        ser_prava: Серiя вод. прав
+        nom_prava: Номер вод. прав
+        date_pidpus_policy : Дата закл. дог.
+        suma_strah : Страхова сума
+        suma_strah_plat : Страховий платіж
+        Strahovatel : № поліса
+        owner_fio : ФIО страхувальника
+        owner_date_birth : Дата народження госп.
+        owner_male : Стать
+        owner_ind_code : IНН страхувальника
+        owner_telephone : Номер тел.
+        owner_adress : Адреса господаря
+        owner_status_osob : Статус особини госп.
+        owner_resident : Резидент госп.
+        ins_number : Номер страх. поліса
+        property : Марка/Майно
+        driver_fio : ФIО вод. майна
+        driver_date_birth : Дата народження вод.
+        driver_male : Стать
+        driver_ind_code : IНН вод.
+        driver_telephone : Номер тел.
+        driver_adress : Адреса вод.
+        driver_status_osob : Статус особини вод.
+        driver_resident : Резидент вод.
+        gos_nomer : Держ. номер
+        god_vipyska : Рік випуску
+        vin_code : VIN код
+        franshiza : Франшиза
+        owner_stag_vogd : Стаж вод. госп.
+        srok_deyst_policy_ot : Термін дії поліса
+        srok_deyst_policy_do : Термін дії поліса до
+        driver_stag_vogd : Стаж вод. водiя
+        filial : Філія
+        date_oplat_policy : Дата оплати поліса
+      news :
+        title : Тема
+        content : Текст новини
+        filial : Філія
+        News : Новини
+        actions : Дії
+      order :
+        driver_owner: Водій є власником
+        ser_prava : Серiя вод. прав
+        nom_prava : Номер вод. прав
+        driver_fio : ФIО водія
+        driver_date_birth : Дата народження вод.
+        driver_male : Стать
+        driver_ind_code : IНН вод.
+        driver_telephone : Номер тел.
+        driver_adress : Адреса вод.
+        driver_status_osob : Статус особини вод.
+        driver_resident : Резидент вод.
+        degree_of_damage: Уступiнь ушкодження
+        strahovik_victim: Страховик потерпiлого
+        ins_num_victim: Номер страх. поліса
+        rezerv: Резерв
+        t_ny_s: Начальник вруглювання
+        t_sb_s: Служба Безпеки
+        t_ur_s: Юр. управлiння
+        t_pp_s: Голова правлiння
+        vizirov: Погодження
+        haracter: Характеристики настання страхового випадку 
+        first_m: Страховий випадок настав у перший місяць дії договору/поліса. 
+        last_m: Страховий випадок настав в останній місяць дії договору/поліса.
+        night_out_city: ДТП сталося в нічний час доби за межами населеного пункту. 
+        naezd_dog: ТЗ пошкоджено в результаті наїзду на тварину, перешкоду, перекидання, з`їзду до кювету. 
+        second_man_leave: Другий учасник ДТП зник з місця події. 
+        no_damage_true: Характер пошкоджень не відповідає дійсності. 
+        damage_before: Пошкодження були нанесені до зазначеного випадку.
+        vse_ok: Жодна з характеристик не має мiсця
+        regress_type: Тип
+        regress_to: Претензія
+        report: Зберегти звiт
+        clear: Очистити
+        evroprotokol : Європротокол
+        misce_dtp: Мicце пригоди
+        expertiza: Експертиза
+        zapros: Запити
+        strah_act: Страховий Акт
+        add_act: Додати Акт
+        view_act: Показати Акт
+        doc_strah: Документи страховика
+        doc_vic: Документи потерпiлого
+        perelicdocs : Перелік документів
+        srok_ot : Термін дії поліса
+        prog_strah : Програма страх.
+        strahovatel : Страхувальник
+        Order : Випадок
+        srok_yreg : Термін врег.
+        filial : Філія
+        type_order : Тип
+        misce : Місце знах.
+        crash_date : Дата події
+        uved_date : Дата повід .
+        pis_uv_date : Дата пис. повідом.
+        crash_time : Час події
+        strah_driver_fio : Водій забезпеченого ТЗ
+        strah_ins_number : Номер страх. поліса
+        strah_owner_fio : Страхувальник
+        strah_property : Майно
+        strah_status_osob : Статус особи
+        suma_zbytku : Сума збитку
+        suma_expertyza : Сума Експертиза/Рахунок
+        suma_expert_ot: Експертиза/Рахунок вiд
+        date_strah_akt : Дата страх. акта
+        date_viplaty : Дата виплати
+        regress : Регрес
+        regress_name : ПІБ/Назва компанії
+        claim : Претензія
+        claim_to : ПІБ/Назва компанії
+        risk : Ризик
+        notes : Примiтки / Обставини
+        damage_strah : Пошкодження ТЗ Страхувальника
+        actions : Дії
+        adjuster : Відповідальний
+        state : Стан
+        victims : Потерпiлi
+        strahovatels : Страх.
+        time_call : Час тел. дзвінка
+        date_pidpus_policy : Дата закл. дог.
+        srok_deyst_policy : Термін дії поліса
+        suma_strah : Страхова сума
+        suma_strah_plat : Страховий платіж
+        vigodonabyvach : Вигодонабувач
+        franshiza : Франшиза
+        date_nadhodg_GO : Дата надходження до ГО
+        gorod : Місто
+        kod : Індекс
+        street : Вулиця, Будинок
+        yregulir : Ознака врегульов. за ЄВРО-протоколом
+        num_schem_dtp : № схеми ДТП
+        degree_of_guilt : Ступінь вини страхувальника
+        log: Журнал
+        lifecycle :
+          states :
+            ustnoe_uvedomlenie : Усне повідомлення
+            sbor_documentov : Збір документів
+            rassmotrenie    : Розгляд
+            rassmotrenie_sb : На розгляді у СБ
+            rassmotrenie_ur : На розгляді у Юр. управ.
+            rassmotrenie_ex : На розгляді у Експерта
+            registracia: Реестрація
+            vizir: Погодження
+            vyplata : Виплата
+            vyplacheno: Виплачено
+            otkaz_uvedomlenie : Відмова
+            otkaz_sbor_documentov : Відмова
+            otkaz_rassmotrenie_sb : Відмова
+            otkaz_rassmotrenie_ur : Відмова
+            otkaz_rassmotrenie_ex : Відмова
+            otkaz_vizir : Відмова
+            otkaz_vyplata : Відмова
+            zakritie_otkaz: Закрито за вiдмовою
+            otkaz_rassmotrenie : Відмова
+            otkaz_registracia : Відмова
+          transitions :
+            otkaz : Відмова
+            zakrit : Закрити
+            to_vyplata : на Виплату
+            to_vyplacheno : Виплачено
+            to_registracia: На Реестрацію
+            to_rassmotrenie : на Розгляд
+            to_rassmotrenie_sb : на роз. до СБ
+            to_rassmotrenie_ur : на роз. до Юр. управ.
+            to_rassmotrenie_ex : на роз. до Експерта
+            to_vizir : на Погодження
+            to_sbor_documentov : на Збір документів
+            to_soglasovano_ny : Погоджено нач. врегул.
+            to_soglasovano_sb : Погоджено СБ
+            to_soglasovano_ur : Погоджено Юр. управ.
+            to_soglasovano_ex : Погоджено Експертом
+            to_soglasovano_pp : Погоджено Гол. прав.
+            revoke_to_vyplata : повернути на Виплату
+            revoke_to_registracia : повернути на Реестрацію
+            revoke_to_rassmotrenie : повернути на Розгляд
+            revoke_to_rassmotrenie_sb : повернути до СБ
+            revoke_to_rassmotrenie_ur : повернути до Юр. управ.
+            revoke_to_rassmotrenie_ex : повернути до Експерта
+            revoke_to_vizir : повернути на Погодження
+            revoke_to_sbor_documentov : повернути на Збір документів
+            revoke_to_uvedomlenie : повернути на Усне повідомлення
+            revoke_to_ustnoe_uvedomlenie : повернути на Усне повідомлення
+
+# Attribute_help :
+# User :
+# Email_address : We will never share your address with third parties

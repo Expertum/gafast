@@ -1,0 +1,2 @@
+module NewsReadsHelper
+end

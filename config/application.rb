@@ -11,6 +11,17 @@ end
 
 module Gafast
   class Application < Rails::Application
+    config.hobo.app_name = 'Gration Farm System'
+    config.i18n.locale = :uk
+    config.i18n.default_locale = :uk
+    config.active_record.default_timezone = :utc
+    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
+    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
+    config.time_zone="Kyiv"
+
+    #config.hobo.show_translation_keys = true
+    # Hobo: the admin subsite loads admin.css & admin.js
+    config.assets.precompile += %w(admin.css admin.js print.css)
     # Hobo: Named routes have changed in Hobo 2.0.   Set to false to emit both the 2.0 and 1.3 names.
     config.hobo.dont_emit_deprecated_routes = true
     # Hobo: the front subsite loads front.css & front.js
@@ -28,10 +39,6 @@ module Gafast
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
