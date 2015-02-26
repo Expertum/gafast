@@ -50,8 +50,32 @@
       </ht>
     </nav-item>
     <nav-item with="&News" class="#{'active' if page_is?('news')}"><ht key="news.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Good" class="#{'active' if page_is?('goods')}"><ht key="good.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&User" class="#{'active' if page_is?('users')}" if="&current_user.administrator?"><ht key="user.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
   </navigation>
+</extend>
+
+<extend tag="form" for="Price">
+  <old-form merge multipart>
+    <field-list: replace>
+      <h3> Прайс:</h3>
+      <table-list class="form-horizontal" fields="name" columns="1">
+      </table-list>
+
+    <hr/>
+    <h3><t key="activerecord.models.good.other">good</t></h3>
+    <input-many:goods>
+      <table-list class="form-horizontal" fields="morion, codeg, name, madein, nds, cena, srok" columns="2">
+      </table-list>
+    </input-many>
+
+<%= form_tag import_goods_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+
+    </field-list:>
+  </old-form>
 </extend>
 
 <extend tag="page">

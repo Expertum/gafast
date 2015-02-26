@@ -15,6 +15,10 @@ Gafast::Application.routes.draw do
 
   resources :prices do
       resources :uploads
+  end  
+
+  resources :goods do
+      collection { post :import }
   end
 
   # The priority is based upon order of creation:

@@ -22,14 +22,9 @@
 </def>
 
 <index-page>
-    <title:><t key="activerecord.models.price.other">Prices</t> <%= " : GSS"-%></title:>
+    <title:><t key="activerecord.models.price.other">Prices</t> <%= " : GFS"-%></title:>
     <collection: replace>
-<%if params[:statistic] %>
-     В розробцi
-<%else%>
-<p>
-  <t key="activerecord.attributes.price.report">Report</t>:
-</p>
+
       <table-plus part="list-table" update="list-table"
         fields="this, name">
         <search-filter: replace/>
@@ -37,7 +32,7 @@
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
       </table-plus>
-<%end%>
+
     </collection:>
     <bottom-page-nav: replace/>
 </index-page>

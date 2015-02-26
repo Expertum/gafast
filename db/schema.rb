@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150225211458) do
+ActiveRecord::Schema.define(:version => 20150226085248) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -34,6 +34,21 @@ ActiveRecord::Schema.define(:version => 20150225211458) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "goods", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "price_id"
+    t.string   "morion"
+    t.string   "codeg"
+    t.string   "madein"
+    t.string   "nds"
+    t.decimal  "cena",       :precision => 12, :scale => 2, :default => 0.0
+    t.date     "srok"
+  end
+
+  add_index "goods", ["price_id"], :name => "index_goods_on_price_id"
 
   create_table "logs", :force => true do |t|
     t.string   "action"

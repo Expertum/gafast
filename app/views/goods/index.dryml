@@ -1,0 +1,22 @@
+
+<index-page>
+    <title:><t key="activerecord.models.good.other">Goods</t> <%= " : GFS"-%></title:>
+    <collection: replace>
+
+      <table-plus part="list-table" update="list-table"
+        fields="this, madein, nds, cena, srok">
+    
+         <actions-heading:></actions-heading:>
+         <actions-view:><bootstrap-table-actions/></actions-view:>
+      </table-plus>
+
+      <%= form_tag import_goods_path, multipart: true do %>
+        <%= file_field_tag :file %>
+        <%= text_field_tag :price %>
+        <%= submit_tag "Import" %>
+      <% end %>
+
+    </collection:>
+    <bottom-page-nav: replace/>
+</index-page>
+
