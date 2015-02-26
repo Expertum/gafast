@@ -3,22 +3,19 @@
         <form action="goods.js" class="filter-menu" method="get" update="list-table">
          <div style="float:left; margin-left: 10px;">
             Вибiр прайса:
- 
-              <%= select_tag "price_name", options_for_select(Price.all.collect {|u| [ u.name, u.id ] })%>
+              <%= select_tag "price_name", options_for_select(Price.all.collect {|u| [ u.name, u.id ] }), :style => 'margin-top: 0px'%>
            </div>
           <button type="submit" class="btn" style="margin-left: 10px; "><i class="icon-ok"></i> Ok</button>
         </form>
     </div>
 </def>
+
 <index-page>
     <title:><t key="activerecord.models.good.other">Goods</t> <%= " : GFS"-%></title:>
     <collection: replace>
-
- 
-
+      <goods-filters style='float:left;'/>
       <table-plus part="list-table" update="list-table"
         fields="this, madein, nds, cena, srok">
-        <prepend-header:><goods-filters style='float:left;'/><span class="badge" style="float:right;"></span></prepend-header:>
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
       </table-plus>
