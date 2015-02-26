@@ -1,4 +1,15 @@
-
+<def tag="goods-filters">
+    <div class='filters' merge-attrs param="default">
+        <form action="goods.js" class="filter-menu" method="get" update="list-table">
+         <div style="float:left; margin-left: 10px;">
+            Вибiр прайса:
+ 
+              <%= select_tag "price_name", options_for_select(Price.all.collect {|u| [ u.name, u.id ] })%>
+           </div>
+          <button type="submit" class="btn" style="margin-left: 10px; "><i class="icon-ok"></i> Ok</button>
+        </form>
+    </div>
+</def>
 <index-page>
     <title:><t key="activerecord.models.good.other">Goods</t> <%= " : GFS"-%></title:>
     <collection: replace>
@@ -7,14 +18,15 @@
 
       <table-plus part="list-table" update="list-table"
         fields="this, madein, nds, cena, srok">
-    
+        <prepend-header:><goods-filters style='float:left;'/><span class="badge" style="float:right;"></span></prepend-header:>
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
       </table-plus>
-
       <%= form_tag import_goods_path, multipart: true do %>
         <%= file_field_tag :file %>
-        <%= text_field_tag :price %>
+        <%= text_field_tag :price, nil, placeholder: 'Enter name price...'%>
+        <%= hidden_field_tag :poster, current_user%>
+        <%= hidden_field_tag :filid, current_user.filial_id%>
         <%= submit_tag "Import", data: { disable_with: "Please wait..." }, class: "import_submit" %>
       <% end %>
 

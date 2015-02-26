@@ -2,6 +2,25 @@
    <title:><t key="activerecord.attributes.price.Price">Price</t> <%= this.name -%> : GSS</title:>
      <parent-link: replace></parent-link:>
 
+     <content-header:>
+       <a action="edit" if="&can_edit?" class="btn pull-right edit-link order-link">
+         <ht key="price.actions.edit" name="#{name(:no_wrapper => true)}">
+           Edit Price
+         </ht>
+       </a>
+
+       <h2 class="heading"><ht key="price.show.heading" name="#{name(:no_wrapper => true)}"> Price <name/></ht>  </h2>
+
+         <a:poster class="creator-link"/>
+
+     </content-header:>
+
+    <field-list: replace>
+      <% @g=this.goods%>
+      <table class="form-horizontal" with="&@g" fields="name" columns="1">
+      </table>
+    </field-list:>
+
     <after-content-body:>
       <hr/>
       <h4><t key="activerecord.models.comment.other">Comment</t></h4>

@@ -12,11 +12,11 @@ class Good < ActiveRecord::Base
     srok :date
     timestamps
   end
-  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok
+  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :price
 
   belongs_to :price
 
-  def self.import(file,cena)
+  def self.import(file,cena,poster,filid)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
@@ -24,6 +24,9 @@ class Good < ActiveRecord::Base
       good = find_by_id(row["id"]) || new
       good.attributes = row.to_hash.slice(*accessible_attributes)
       p = Price.find_or_create_by_name(cena)
+      p.filial_id = filid
+      p.poster = poster
+      p.save!
       good.price = p
       good.save!
     end
