@@ -9,3 +9,17 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require_tree ./application
+//= require nprogress
+//= require nprogress-turbolinks
+
+
+$(document).ready(function() {
+  $('input.import_submit').attr('onclick','start_progress()');
+});
+
+
+function start_progress() {
+  NProgress.configure({ ease: 'ease', speed: 150000 });
+  NProgress.configure({ trickleRate: 0.02, trickleSpeed: 5400 });
+  NProgress.start();
+}

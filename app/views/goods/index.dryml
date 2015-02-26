@@ -3,6 +3,8 @@
     <title:><t key="activerecord.models.good.other">Goods</t> <%= " : GFS"-%></title:>
     <collection: replace>
 
+ 
+
       <table-plus part="list-table" update="list-table"
         fields="this, madein, nds, cena, srok">
     
@@ -13,8 +15,9 @@
       <%= form_tag import_goods_path, multipart: true do %>
         <%= file_field_tag :file %>
         <%= text_field_tag :price %>
-        <%= submit_tag "Import" %>
+        <%= submit_tag "Import", data: { disable_with: "Please wait..." }, class: "import_submit" %>
       <% end %>
+
 
     </collection:>
     <bottom-page-nav: replace/>
