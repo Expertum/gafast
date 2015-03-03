@@ -16,10 +16,7 @@
      </content-header:>
 
     <field-list: replace>
-      <% @g=this.goods%>
-      <table class="form-horizontal" with="&@g" fields="name" columns="1">
-      </table>
-    </field-list:>
+     </field-list:>
 
     <after-content-body:>
       <hr/>

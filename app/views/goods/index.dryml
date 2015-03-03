@@ -23,13 +23,21 @@
     <collection: replace>
  
                <% unless params[:price_name].nil?%>
+                 <% if Price.find_by_id(params[:price_name]) then %>
                  <i class="icon-ok"></i><span id="price_name_span" class="badge badge-success"> <%= Price.find_by_id(params[:price_name]).to_s%> </span>
+                 <%else%>
+                 <i class="icon-remove"></i><span id="price_name_span" class="badge badge-important"> Вибиріть прайс </span>
+                 <%end%>
                <%else%>
                  <i class="icon-remove"></i><span id="price_name_span" class="badge badge-important"> Вибиріть прайс </span>
                <%end%>
 
                <% unless params[:filial_name].nil?%>
+                 <% if Filial.find_by_id(params[:filial_name]) then %>
                  <i class="icon-ok"></i><span id="filial_name_span" class="badge badge-success"> <%= Filial.find_by_id(params[:filial_name]).to_s%> </span>
+                 <%else%>
+                 <i class="icon-remove"></i><span id="filial_name_span" class="badge badge-important"> Вибиріть філіал </span>
+                 <%end%>
                <%else%>
                  <i class="icon-remove"></i><span id="filial_name_span" class="badge badge-important"> Вибиріть філіал </span>
                <%end%>
