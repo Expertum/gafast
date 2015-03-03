@@ -5,20 +5,45 @@
             Вибiр прайса:
               <%= select_tag "price_name", options_for_select(Price.all.collect {|u| [ u.name, u.id ] }), :style => 'margin-top: 0px'%>
            </div>
-          <button type="submit" class="btn" style="margin-left: 10px; "><i class="icon-ok"></i> Ok</button>
+         <div style="float:left; margin-left: 10px;">
+            Вибiр філіала:
+              <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }), :style => 'margin-top: 0px'%>
+           </div>
+           <button type="submit" class="btn" style="margin-left: 10px;" onClick="$('#price_name_span').text($('select#price_name :selected').text());$('#filial_name_span').text($('select#filial_name :selected').text());jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
         </form>
+        <script>$(function() {
+          $('select#price_name').change(function()  { $('#price_name_span').text($('select#price_name :selected').text());  jQuery(this).closest('form').submit(); });
+          $('select#filial_name').change(function() { $('#filial_name_span').text($('select#filial_name :selected').text()); jQuery(this).closest('form').submit(); });
+          })</script>
     </div>
 </def>
 
 <index-page>
     <title:><t key="activerecord.models.good.other">Goods</t> <%= " : GFS"-%></title:>
     <collection: replace>
-      <goods-filters style='float:left;'/>
+ 
+               <% unless params[:price_name].nil?%>
+                 <i class="icon-ok"></i><span id="price_name_span" class="badge badge-success"> <%= Price.find_by_id(params[:price_name]).to_s%> </span>
+               <%else%>
+                 <i class="icon-remove"></i><span id="price_name_span" class="badge badge-important"> Вибиріть прайс </span>
+               <%end%>
+
+               <% unless params[:filial_name].nil?%>
+                 <i class="icon-ok"></i><span id="filial_name_span" class="badge badge-success"> <%= Filial.find_by_id(params[:filial_name]).to_s%> </span>
+               <%else%>
+                 <i class="icon-remove"></i><span id="filial_name_span" class="badge badge-important"> Вибиріть філіал </span>
+               <%end%>
+
       <table-plus part="list-table" update="list-table"
-        fields="this, madein, nds, cena, srok">
+        fields="this, madein, nds, cena, srok, count">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
+         <srok-view:><view/> <%= link_to "Create Storage", storages_path(:storagenew => { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok}, :id_good => this_parent.id, :filial_id => params[:filial_name]), data: { confirm: "Are you sure?", :method => :post, remote: true}, class: "btn"%>
+         </srok-view:>
+         <count-view:><editor/></count-view:>
       </table-plus>
+
+
       <%= form_tag import_goods_path, multipart: true do %>
         <%= file_field_tag :file %>
         <%= text_field_tag :price, nil, placeholder: 'Enter name price...'%>
@@ -27,6 +52,7 @@
         <%= submit_tag "Import", data: { disable_with: "Please wait..." }, class: "import_submit" %>
       <% end %>
 
+      <goods-filters style='float:left;'/>
 
     </collection:>
     <bottom-page-nav: replace/>

@@ -8,7 +8,7 @@ class GoodsController < ApplicationController
 
     # FILTERS
       #Save param to session
-      %w(price_name).each do |key|                                                                                                           
+      %w(price_name filial_name).each do |key|                                                                                                           
          if not params[key].nil?; session[key] = params[key]
            elsif not session[key].nil?; params[key] = session[key]
            end

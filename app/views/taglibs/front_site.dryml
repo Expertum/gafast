@@ -50,6 +50,7 @@
       </ht>
     </nav-item>
     <nav-item with="&News" class="#{'active' if page_is?('news')}"><ht key="news.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Price" class="#{'active' if page_is?('prices')}"><ht key="price.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Good" class="#{'active' if page_is?('goods')}"><ht key="good.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Storage" class="#{'active' if page_is?('storages')}"><ht key="good.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&User" class="#{'active' if page_is?('users')}" if="&current_user.administrator?"><ht key="user.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>

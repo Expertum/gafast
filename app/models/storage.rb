@@ -10,9 +10,10 @@ class Storage < ActiveRecord::Base
     nds :string
     cena :decimal, :precision => 12, :scale => 2, :default => 0.00
     srok :date
+    count :string
     timestamps
   end
-  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :filial
+  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :filial, :count
 
   belongs_to :price
   belongs_to :filial
