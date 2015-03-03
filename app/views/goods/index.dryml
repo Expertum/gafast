@@ -9,11 +9,11 @@
             Вибiр філіала:
               <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }), :style => 'margin-top: 0px'%>
            </div>
-           <button type="submit" class="btn" style="margin-left: 10px;" onClick="$('#price_name_span').text($('select#price_name :selected').text());$('#filial_name_span').text($('select#filial_name :selected').text());jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
+           <button type="submit" class="btn" style="margin-left: 10px;" onClick="$('#price_name_span').text($('select#price_name :selected').text());$('#filial_name_span').text($('select#filial_name :selected').text()); $('#price_name_span').attr('class', 'badge badge-success');$('#filial_name_span').attr('class', 'badge badge-success');$('#iprice').attr('class', 'icon-ok'); $('#ifilial').attr('class', 'icon-ok');jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
         </form>
         <script>$(function() {
-          $('select#price_name').change(function()  { $('#price_name_span').text($('select#price_name :selected').text());  jQuery(this).closest('form').submit(); });
-          $('select#filial_name').change(function() { $('#filial_name_span').text($('select#filial_name :selected').text()); jQuery(this).closest('form').submit(); });
+          $('select#price_name').change(function()  { $('#price_name_span').text($('select#price_name :selected').text());  $("#price_name_span").attr('class', 'badge badge-success');$("#filial_name_span").attr('class', 'badge badge-success');$('#iprice').attr('class', 'icon-ok'); $('#ifilial').attr('class', 'icon-ok');jQuery(this).closest('form').submit(); });
+          $('select#filial_name').change(function() { $('#filial_name_span').text($('select#filial_name :selected').text()); $("#price_name_span").attr('class', 'badge badge-success');$("#filial_name_span").attr('class', 'badge badge-success');$('#iprice').attr('class', 'icon-ok'); $('#ifilial').attr('class', 'icon-ok');jQuery(this).closest('form').submit(); });
           })</script>
     </div>
 </def>
@@ -24,22 +24,22 @@
  
                <% unless params[:price_name].nil?%>
                  <% if Price.find_by_id(params[:price_name]) then %>
-                 <i class="icon-ok"></i><span id="price_name_span" class="badge badge-success"> <%= Price.find_by_id(params[:price_name]).to_s%> </span>
+                 <i id="iprice" class="icon-ok"></i><span id="price_name_span" class="badge badge-success"> <%= Price.find_by_id(params[:price_name]).to_s%> </span>
                  <%else%>
-                 <i class="icon-remove"></i><span id="price_name_span" class="badge badge-important"> Вибиріть прайс </span>
+                 <i id="iprice" class="icon-remove"></i><span id="price_name_span" class="badge badge-important"> Вибиріть прайс </span>
                  <%end%>
                <%else%>
-                 <i class="icon-remove"></i><span id="price_name_span" class="badge badge-important"> Вибиріть прайс </span>
+                 <i id="iprice" class="icon-remove"></i><span id="price_name_span" class="badge badge-important"> Вибиріть прайс </span>
                <%end%>
 
                <% unless params[:filial_name].nil?%>
                  <% if Filial.find_by_id(params[:filial_name]) then %>
-                 <i class="icon-ok"></i><span id="filial_name_span" class="badge badge-success"> <%= Filial.find_by_id(params[:filial_name]).to_s%> </span>
+                 <i id="ifilial" class="icon-ok"></i><span id="filial_name_span" class="badge badge-success"> <%= Filial.find_by_id(params[:filial_name]).to_s%> </span>
                  <%else%>
-                 <i class="icon-remove"></i><span id="filial_name_span" class="badge badge-important"> Вибиріть філіал </span>
+                 <i id="ifilial" class="icon-remove"></i><span id="filial_name_span" class="badge badge-important"> Вибиріть філіал </span>
                  <%end%>
                <%else%>
-                 <i class="icon-remove"></i><span id="filial_name_span" class="badge badge-important"> Вибиріть філіал </span>
+                 <i id="ifilial" class="icon-remove"></i><span id="filial_name_span" class="badge badge-important"> Вибиріть філіал </span>
                <%end%>
 
       <table-plus part="list-table" update="list-table"
