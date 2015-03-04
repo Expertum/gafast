@@ -26,7 +26,7 @@ class StoragesController < ApplicationController
       @storages = Storage.find_by_name(params[:storagenew][:name])
       if @storages then
         if @storages.filial_id.to_i == params[:filial_id].to_i then
-             @storages.count = (@storages.count.to_i + Good.find(params[:id_good]).count.to_i).to_s
+             @storages.count = (@storages.count.to_f + Good.find(params[:id_good]).count.to_f).to_f
         else
              @storages = Storage.new(params[:storagenew])
              @storages.count = Good.find(params[:id_good]).count
