@@ -1,0 +1,34 @@
+<def tag="storages-filters">
+    <div class='filters' merge-attrs param="default">
+        <form action="storages.js" class="filter-menu" method="get" update="list-table">
+         <div style="float:left; margin-left: 10px;">
+            Вибiр філіала:
+              <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }), :style => 'margin-top: 0px'%>
+           </div>
+           <button type="submit" class="btn" style="margin-left: 10px;" onClick="jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
+        </form>
+        <script>$(function() {
+
+          $('select#filial_name').change(function() { jQuery(this).closest('form').submit(); });
+          })</script>
+    </div>
+</def>
+
+<index-page>
+    <title:><t key="activerecord.models.storage.other">Storages</t> <%= " : GFS"-%></title:>
+    <collection: replace>
+       <storages-filters style='float:left;'/>
+      <table-plus part="list-table" update="list-table"
+        fields="this, filial, madein, nds, cena, srok, count">
+         <actions-heading:></actions-heading:>
+         <actions-view:><bootstrap-table-actions/></actions-view:>
+         <srok-view:><view/> 
+         </srok-view:>
+         <count-view:><view/> 
+           <%= link_to "Search in Goods", goods_path(:search => this_parent.name), class: "btn"%>
+         </count-view:>
+      </table-plus>
+    </collection:>
+    <bottom-page-nav: replace/>
+</index-page>
+

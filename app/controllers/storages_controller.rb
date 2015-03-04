@@ -8,7 +8,9 @@ class StoragesController < ApplicationController
 
     @storages = Storage.
       search(params[:search], :id, :codeg, :name, :cena ).
-      order_by(parse_sort_param(:id, :name, :codeg))
+      order_by(parse_sort_param(:id, :name, :codeg, :cena, :count))
+
+    @storages = @storages.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
 
     @storages = @storages.paginate(:page => params[:page])
 

@@ -21,7 +21,7 @@
 <index-page>
     <title:><t key="activerecord.models.good.other">Goods</t> <%= " : GFS"-%></title:>
     <collection: replace>
- 
+    <div style="margin-bottom: 10px;">
                <% unless params[:price_name].nil?%>
                  <% if Price.find_by_id(params[:price_name]) then %>
                  <i id="iprice" class="icon-ok"></i><span id="price_name_span" class="badge badge-success"> <%= Price.find_by_id(params[:price_name]).to_s%> </span>
@@ -41,6 +41,8 @@
                <%else%>
                  <i id="ifilial" class="icon-remove"></i><span id="filial_name_span" class="badge badge-important"> Вибиріть філіал </span>
                <%end%>
+      </div>
+      <goods-filters style='float:left;'/>
 
       <table-plus part="list-table" update="list-table"
         fields="this, madein, nds, cena, srok, count">
@@ -60,7 +62,6 @@
         <%= submit_tag "Import", data: { disable_with: "Please wait..." }, class: "import_submit" %>
       <% end %>
 
-      <goods-filters style='float:left;'/>
 
     </collection:>
     <bottom-page-nav: replace/>
