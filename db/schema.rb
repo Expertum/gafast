@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150304143330) do
+ActiveRecord::Schema.define(:version => 20150304153234) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -110,13 +110,14 @@ ActiveRecord::Schema.define(:version => 20150304143330) do
     t.string   "name"
     t.string   "madein"
     t.string   "nds"
-    t.decimal  "cena",       :precision => 12, :scale => 2, :default => 0.0
+    t.decimal  "cena",          :precision => 12, :scale => 2, :default => 0.0
     t.date     "srok"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "price_id"
     t.integer  "filial_id"
-    t.decimal  "count",      :precision => 12, :scale => 2, :default => 0.0
+    t.decimal  "count",         :precision => 12, :scale => 2, :default => 0.0
+    t.string   "location_good"
   end
 
   add_index "storages", ["filial_id"], :name => "index_storages_on_filial_id"

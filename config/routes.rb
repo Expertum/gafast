@@ -21,6 +21,10 @@ Gafast::Application.routes.draw do
       collection { post :import }
   end
 
+  resources :storages do
+     put :to_storage, :on => :collection
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

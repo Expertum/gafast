@@ -6,12 +6,22 @@ class StoragesController < ApplicationController
 
   def index
 
+    # FILTERS
+      #Save param to session
+      %w(location_good filial_name).each do |key|                                                                                                           
+         if not params[key].nil?; session[key] = params[key]
+           elsif not session[key].nil?; params[key] = session[key]
+           end
+         params.delete(key) if params[key].blank?
+     end
+      #---
+
     @storages = Storage.
       search(params[:search], :id, :codeg, :name, :cena ).
       order_by(parse_sort_param(:id, :name, :codeg, :cena, :count))
 
     @storages = @storages.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
-
+    @storages = @storages.where("location_good like ?", params[:location_good]) unless params[:location_good].blank?
     @storages = @storages.paginate(:page => params[:page])
 
     hobo_index do |format|
@@ -26,7 +36,7 @@ class StoragesController < ApplicationController
 
   def create
       @storages = Storage.find_by_name(params[:storagenew][:name])
-      if @storages then
+      if @storages && params[:storagenew][:location_good] == 'stor' then
         if @storages.filial_id.to_i == params[:filial_id].to_i then
              @storages.count = (@storages.count.to_f + Good.find(params[:id_good]).count.to_f).to_f
         else
@@ -46,6 +56,11 @@ class StoragesController < ApplicationController
           format.html { render :action => "new" }
         end
       end
+  end
+
+  def to_storage
+    Storage.to_storage(params[:id])
+    redirect_to :back
   end
 
 end

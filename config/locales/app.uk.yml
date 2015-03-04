@@ -33,11 +33,20 @@ uk:
     doc21 : Довідка з ДАІ
 
   copyright :
-    all_rights : Всі права захищені.
+    all_rights : Всі права захищені
 
   Order:
     actions:
       new: Додати випадок
+  Storage:
+    actions:
+      new: Додати на Склад
+  Good:
+    actions:
+      new: Додати товар
+  Price:
+    actions:
+      new: Додати прайс
   order:
     new:
       heading: Додати випадок
@@ -61,6 +70,30 @@ uk:
       none : Оберіть філію
       create :
         success : Філія був створений без помилок
+  storage:
+    new:
+      heading : Створити склад
+      title: Створити склад
+    index :
+      heading : Список складу
+    edit :
+      heading : Редагувати склад
+    messages :
+      none : Оберіть склад
+      create :
+        success : Склад був створений без помилок
+  good:
+    new:
+      heading : Створити товар
+      title: Створити товар
+    index :
+      heading : Список товарів
+    edit :
+      heading : Редагувати товар
+    messages :
+      none : Оберіть товар
+      create :
+        success : Товар був створений без помилок
   zapit:
     index:
       heading: Список запитiв
@@ -123,6 +156,21 @@ uk:
         few : Користувача
         many : користувачів
         other : Користувачі
+      storage :
+        one : Склад
+        few : Складів
+        many : Складів
+        other : Склад
+      good :
+        one : Товар
+        few : Товара
+        many : Товарів
+        other : Товари
+      price :
+        one : Прайс
+        few : Прайса
+        many : Прайсів
+        other : Прайси
       filial :
         one : Філія
         few : Філії
@@ -175,7 +223,18 @@ uk:
       order :
         filial : Місце подачі повідомлення
         adjuster : Відповідальний за справу
-    attributes :
+    attributes:
+      storage:
+        Storage: Склад
+        madein: Виробник
+        nds: ПДВ
+        cena: Ціна
+        srok: Срок вжитку
+        count: Кількість
+        codeg: Код
+        morion: Моріон
+        price: Прайс
+        name: Назва
       user :
         User: Користувачi
         name : П.І.Б.
@@ -190,26 +249,29 @@ uk:
         current_password : Поточний пароль
         position: Посада
       user/roles :
-        callcenter : Спеціаліст РД
-        adjuster : Спеціаліст ГО
-        company_admin : Адміністратор компанії
-      user/type_us :
-        strah: Страховик
-        buh: Бухгалтер
-        spec_yreg: Спецiалiст врегулювання
-        nach_yreg: Начальник врегулювання
-        expert: Експерт
-        urist: Юрист
-        urist_consul: Юрист консул
-        SB: Служба безпеки
-        pred_prav: Голова правлiння
-
+        farmaceft : Фармацевт
+        prov_manager : Манаджер постачальника
+        courier : Курьер
       comment :
         content : Зміст
         poster : Автор
       log:
         user: Користувач
         message: Повiдомлення
+      price :
+        Price: Прайс
+        name: Назва
+      good :
+        Good: Товар
+        madein: Виробник
+        nds: ПДВ
+        cena: Ціна
+        srok: Срок вжитку
+        count: Кількість
+        codeg: Код
+        morion: Моріон
+        price: Прайс
+        name: Назва
       act :
         coin: Ланцюг виплат
         vic_select: Вибір потерпілого
@@ -617,7 +679,23 @@ uk:
             revoke_to_sbor_documentov : повернути на Збір документів
             revoke_to_uvedomlenie : повернути на Усне повідомлення
             revoke_to_ustnoe_uvedomlenie : повернути на Усне повідомлення
-
+      storage/location_goods :
+        stor : склад
+        defect : дефектура
+        double : видалений
+      storage:
+        location_good: Розміщення товару
+        filial: Філія
+        Storage: Склад
+        madein: Виробник
+        nds: ПДВ
+        cena: Ціна
+        srok: Срок вжитку
+        count: Кількість
+        codeg: Код
+        morion: Моріон
+        price: Прайс
+        name: Назва
 # Attribute_help :
 # User :
 # Email_address : We will never share your address with third parties

@@ -3,11 +3,11 @@
         <form action="goods.js" class="filter-menu" method="get" update="list-table">
          <div style="float:left; margin-left: 10px;">
             Вибiр прайса:
-              <%= select_tag "price_name", options_for_select(Price.all.collect {|u| [ u.name, u.id ] }), :style => 'margin-top: 0px'%>
+              <%= select_tag "price_name", options_for_select(Price.all.collect {|u| [ u.name, u.id ] }, params[:price_name]), :style => 'margin-top: 0px'%>
            </div>
          <div style="float:left; margin-left: 10px;">
             Вибiр філіала:
-              <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }), :style => 'margin-top: 0px'%>
+              <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }, params[:filial_name]), :style => 'margin-top: 0px'%>
            </div>
            <button type="submit" class="btn" style="margin-left: 10px;" onClick="$('#price_name_span').text($('select#price_name :selected').text());$('#filial_name_span').text($('select#filial_name :selected').text()); $('#price_name_span').attr('class', 'badge badge-success');$('#filial_name_span').attr('class', 'badge badge-success');$('#iprice').attr('class', 'icon-ok'); $('#ifilial').attr('class', 'icon-ok');jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
         </form>
@@ -50,7 +50,20 @@
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <srok-view:><view/> 
          </srok-view:>
-         <count-view:><editor/><%= link_to "Create Storage", storages_path(:storagenew => { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok}, :id_good => this_parent.id, :filial_id => params[:filial_name]), data: { confirm: "Are you sure?", :method => :post, remote: true}, class: "btn"%></count-view:>
+         <count-view:><editor/>
+         <%= link_to "до складу", 
+               storages_path(:storagenew => 
+                               { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
+                                 :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'stor'}, 
+                                 :id_good => this_parent.id, :filial_id => params[:filial_name]), 
+                             data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger"%><br/>
+
+         <%= link_to "дефектура", 
+               storages_path(:storagenew => 
+                               { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
+                                 :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'defect'}, 
+                                 :id_good => this_parent.id, :filial_id => params[:filial_name]), 
+                             data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success"%></count-view:>
       </table-plus>
 
 

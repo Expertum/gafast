@@ -3,13 +3,19 @@
         <form action="storages.js" class="filter-menu" method="get" update="list-table">
          <div style="float:left; margin-left: 10px;">
             Вибiр філіала:
-              <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }), :style => 'margin-top: 0px'%>
+              <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }, params[:filial_name]), :style => 'margin-top: 0px'%>
            </div>
+          <div  style="float:left; ; margin-left: 10px;">
+            Розміщення товару:
+              <%= select_tag "location_good", options_for_select([['Склад', 'stor'],
+                ['Дефектура','defect']], params[:location_good] || ''), :style => 'margin-top: 0px' %>
+          </div>
            <button type="submit" class="btn" style="margin-left: 10px;" onClick="jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
         </form>
         <script>$(function() {
 
           $('select#filial_name').change(function() { jQuery(this).closest('form').submit(); });
+          $('select#location_good').change(function() { jQuery(this).closest('form').submit(); });
           })</script>
     </div>
 </def>
@@ -25,7 +31,11 @@
          <srok-view:><view/> 
          </srok-view:>
          <count-view:><view/> 
-           <%= link_to "Search in Goods", goods_path(:search => this_parent.name), class: "btn"%>
+           <% if this_parent.location_good == 'defect' then%>
+             <%= link_to "на склад >>", {:controller => :storages, :action => :to_storage, :id => this_parent.id}, {:method => :put }, class: "btn btn-primary"%>
+           <% else %>
+             <%= link_to "<< у прайсі", goods_path(:search => this_parent.name), class: "btn btn-primary"%>
+           <% end %>
          </count-view:>
       </table-plus>
     </collection:>

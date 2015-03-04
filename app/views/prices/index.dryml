@@ -4,16 +4,13 @@
          <div style="float:left; margin-left: 10px;">
             Вибiр сорт. по датi:
               <%= select_tag "date_order", options_for_select([['Створення', 'created_at']],
-                params[:date_order] || ''), :style => 'width: 130px' %>
+                params[:date_order] || ''), :style => 'margin-top: 0px' %>
             <input style="width:100px;" type="text" placeholder="вiд" class="bootstrap-datepicker" name="startdate" 
                    value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
             <input style="width:100px;margin-left:3px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate" 
                    value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
           </div>
           <button type="submit" class="btn" style="margin-left: 10px; "><i class="icon-ok"></i> Ok</button>
-          <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');" class="btn">
-            <i class="icon-remove"></i> <t key="activerecord.attributes.price.clear">Clear</t>
-          </button>
         </form>
         <script>$(function() {
           $('.bootstrap-datepicker').datepicker();
