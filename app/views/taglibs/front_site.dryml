@@ -62,7 +62,7 @@
 <extend tag="page">
   <old-page merge without-live-search lang="#{I18n.locale.to_s}">
     <app-name: replace>
-        <div param='app-name'><a class="brand" href='#{base_url}/'>Gration Farm System</a></div>
+        <div param='app-name'><a class="brand" href='#{base_url}/' style="padding: 7px 15px 10px 10px;text-shadow: 1px 1px 2px silver;">Gration Farm System</a></div>
     </app-name:>
     <account-nav:>
       <logged-in-as:>

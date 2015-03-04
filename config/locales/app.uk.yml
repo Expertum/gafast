@@ -35,9 +35,9 @@ uk:
   copyright :
     all_rights : Всі права захищені
 
-  Order:
+  Filial:
     actions:
-      new: Додати випадок
+      new: Додати філію
   Storage:
     actions:
       new: Додати на Склад

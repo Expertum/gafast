@@ -69,7 +69,7 @@
 
       <%= form_tag import_goods_path, multipart: true do %>
         <%= file_field_tag :file %>
-        <%= text_field_tag :price, nil, placeholder: 'Enter name price...'%>
+        <%= text_field_tag :price, nil, placeholder: 'Ведіть назву прайсу...', :style => 'margin-bottom: 0px'%>
         <%= hidden_field_tag :poster, current_user%>
         <%= hidden_field_tag :filid, current_user.filial_id%>
         <%= submit_tag "Import", data: { disable_with: "Please wait..." }, class: "import_submit" %>

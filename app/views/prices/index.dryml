@@ -5,10 +5,10 @@
             Вибiр сорт. по датi:
               <%= select_tag "date_order", options_for_select([['Створення', 'created_at']],
                 params[:date_order] || ''), :style => 'margin-top: 0px' %>
-            <input style="width:100px;" type="text" placeholder="вiд" class="bootstrap-datepicker" name="startdate" 
+            <input style="width:100px;margin-top: 0px;" type="text" placeholder="вiд" class="bootstrap-datepicker" name="startdate" 
                    value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
-            <input style="width:100px;margin-left:3px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate" 
-                   value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
+            <input style="width:100px;margin-left:3px;margin-top: 0px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate" 
+                   value="&params[:enddate]"   data-date-format="yyyy-mm-dd" />
           </div>
           <button type="submit" class="btn" style="margin-left: 10px; "><i class="icon-ok"></i> Ok</button>
         </form>
