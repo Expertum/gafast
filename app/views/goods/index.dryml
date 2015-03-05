@@ -43,21 +43,36 @@
                <%end%>
       </div>
       <goods-filters style='float:left;'/>
+      <div id="zakaz" style="background-color: gray;  color: white;  width: 300px; position:fixed; border: 2px solid; border-radius: 15px; opacity: 0.7; left:0%;top:10%;display:none;">
+        <ul id="list">
+        </ul>
+      </div>
 
       <table-plus part="list-table" update="list-table"
         fields="this, madein, nds, cena, srok, count">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
+
          <srok-view:><view/> 
          </srok-view:>
          <count-view:><editor/>
+         <script language="javascript">
+           function add_list(n) {
+             var new_task = n;
+               $('#zakaz').show();
+               $('#list').append('<li>'+new_task+'</li>');
+             return false;
+           }
+         </script>
+
          <%= link_to "до складу", 
                storages_path(:storagenew => 
                                { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
                                  :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'stor', 
                                  :price_id =>this_parent.price_id}, 
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
-                             data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger"%><br/>
+                             data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger", 
+                                 :onclick => "add_list('#{this_parent.name}')"%><br/>
 
          <%= link_to "дефектура", 
                storages_path(:storagenew => 

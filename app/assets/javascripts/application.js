@@ -27,3 +27,6 @@ function start_progress() {
 $(document).on("ajax:succes", "a", function(data){
     $(data.id).remove();
 });
+
+
+
