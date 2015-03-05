@@ -28,5 +28,23 @@ $(document).on("ajax:succes", "a", function(data){
     $(data.id).remove();
 });
 
+function sh_modal_ch(n,t,c) {
+   $('#ch_count_st').text(c);
+   $('#ch_text').text(t);
+   $('#count_check').val('');
+   $('#count_check').focus();
+   if ( $('#c'+n+' .boolean').is(':checked') ) { $('#myModal').modal('show');}
+}
+
+function sh_button() {
+   var t = $('#count_check').val();
+   var cs = $('#ch_count_st').text();
+
+   if ( $.isNumeric(t) ) { $('#button_to_check').show();} else {$('#button_to_check').hide();}
+   if ( parseFloat(cs) - parseFloat(t) >= 0) { $('#button_to_check').show();} else {$('#button_to_check').hide();}
+
+   //alert($.isNumeric(t) );
+   
+}
 
 

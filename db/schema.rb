@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150304153234) do
+ActiveRecord::Schema.define(:version => 20150305220702) do
+
+  create_table "checks", :force => true do |t|
+    t.string   "check_text"
+    t.string   "deliver_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "poster_id"
+    t.integer  "filial_id"
+  end
+
+  add_index "checks", ["filial_id"], :name => "index_checks_on_filial_id"
+  add_index "checks", ["poster_id"], :name => "index_checks_on_poster_id"
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -118,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20150304153234) do
     t.integer  "filial_id"
     t.decimal  "count",         :precision => 12, :scale => 2, :default => 0.0
     t.string   "location_good"
+    t.boolean  "check",                                        :default => false
+    t.boolean  "deliver",                                      :default => false
   end
 
   add_index "storages", ["filial_id"], :name => "index_storages_on_filial_id"

@@ -12,9 +12,17 @@ class Storage < ActiveRecord::Base
     srok :date
     count :decimal, :precision => 12, :scale => 2, :default => 0.00
     location_good enum_string(:stor, :defect, :check, :double)
+#    date_check :date
+#    date_deliver :date
+    check :boolean, :default => false
+    deliver :boolean, :default => false
+#    check_text :string
+#    deliver_text :string
     timestamps
   end
-  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :filial, :filial_id, :count, :location_good, :price, :price_id
+  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :filial, :filial_id, :count, :location_good, :price, :price_id,
+                  :date_check, :date_deliver, :check, :deliver, :check_text, :deliver_text
+
 
   belongs_to :price
   belongs_to :filial

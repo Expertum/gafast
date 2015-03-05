@@ -696,6 +696,12 @@ uk:
         morion: Моріон
         price: Прайс
         name: Назва
+        date_check: Дата чеку
+        date_deliver: Дата доставки
+        check: чек
+        deliver: дос
+        check_text: товар чеку
+        deliver_text: товар доставки
 # Attribute_help :
 # User :
 # Email_address : We will never share your address with third parties

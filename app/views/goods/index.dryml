@@ -80,7 +80,8 @@
                                  :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'defect', 
                                  :price_id =>this_parent.price_id}, 
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
-                             data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success"%></count-view:>
+                             data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success",
+                             :onclick => "add_list('#{this_parent.name}')"%></count-view:>
       </table-plus>
 
 
