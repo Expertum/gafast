@@ -54,14 +54,16 @@
          <%= link_to "до складу", 
                storages_path(:storagenew => 
                                { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
-                                 :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'stor'}, 
+                                 :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'stor', 
+                                 :price_id =>this_parent.price_id}, 
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger"%><br/>
 
          <%= link_to "дефектура", 
                storages_path(:storagenew => 
                                { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
-                                 :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'defect'}, 
+                                 :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'defect', 
+                                 :price_id =>this_parent.price_id}, 
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success"%></count-view:>
       </table-plus>

@@ -19,7 +19,7 @@ class Price < ActiveRecord::Base
   has_many :read_by, :through => :read_by_assignments, :dependent => :destroy, :source => :user, :class_name => "User"
 
   has_many :goods, :dependent => :destroy, :accessible => true
-  has_many :storages, :dependent => :destroy, :accessible => true
+  has_many :storages
 
   has_many :uploads, :as => :uploadable, :dependent => :destroy
 

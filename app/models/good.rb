@@ -13,7 +13,7 @@ class Good < ActiveRecord::Base
     count :decimal, :precision => 12, :scale => 2, :default => 0.00
     timestamps
   end
-  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :price, :count
+  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :price, :count, :price_id
 
   belongs_to :price
 

@@ -8,7 +8,7 @@ class StoragesController < ApplicationController
 
     # FILTERS
       #Save param to session
-      %w(location_good filial_name).each do |key|                                                                                                           
+      %w(price_name location_good filial_name).each do |key|                                                                                                           
          if not params[key].nil?; session[key] = params[key]
            elsif not session[key].nil?; params[key] = session[key]
            end
@@ -22,6 +22,7 @@ class StoragesController < ApplicationController
 
     @storages = @storages.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
     @storages = @storages.where("location_good like ?", params[:location_good]) unless params[:location_good].blank?
+    @storages = @storages.where("price_id like ?", params[:price_name]) unless params[:price_name].blank?
     @storages = @storages.paginate(:page => params[:page])
 
     hobo_index do |format|
@@ -35,6 +36,7 @@ class StoragesController < ApplicationController
   end
 
   def create
+      puts params[:storagenew]
       @storages = Storage.find_by_name(params[:storagenew][:name])
       if @storages && params[:storagenew][:location_good] == 'stor' then
         if @storages.filial_id.to_i == params[:filial_id].to_i then
