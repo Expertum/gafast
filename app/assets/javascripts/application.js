@@ -23,3 +23,7 @@ function start_progress() {
   NProgress.configure({ trickleRate: 0.02, trickleSpeed: 5400 });
   NProgress.start();
 }
+
+$(document).on("ajax:succes", "a", function(data){
+    $(data.id).remove();
+});

@@ -3,6 +3,7 @@ class StoragesController < ApplicationController
   hobo_model_controller
 
   auto_actions :all
+  respond_to :js, :html
 
   def index
 
@@ -62,7 +63,10 @@ class StoragesController < ApplicationController
 
   def to_storage
     Storage.to_storage(params[:id])
-    redirect_to :back
+     respond_to do |format|
+       format.js  
+       format.html { redirect_to(storages_url) }
+      end
   end
 
 end

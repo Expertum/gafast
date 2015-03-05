@@ -35,11 +35,14 @@
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <srok-view:><view/> 
          </srok-view:>
-         <count-view:><view/> 
+         <count-view: id="&this_parent.id"><view/> 
+           <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>
            <% if this_parent.location_good == 'defect' then%>
-             <%= link_to "на склад >>", {:controller => :storages, :action => :to_storage, :id => this_parent.id}, {:method => :put }, class: "btn btn-primary"%>
+             <%= button_to "на склад >>", 
+                            to_storage_storages_path(:id => this_parent.id), 
+                            {confirm: "Ви впевненні? Товар додастя до складу.", :method => :put, :remote => true, class: "btn btn-warning" }%>
            <% else %>
-             <%= link_to "<< у прайсі", goods_path(:search => this_parent.name), class: "btn btn-primary"%>
+             <%= link_to "<< шукати у прайсі", goods_path(:search => this_parent.name), class: "btn btn-primary"%>
            <% end %>
          </count-view:>
       </table-plus>
