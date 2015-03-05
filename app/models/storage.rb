@@ -22,7 +22,7 @@ class Storage < ActiveRecord::Base
   def self.to_storage(id)
       storage = find_by_id(id)
       @ss = find_by_name(storage.name)
-      if @ss && (@ss.id.to_i != id.to_i) then
+      if @ss && (@ss.id.to_i != id.to_i) && @ss.location_good == 'stor' then
          @ss.count = @ss.count.to_f + storage.count.to_f
          storage.location_good = 'double'
          @ss.save!
