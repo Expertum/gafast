@@ -4,10 +4,10 @@ class Check < ActiveRecord::Base
 
   fields do
     check_text :string
-    deliver_text :string
+#    deliver_text :string
     timestamps
   end
-  attr_accessible :check_text, :deliver_text
+  attr_accessible :check_text, :filial_id
  
   belongs_to :poster, :class_name => "User", :creator => true
   

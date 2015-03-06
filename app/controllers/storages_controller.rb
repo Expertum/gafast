@@ -37,7 +37,6 @@ class StoragesController < ApplicationController
   end
 
   def create
-      puts params[:storagenew]
       @storages = Storage.find_by_name(params[:storagenew][:name])
       if @storages && params[:storagenew][:location_good] == 'stor' then
         if @storages.filial_id.to_i == params[:filial_id].to_i then
@@ -61,12 +60,34 @@ class StoragesController < ApplicationController
       end
   end
 
+  def update
+    if params[:storage][:good_minus]
+        @storages = Storage.where(:check => true).order("updated_at desc").first
+        @storages.good_minus = params[:storage][:good_minus]
+        @storages.save!
+     respond_to do |format|
+       format.js  
+       format.html { redirect_to(:back, :notice => 'Goods was update.') }
+      end
+    else
+      hobo_update
+    end
+  end
+
   def to_storage
     Storage.to_storage(params[:id])
      respond_to do |format|
        format.js  
        format.html { redirect_to(storages_url) }
       end
+  end
+
+  def del_check
+    @s = Storage.where(:check => true)
+    @s.each{|x| x.check = false
+                x.good_minus = 0.0
+                    x.save!}
+    redirect_to :back
   end
 
 end

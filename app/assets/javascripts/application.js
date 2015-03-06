@@ -31,13 +31,13 @@ $(document).on("ajax:succes", "a", function(data){
 function sh_modal_ch(n,t,c) {
    $('#ch_count_st').text(c);
    $('#ch_text').text(t);
-   $('#count_check').val('');
-   $('#count_check').focus();
+   $('#storage_good_minus').val('');
+   $('#storage_good_minus').focus();
    if ( $('#c'+n+' .boolean').is(':checked') ) { $('#myModal').modal('show');}
 }
 
 function sh_button() {
-   var t = $('#count_check').val();
+   var t = $('#storage_good_minus').val();
    var cs = $('#ch_count_st').text();
 
    if ( $.isNumeric(t) ) { $('#button_to_check').show();} else {$('#button_to_check').hide();}

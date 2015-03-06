@@ -44,6 +44,9 @@ uk:
   Good:
     actions:
       new: Додати товар
+  Check:
+    actions:
+      new: Додати чек
   Price:
     actions:
       new: Додати прайс
@@ -161,6 +164,11 @@ uk:
         few : Складів
         many : Складів
         other : Склад
+      check :
+        one : Чек
+        few : Чекі
+        many : Чекі
+        other : Чекі
       good :
         one : Товар
         few : Товара
@@ -700,6 +708,10 @@ uk:
         date_deliver: Дата доставки
         check: чек
         deliver: дос
+        check_text: товар чеку
+        deliver_text: товар доставки
+      check:
+        Check: Чек
         check_text: товар чеку
         deliver_text: товар доставки
 # Attribute_help :

@@ -49,7 +49,7 @@
       </div>
 
       <table-plus part="list-table" update="list-table"
-        fields="this, madein, nds, cena, srok, count">
+        fields="this, madein, nds, cena, srok, count, price">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
 

@@ -11,11 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150305220702) do
+ActiveRecord::Schema.define(:version => 20150306073136) do
 
   create_table "checks", :force => true do |t|
     t.string   "check_text"
-    t.string   "deliver_text"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "poster_id"
@@ -132,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20150305220702) do
     t.string   "location_good"
     t.boolean  "check",                                        :default => false
     t.boolean  "deliver",                                      :default => false
+    t.decimal  "good_minus",    :precision => 12, :scale => 2, :default => 0.0
   end
 
   add_index "storages", ["filial_id"], :name => "index_storages_on_filial_id"

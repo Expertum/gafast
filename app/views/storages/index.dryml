@@ -31,11 +31,16 @@
 
          <script language="javascript">
            function add_list_ch(n) {
+             $('#myModal').modal('hide');
              var name_good = $('#ch_text').text();
-             var new_task = $('#count_check').val();
+             var new_task = $('#torage_good_minus').val();
                $('#zakaz').show();
                $('#list').append('<li>'+name_good+'('+new_task+' шт.)</li>');
              return false;
+           }
+           function remove_list_ch() {
+              $('#list li').remove();
+              return false;
            }
          </script>
 
@@ -48,8 +53,16 @@
                       <h4 class="modal-title" id="myModalLabel">Ведіть кілкість товару:</h4>
                     </div>
                    <div class="modal-body">
-                      <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт.
-                      <input type="number" id="count_check"  onkeyup="sh_button();"/>
+
+                      <% 
+                           stor = Storage.first
+                      %>
+
+                      <form with="&stor" update="storages">
+                        <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт.
+                        <input class="good-minus-tag decimal storage-good-minus" type="number" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();"/>
+                        <input class="btn btn-default" onclick="add_list_ch()" id="button_to_check" style="display:none;" type="submit"/>
+                       </form>
                    </div>
                    <div class="modal-footer">
                      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="add_list_ch()" id="button_to_check" style="display:none;">OK</button>
@@ -61,17 +74,29 @@
        <storages-filters style='float:left;'/>
 
       <div id="zakaz" style="background-color: gray;  color: white;  width: 300px; position:fixed; border: 2px solid; border-radius: 15px; opacity: 0.7; left:0%;top:10%;display:none;">
-        <h4 style="text-align:center;">Чек:</h4>
+        <h4 style="text-align:center;">Чек №<%= Check.last.id.to_i + 1%></h4>
         <hr/>
         <ol id="list">
         </ol>
+             <%= button_to "Зберегти", 
+                            checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id), 
+                            {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success" }%> 
+       
+             <%= button_to "Відмова", 
+                            del_check_storages_path, 
+                            {confirm: "Видалити Чек?", :method => :put, class: "btn btn-danger", :mouseup => "remove_list_ch()" }
+                            %>        
+
       </div>
 
       <table-plus part="list-table" update="list-table"
         fields="this, filial, madein, nds, cena, srok, count, check, deliver, price">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
-         <check-view:><span id="c#{this_parent.id}"><live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count}');"/></span></check-view:>
+         <check-view:><span id="c#{this_parent.id}">
+           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count}');"/>
+           </span>
+         </check-view:>
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>
          <srok-view:><view/> 
          </srok-view:>         
