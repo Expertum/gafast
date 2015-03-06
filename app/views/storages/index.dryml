@@ -31,11 +31,19 @@
 
          <script language="javascript">
            function add_list_ch(n) {
+             var summ = 0; 
              $('#myModal').modal('hide');
+             $('#button_to_check').hide();
+            
              var name_good = $('#ch_text').text();
-             var new_task = $('#torage_good_minus').val();
+             var cena_good = $('#ch_cena_st').text();
+             var new_task = $('#storage_good_minus').val();
                $('#zakaz').show();
-               $('#list').append('<li>'+name_good+'('+new_task+' шт.)</li>');
+               $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+parseFloat(cena_good)*n+'грн.}</li>');
+               
+               $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
+             
+               $('#ch_summ').text('Загальна вартість товару - '+summ+' грн.');
              return false;
            }
            function remove_list_ch() {
@@ -59,9 +67,9 @@
                       %>
 
                       <form with="&stor" update="storages">
-                        <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт.
-                        <input class="good-minus-tag decimal storage-good-minus" type="number" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();"/>
-                        <input class="btn btn-default" onclick="add_list_ch()" id="button_to_check" style="display:none;" type="submit"/>
+                        <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.
+                        <input class="good-minus-tag decimal storage-good-minus" type="number" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();"/>
+                        <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;" type="submit"/>
                        </form>
                    </div>
                    <div class="modal-footer">
@@ -78,6 +86,7 @@
         <hr/>
         <ol id="list">
         </ol>
+        <span id="ch_summ"> </span>
              <%= button_to "Зберегти", 
                             checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id), 
                             {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success" }%> 
@@ -94,7 +103,7 @@
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <check-view:><span id="c#{this_parent.id}">
-           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count}');"/>
+           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count}','#{this_parent.cena}');"/>
            </span>
          </check-view:>
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>
