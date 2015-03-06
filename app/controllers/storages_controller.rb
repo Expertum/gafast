@@ -42,6 +42,7 @@ class StoragesController < ApplicationController
       if @storages && params[:storagenew][:location_good] == 'stor' then
         if @storages.filial_id.to_i == params[:filial_id].to_i then
              @storages.count = (@storages.count.to_f + Good.find(params[:id_good]).count.to_f).to_f
+             @storages.cena = (Good.find(params[:id_good]).cena.to_f*(Good.find(params[:id_good]).nacenka.to_f/100)+Good.find(params[:id_good]).cena.to_f)
         else
              @storages = Storage.new(params[:storagenew])
              @storages.count = Good.find(params[:id_good]).count

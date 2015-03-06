@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150306091040) do
+ActiveRecord::Schema.define(:version => 20150306094604) do
 
   create_table "checks", :force => true do |t|
     t.string   "check_text"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20150306091040) do
     t.decimal  "cena",       :precision => 12, :scale => 2, :default => 0.0
     t.date     "srok"
     t.decimal  "count",      :precision => 12, :scale => 2, :default => 0.0
+    t.decimal  "nacenka",    :precision => 12, :scale => 2, :default => 35.0
   end
 
   add_index "goods", ["price_id"], :name => "index_goods_on_price_id"

@@ -11,9 +11,10 @@ class Good < ActiveRecord::Base
     cena :decimal, :precision => 12, :scale => 2, :default => 0.00
     srok :date
     count :decimal, :precision => 12, :scale => 2, :default => 0.00
+    nacenka :decimal, :precision => 12, :scale => 2, :default => 35
     timestamps
   end
-  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :price, :count, :price_id
+  attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :price, :count, :price_id, :nacenka
 
   belongs_to :price
 

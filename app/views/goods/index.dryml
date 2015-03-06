@@ -49,12 +49,13 @@
       </div>
 
       <table-plus part="list-table" update="list-table"
-        fields="this, madein, nds, cena, srok, count, price">
+        fields="this, madein, nds, cena, srok, count, nacenka, price">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
 
          <srok-view:><view/> 
          </srok-view:>
+         <nacenka-view:><editor/>%</nacenka-view:>
          <count-view:><editor/>
          <script language="javascript">
            function add_list(n) {
@@ -68,7 +69,7 @@
          <%= link_to "до складу", 
                storages_path(:storagenew => 
                                { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
-                                 :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'stor', 
+                                 :nds => this_parent.nds, :cena => (this_parent.cena.to_f*(this_parent.nacenka.to_f/100)+this_parent.cena.to_f), :srok => this_parent.srok, :location_good => 'stor', 
                                  :price_id =>this_parent.price_id}, 
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger", 
@@ -77,7 +78,7 @@
          <%= link_to "дефектура", 
                storages_path(:storagenew => 
                                { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
-                                 :nds => this_parent.nds, :cena => this_parent.cena, :srok => this_parent.srok, :location_good => 'defect', 
+                                 :nds => this_parent.nds, :cena => (this_parent.cena.to_f*(this_parent.nacenka.to_f/100)+this_parent.cena.to_f), :srok => this_parent.srok, :location_good => 'defect', 
                                  :price_id =>this_parent.price_id}, 
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success",
