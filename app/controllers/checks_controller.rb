@@ -40,7 +40,7 @@ class ChecksController < ApplicationController
         @checks.filial_id = params[:filial_id]
         @checks.poster_id = params[:poster_id]
         @s = Storage.where(:check => true)
-        @s.each{|x| d << x.name.to_s+';'+x.count.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s}
+        @s.each{|x| d << x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s}
         @ct = d.join('/')
         @checks.check_text = @ct
 
