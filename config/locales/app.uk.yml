@@ -707,12 +707,12 @@ uk:
         date_check: Дата чеку
         date_deliver: Дата доставки
         check: чек
-        deliver: дос
         check_text: товар чеку
         deliver_text: товар доставки
       check:
         Check: Чек
         check_text: товар чеку
+        deliver: Доставка
         deliver_text: товар доставки
 # Attribute_help :
 # User :

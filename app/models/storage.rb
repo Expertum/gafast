@@ -16,7 +16,7 @@ class Storage < ActiveRecord::Base
 #    date_check :date
 #    date_deliver :date
     check :boolean, :default => false
-    deliver :boolean, :default => false
+#   deliver :boolean, :default => false
 #    check_text :string
 #    deliver_text :string
     timestamps

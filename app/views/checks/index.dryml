@@ -1,0 +1,29 @@
+<def tag="checks-filters">
+    <div class='filters' merge-attrs param="default">
+        <form action="checks.js" class="filter-menu" method="get" update="list-table">
+         <div style="float:left; margin-left: 10px;">
+            Вибiр філіала:
+              <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }, params[:filial_name]), :style => 'margin-top: 0px'%>
+           </div>
+           <button type="submit" class="btn" style="margin-left: 10px;" onClick="jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
+        </form>
+        <script>$(function() {
+
+          $('select#filial_name').change(function() { jQuery(this).closest('form').submit(); });
+          })</script>
+    </div>
+</def>
+
+<index-page>
+    <title:><t key="activerecord.models.check.other">Cheks</t> <%= " : GFS"-%></title:>
+    <collection: replace>
+    <checks-filters style='float:left;'/>
+      <table-plus part="list-table" update="list-table"
+        fields="this, check_text, deliver, filial">
+         <actions-heading:></actions-heading:>
+         <actions-view:><bootstrap-table-actions/></actions-view:>
+      </table-plus>
+    </collection:>
+    <bottom-page-nav: replace/>
+</index-page>
+

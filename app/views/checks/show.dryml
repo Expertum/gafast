@@ -1,0 +1,24 @@
+ <show-page>
+   <title:><t key="activerecord.attributes.check.Check">Price</t> <%= this.id -%> : GFS</title:>
+     <parent-link: replace></parent-link:>
+
+     <content-header:>
+       <a action="edit" if="&can_edit?" class="btn pull-right edit-link order-link">
+         <ht key="check.actions.edit" name="#{name(:no_wrapper => true)}">
+           Edit Check
+         </ht>
+       </a>
+
+       <h2 class="heading"><ht key="check.show.heading" name="#{name(:no_wrapper => true)}"> Check <name/></ht>  </h2>
+
+         <a:poster class="creator-link"/>
+
+     </content-header:>
+
+    <field-list: replace>
+      <table-list class="form-horizontal" fields="deliver, check_text" columns="1" >
+        <deliver-view:><editor/></deliver-view:>
+      </table-list>
+     </field-list:>
+
+ </show-page>

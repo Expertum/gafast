@@ -24,7 +24,8 @@ class StoragesController < ApplicationController
     @storages = @storages.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
     @storages = @storages.where("location_good like ?", params[:location_good]) unless params[:location_good].blank?
     @storages = @storages.where("price_id like ?", params[:price_name]) unless params[:price_name].blank?
-    @storages = @storages.paginate(:page => params[:page])
+
+    @storages = @storages.order("srok asc").paginate(:page => params[:page])
 
     hobo_index do |format|
       format.html {}
@@ -66,7 +67,7 @@ class StoragesController < ApplicationController
         @storages.good_minus = params[:storage][:good_minus]
         @storages.save!
      respond_to do |format|
-       format.js  
+       format.js  { hobo_ajax_response }
        format.html { redirect_to(:back, :notice => 'Goods was update.') }
       end
     else

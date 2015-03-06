@@ -90,7 +90,7 @@
       </div>
 
       <table-plus part="list-table" update="list-table"
-        fields="this, filial, madein, nds, cena, srok, count, check, deliver, price">
+        fields="this, filial, madein, nds, cena, srok, count, check, price">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <check-view:><span id="c#{this_parent.id}">
