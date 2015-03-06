@@ -102,16 +102,18 @@
         fields="this, filial, madein, nds, cena, srok, count, check, price">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
-         <check-view:><span id="c#{this_parent.id}">
+         <check-view:>        
+           <% unless this_parent.location_good == 'defect' then%><span id="c#{this_parent.id}">
            <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count}','#{this_parent.cena}');"/>
            </span>
+           <% end %>
          </check-view:>
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>
          <srok-view:><view/> 
          </srok-view:>         
-         <cena-view:><%= this.round(2)%> 
+         <cena-view:><%= this.round(2)%><%@c_summ += this.to_f%> 
          </cena-view:>
-         <count-view: id="&this_parent.id"><view/> 
+         <count-view: id="&this_parent.id"><view/><%@k_summ += this.to_f%> 
            <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>
            <% if this_parent.location_good == 'defect' then%>
              <%= button_to "на склад >>", 
@@ -121,6 +123,16 @@
              <%= link_to "<< шукати у прайсі", goods_path(:search => this_parent.name)%>
            <% end %>
          </count-view:>
+             <tfoot:>
+               <tr bgcolor="#bd979f">
+                  <td colspan="4">Всього: <%= (@c_summ*@k_summ).round(2)%> грн.</td>
+
+                       <td ><%= (@c_summ).round(2)%> грн.</td> 
+                       <td ></td> 
+                       <td ><%= (@k_summ).round(2)%> шт.</td> 
+                       <td colspan="2"></td> 
+               </tr>
+             </tfoot:>
       </table-plus>
     </collection:>
     <bottom-page-nav: replace/>

@@ -6,7 +6,8 @@ class StoragesController < ApplicationController
   respond_to :js, :html
 
   def index
-
+        @c_summ  = 0
+        @k_summ = 0
     # FILTERS
       #Save param to session
       %w(price_name location_good filial_name).each do |key|                                                                                                           
