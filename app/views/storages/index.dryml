@@ -3,8 +3,10 @@
         <form action="storages.js" class="filter-menu" method="get" update="list-table">
          <div style="float:left; margin-left: 10px;">
             Вибiр прайса:
-              <%= select_tag "price_name", options_for_select(Price.all.collect {|u| [ u.name, u.id ] }, params[:price_name]), :style => 'margin-top: 0px'%>
-           </div>
+             <% @s = []
+                Storage.all.each{|u| @s << u.pr_name } %>
+              <%= select_tag "price_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
+           </div> 
          <div style="float:left; margin-left: 10px;">
             Вибiр філіала:
               <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }, params[:filial_name]), :style => 'margin-top: 0px'%>
@@ -99,7 +101,7 @@
       </div>
 
       <table-plus part="list-table" update="list-table"
-        fields="this, filial, madein, nds, cena, srok, count, check, price">
+        fields="this, filial, madein, nds, cena, srok, count, check, pr_name">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <check-view:>        
@@ -111,7 +113,19 @@
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>
          <srok-view:><view/> 
          </srok-view:>         
-         <cena-view:><%= this.round(2)%><%@c_summ += this.to_f%> 
+         <cena-view:>
+            <editor/><%@c_summ += this.to_f%>  
+          
+             <% @cg = Good.find_by_name(this_parent.name).cena.to_f%>
+             <% @cs = this.to_f%>
+             <% @nds = this_parent.nds.to_f%>
+             <% @c_d_b =  @cs/(1+(@nds+35)/100)%>
+             <% if @cg > @c_d_b then%>
+               <span class="label label-warning">!!! склад <%= @cg.to_s %>грн.!!!</span>
+               <span class="label label-primary">рекомендована <%= @cg*((@nds+35)/100)+@cg %>грн.</span>
+             <%else%>
+             <%end%>
+
          </cena-view:>
          <count-view: id="&this_parent.id"><view/><%@k_summ += this.to_f%> 
            <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>
@@ -127,8 +141,8 @@
                <tr bgcolor="#bd979f">
                   <td colspan="4">Всього: <%= (@c_summ*@k_summ).round(2)%> грн.</td>
 
-                       <td ><%= (@c_summ).round(2)%> грн.</td> 
-                       <td ></td> 
+                       <td colspan="2"><%= (@c_summ).round(2)%> грн.</td> 
+                        
                        <td ><%= (@k_summ).round(2)%> шт.</td> 
                        <td colspan="2"></td> 
                </tr>

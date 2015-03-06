@@ -19,10 +19,11 @@ class Storage < ActiveRecord::Base
 #   deliver :boolean, :default => false
 #    check_text :string
 #    deliver_text :string
+    pr_name :string
     timestamps
   end
   attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :filial, :filial_id, :count, :location_good, :price, :price_id,
-                  :date_check, :date_deliver, :check, :deliver, :check_text, :deliver_text, :good_minus
+                  :date_check, :date_deliver, :check, :deliver, :check_text, :deliver_text, :good_minus, :pr_name
 
 
   belongs_to :price

@@ -272,7 +272,7 @@ uk:
       good :
         Good: Товар
         madein: Виробник
-        nds: ПДВ
+        nds: ПДВ, %
         cena: Ціна
         srok: Срок вжитку
         count: Кількість
@@ -280,7 +280,7 @@ uk:
         morion: Моріон
         price: Прайс
         name: Назва
-        nacenka: Націнка
+        nacenka: Націнка, %
       act :
         coin: Ланцюг виплат
         vic_select: Вибір потерпілого
@@ -697,7 +697,7 @@ uk:
         filial: Філія
         Storage: Склад
         madein: Виробник
-        nds: ПДВ
+        nds: ПДВ %
         cena: Ціна
         srok: Срок вжитку
         count: Кількість
@@ -710,6 +710,7 @@ uk:
         check: чек
         check_text: товар чеку
         deliver_text: товар доставки
+        pr_name: Прайс
       check:
         Check: Чек
         check_text: товар чеку
