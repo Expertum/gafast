@@ -9,7 +9,7 @@
             Вибiр філіала:
             <% unless current_user.guest?%>
               <%if current_user.farmaceft?%>
-              <%= select_tag "filial_name", options_for_select([[current_user.filial, 'current_user.filial_id'],], params[:filial_name]), :style => 'margin-top: 0px'%>
+              <%= select_tag "filial_name", options_for_select([[current_user.filial, current_user.filial_id],], params[:filial_name]), :style => 'margin-top: 0px'%>
               <% else %>
               <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }, params[:filial_name]), :style => 'margin-top: 0px'%>
               <% end %>
@@ -91,7 +91,7 @@
                              :onclick => "add_list('#{this_parent.name}')"%></count-view:>
       </table-plus>
 
-
+   <%if current_user.administrator? || current_user.provizor?%>
       <%= form_tag import_goods_path, multipart: true do %>
         <%= file_field_tag :file %>
         <%= text_field_tag :price, nil, placeholder: 'Ведіть назву прайсу...', :style => 'margin-bottom: 0px'%>
@@ -99,7 +99,7 @@
         <%= hidden_field_tag :filid, current_user.filial_id%>
         <%= submit_tag "Import", data: { disable_with: "Please wait..." }, class: "import_submit" %>
       <% end %>
-
+   <%end%>
 
     </collection:>
     <bottom-page-nav: replace/>

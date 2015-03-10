@@ -8,8 +8,13 @@
               <%= select_tag "price_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
            </div> 
          <div style="float:left; margin-left: 10px;">
-            Вибiр філіала:
+            <% unless current_user.guest?%>
+              <%if current_user.farmaceft?%>
+              <%= select_tag "filial_name", options_for_select([[current_user.filial, current_user.filial_id],], params[:filial_name]), :style => 'margin-top: 0px'%>
+              <% else %>
               <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }, params[:filial_name]), :style => 'margin-top: 0px'%>
+              <% end %>
+            <%end%>
            </div>
           <div  style="float:left; ; margin-left: 10px;">
             Розміщення товару:

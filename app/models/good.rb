@@ -17,6 +17,7 @@ class Good < ActiveRecord::Base
   attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :price, :count, :price_id, :nacenka
 
   belongs_to :price
+  belongs_to :poster, :class_name => "User", :creator => true
 
   def self.import(file,cena,poster,filid)
     spreadsheet = open_spreadsheet(file)
@@ -65,16 +66,6 @@ class Good < ActiveRecord::Base
   def view_permitted?(field)
     return true if acting_user.administrator?
     return false if acting_user.guest?
-    # права для колцентра
-     if acting_user.farmaceft?
-       return poster_is? acting_user || poster.nil?
-       # колцентр может видеть только некоторые поля
-       #return field.in?(basic_fields) if field
-       # колцентр не должен видеть если ушло дальше дело
-       #return state.in?(["ustnoe_uvedomlenie", "registracia", "go_sbor_documentov", "otkaz_go_sbor_documentov", "viplacheno", "zakritie_otkaz",
-       # "otkaz_uvedomlenie", "otkaz_go_sbor_documentov", "otkaz_rassmotrenie_sb", "otkaz_rassmotrenie_ur", "otkaz_rassmotrenie_ex", "otkaz_vizir", "otkaz_vyplata"])
-     end
- 
     # залогиненные видят все
     acting_user.signed_up?
   end

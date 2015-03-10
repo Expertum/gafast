@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150306134352) do
+ActiveRecord::Schema.define(:version => 20150310081430) do
 
   create_table "checks", :force => true do |t|
     t.string   "check_text"
@@ -60,8 +60,10 @@ ActiveRecord::Schema.define(:version => 20150306134352) do
     t.date     "srok"
     t.decimal  "count",      :precision => 12, :scale => 2, :default => 0.0
     t.decimal  "nacenka",    :precision => 12, :scale => 2, :default => 35.0
+    t.integer  "poster_id"
   end
 
+  add_index "goods", ["poster_id"], :name => "index_goods_on_poster_id"
   add_index "goods", ["price_id"], :name => "index_goods_on_price_id"
 
   create_table "logs", :force => true do |t|
@@ -134,9 +136,11 @@ ActiveRecord::Schema.define(:version => 20150306134352) do
     t.boolean  "check",                                        :default => false
     t.decimal  "good_minus",    :precision => 12, :scale => 2, :default => 0.0
     t.string   "pr_name"
+    t.integer  "poster_id"
   end
 
   add_index "storages", ["filial_id"], :name => "index_storages_on_filial_id"
+  add_index "storages", ["poster_id"], :name => "index_storages_on_poster_id"
   add_index "storages", ["price_id"], :name => "index_storages_on_price_id"
 
   create_table "uploads", :force => true do |t|
