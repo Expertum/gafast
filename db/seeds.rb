@@ -34,3 +34,7 @@
                   { :name => "Чернігівська область" },
                   { :name => "Чернівецька область" },
     ])
+
+    Filial.create!( name: "Main filial", contact_name: "Filial Director", telephone: "put telephone here")
+    User.create!( name: "Administrator", email_address: "expertum.ave@gmail.com", administrator: true,
+                    role:"provizor", position:"Administrator",filial:Filial.find(1),password:"FirstAdminPass1word")
