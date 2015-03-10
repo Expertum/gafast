@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
     email_address :email_address, :login => true
     phone_number  :string
     administrator :boolean, :default => false
-    role          enum_string(:farmaceft,:prov_manager,:courier), :required
+    role          enum_string(:provizor, :farmaceft,:prov_manager,:courier), :required
     receive_messages :boolean, :default => true
     position      :string, :required
 
@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   validates :filial, :presence => true
 
   # Проверки на роль пользователя
+  def provizor?          ;role == :provizor;    end
   def farmaceft?          ;role == :farmaceft;    end
   def prov_manager?       ;role == :prov_manager;      end
   def courier?            ;role == :courier; end

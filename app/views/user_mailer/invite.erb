@@ -1,0 +1,19 @@
+<%= @user %>,
+
+Вы были приглашены в GFS. Если вы хотите принять приглашение, нажмите на ссылку ниже:
+
+  <%= accept_invitation_from_email_url :id => @user, :key => @key %>
+
+Спасибо,
+
+Команда проекта <%= @app_name %>.
+
+==
+
+You have been invited to join <%= @app_name %>. If you wish to accept, please click on the following link
+
+  <%= accept_invitation_from_email_url :id => @user, :key => @key %>
+
+Thank you,
+
+The <%= @app_name %> team.

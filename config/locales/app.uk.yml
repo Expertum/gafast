@@ -257,8 +257,9 @@ uk:
         current_password : Поточний пароль
         position: Посада
       user/roles :
+        provizor: Провізор
         farmaceft : Фармацевт
-        prov_manager : Манаджер постачальника
+        prov_manager : Менеджер постачальника
         courier : Курьер
       comment :
         content : Зміст

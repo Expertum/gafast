@@ -7,7 +7,13 @@
            </div>
          <div style="float:left; margin-left: 10px;">
             Вибiр філіала:
+            <% unless current_user.guest?%>
+              <%if current_user.farmaceft?%>
+              <%= select_tag "filial_name", options_for_select([[current_user.filial, 'current_user.filial_id'],], params[:filial_name]), :style => 'margin-top: 0px'%>
+              <% else %>
               <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }, params[:filial_name]), :style => 'margin-top: 0px'%>
+              <% end %>
+            <%end%>
            </div>
            <button type="submit" class="btn" style="margin-left: 10px;" onClick="$('#price_name_span').text($('select#price_name :selected').text());$('#filial_name_span').text($('select#filial_name :selected').text()); $('#price_name_span').attr('class', 'badge badge-success');$('#filial_name_span').attr('class', 'badge badge-success');$('#iprice').attr('class', 'icon-ok'); $('#ifilial').attr('class', 'icon-ok');jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
         </form>
