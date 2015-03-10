@@ -125,8 +125,8 @@
              <% @cs = this.to_f%>
              <% @nds = this_parent.nds.to_f%>
              <% @c_d_b =  @cs/(1+(@nds+35)/100)%>
-             <% if @cg > @c_d_b then%>
-               <span class="label label-warning">!!! склад <%= @cg.to_s %>грн.!!!</span>
+             <% if @cg.round(2) > @c_d_b.round(2) then%>
+               <span class="label label-warning">!!! у прайсі <%= @cg%> грн. + ПДВ + нац. = <%= @cg*((@nds+35)/100)+@cg %>грн. !!!</span>
                <span class="label label-primary">рекомендована <%= @cg*((@nds+35)/100)+@cg %>грн.</span>
              <%else%>
              <%end%>

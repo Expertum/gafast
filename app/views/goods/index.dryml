@@ -58,7 +58,13 @@
         fields="this, madein, nds, cena, srok, count, nacenka, price">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
-
+         <cena-view:>
+         <%if current_user.administrator?%>
+           <editor/> 
+         <%else%>
+           <view/> 
+         <%end%>
+         </cena-view:>
          <srok-view:><view/> 
          </srok-view:>
          <nacenka-view:><editor/>%</nacenka-view:>
