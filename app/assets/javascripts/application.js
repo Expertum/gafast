@@ -15,12 +15,21 @@
 
 $(document).ready(function() {
   $('input.import_submit').attr('onclick','start_progress()');
+  $('#myModal').on('hidden.bs.modal', function (e) {
+  //alert($('#zakaz'))
+  //$.put('/storages/del_check');
+  if ( $('#zakaz').is(":visible") == false ) { $.ajax({
+                                                 url: "/storages/del_check",
+                                                 type: 'PUT'});
+                                               location.reload();
+                                               } 
+})
 });
 
 
 function start_progress() {
-  NProgress.configure({ ease: 'ease', speed: 150000 });
-  NProgress.configure({ trickleRate: 0.02, trickleSpeed: 5400 });
+  NProgress.configure({ ease: 'ease', speed: 15000 });
+  NProgress.configure({ trickleRate: 0.02, trickleSpeed: 3400 });
   NProgress.start();
 }
 

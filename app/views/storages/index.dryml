@@ -53,7 +53,7 @@
              var cena_good = $('#ch_cena_st').text();
              var new_task = $('#storage_good_minus').val();
                $('#zakaz').show();
-               $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+parseFloat(cena_good)*n+'грн.}</li>');
+               $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+(parseFloat(cena_good)*n).toFixed(2)+'грн.}</li>');
                
                $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
              
@@ -71,7 +71,10 @@
                  <div class="modal-dialog ">
                    <div class="modal-content">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <%= button_to "x", 
+                            del_check_storages_path, 
+                            {confirm: "Видалити Чек?", :method => :put, class: "close", :mouseup => "remove_list_ch()" }
+                            %>
                       <h4 class="modal-title" id="myModalLabel">Ведіть кілкість товару:</h4>
                     </div>
                    <div class="modal-body">
@@ -83,7 +86,7 @@
                       <form with="&stor" update="storages">
                         <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.<br/>
                         <input class="good-minus-tag decimal storage-good-minus" type="number" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;"/>
-                        <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;" type="submit"/>
+                        <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;margin-top:4%;float:right;" type="submit"/>
                        </form>
                    </div>
                    <div class="modal-footer">
@@ -107,11 +110,11 @@
         <span id="ch_summ"> </span>
              <%= button_to "Зберегти", 
                             checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id), 
-                            {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success" }%> 
+                            {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success", style: "float:right;margin-top:22px;" }%>   
        
-             <%= button_to "Відмова", 
+             <%= button_to " Відмова ", 
                             del_check_storages_path, 
-                            {confirm: "Видалити Чек?", :method => :put, class: "btn btn-danger", :mouseup => "remove_list_ch()" }
+                            {confirm: "Видалити Чек?", :method => :put, class: "btn btn-danger", :mouseup => "remove_list_ch()",  style: "margin-top:0px;" }
                             %>        
 
       </div>
