@@ -8,7 +8,7 @@ class GoodsController < ApplicationController
 
     # FILTERS
       #Save param to session
-      %w(price_name filial_name).each do |key|                                                                                                           
+      %w(filial_name).each do |key|                                                                                                           
          if not params[key].nil?; session[key] = params[key]
            elsif not session[key].nil?; params[key] = session[key]
            end
@@ -21,7 +21,6 @@ class GoodsController < ApplicationController
       order_by(parse_sort_param(:id, :name, :codeg))
 
     @goods = @goods.where("price_id like ?", params[:price_name]) unless params[:price_name].blank?
-
 
     @goods = @goods.paginate(:page => params[:page])
 
