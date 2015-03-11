@@ -694,6 +694,8 @@ uk:
         defect : дефектура
         double : видалений
       storage:
+        num_plus: №
+        summ_good: Сума
         location_good: Розміщення товару
         filial: Філія
         Storage: Склад

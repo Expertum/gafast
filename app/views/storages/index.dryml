@@ -108,22 +108,33 @@
                             %>        
 
       </div>
-
       <table-plus part="list-table" update="list-table"
-        fields="this, filial, madein, nds, cena, srok, count, check, pr_name">
+        fields="num_plus, pr_name, this, filial, madein, nds, cena, srok, count, check, summ_good">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
+         <num_plus-view:> <%@i +=1%>
+                    <% if this_parent.location_good == 'defect' then%>
+           <%=@i%>
+           <% else %>
+             <%= link_to "#{@i} <<", goods_path(:search => this_parent.name),
+                            {class: "btn btn-primary" }%>
+           <% end %></num_plus-view:>
+         <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum +=(this_parent.cena.to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' then%><span id="c#{this_parent.id}">
            <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count}','#{this_parent.cena}');"/>
            </span>
+           <%else%>
+             <%= button_to ">>", 
+                            to_storage_storages_path(:id => this_parent.id), 
+                            {confirm: "Ви впевненні? Товар додастя до складу.", :method => :put, :remote => true, class: "btn btn-warning" }%>
            <% end %>
          </check-view:>
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>
          <srok-view:><view/> 
          </srok-view:>         
          <cena-view:>
-            <editor/><%@c_summ += this.to_f%>  
+            <editor/><%@c_summ += this.to_f%>
           <%unless Good.all.count == 0%>
              <% @cg = Good.find_by_name(this_parent.name).cena.to_f%>
              <% @cs = this.to_f%>
@@ -136,24 +147,19 @@
              <%end%>
           <%end%>
          </cena-view:>
-         <count-view: id="&this_parent.id"><view/><%@k_summ += this.to_f%> 
+         <count-view: id="&this_parent.id"><%@k_summ += this.to_f%>
            <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>
            <% if this_parent.location_good == 'defect' then%>
-             <%= button_to "на склад >>", 
-                            to_storage_storages_path(:id => this_parent.id), 
-                            {confirm: "Ви впевненні? Товар додастя до складу.", :method => :put, :remote => true, class: "btn btn-warning" }%>
+             <editor/>
            <% else %>
-             <%= link_to "<< шукати у прайсі", goods_path(:search => this_parent.name)%>
+             <view/>
            <% end %>
          </count-view:>
              <tfoot:>
                <tr bgcolor="#bd979f">
-                  <td colspan="4">Всього: <%= (@c_summ*@k_summ).round(2)%> грн.</td>
+                  <td colspan="8"></td>
 
-                       <td colspan="2"><%= (@c_summ).round(2)%> грн.</td> 
-                        
-                       <td ><%= (@k_summ).round(2)%> шт.</td> 
-                       <td colspan="2"></td> 
+                       <td colspan="3">Всього: <%= @asum.round(2)%> грн.</td> 
                </tr>
              </tfoot:>
       </table-plus>

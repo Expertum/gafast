@@ -43,6 +43,14 @@ class Storage < ActiveRecord::Base
       storage.save!
   end
 
+  def num_plus
+      
+  end
+
+  def summ_good
+      
+  end
+
   # --- Permissions --- #
 
   def create_permitted?

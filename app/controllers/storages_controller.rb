@@ -8,6 +8,8 @@ class StoragesController < ApplicationController
   def index
         @c_summ  = 0
         @k_summ = 0
+        @i = 0
+        @asum = 0
     # FILTERS
       #Save param to session
       %w(pr_name location_good filial_name).each do |key|                                                                                                           
@@ -67,13 +69,14 @@ class StoragesController < ApplicationController
   end
 
   def update
-    if params[:storage][:good_minus]
+    @gg = Storage.where(:check => true).order("updated_at desc").first
+    if params[:storage][:good_minus] &&  @gg != nil
         @storages = Storage.where(:check => true).order("updated_at desc").first
         @storages.good_minus = params[:storage][:good_minus]
         @storages.save!
      respond_to do |format|
        format.js  { hobo_ajax_response }
-       format.html { redirect_to(:back, :notice => 'Goods was update.') }
+       format.html {  redirect_to(storages_url)  }
       end
     else
       hobo_update
