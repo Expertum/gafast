@@ -9,7 +9,7 @@ class Filial < ActiveRecord::Base
     notes        :text
     timestamps
   end
-  attr_accessible :name, :contact_name, :telephone, :notes
+  attr_accessible :name, :contact_name, :telephone, :notes, :news
 
   has_many :workers, :class_name => "User", :dependent => :destroy
   has_many :prices, :dependent => :destroy

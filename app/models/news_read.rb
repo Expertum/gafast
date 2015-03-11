@@ -7,6 +7,9 @@ class NewsRead < ActiveRecord::Base
   end
   attr_accessible 
 
+  belongs_to :news
+  belongs_to :user
+
   # --- Permissions --- #
 
   def create_permitted?

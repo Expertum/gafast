@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150310081430) do
+ActiveRecord::Schema.define(:version => 20150311064003) do
 
   create_table "checks", :force => true do |t|
     t.string   "check_text"
@@ -85,12 +85,23 @@ ActiveRecord::Schema.define(:version => 20150310081430) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "content"
+    t.integer  "poster_id"
+    t.integer  "filial_id"
   end
+
+  add_index "news", ["filial_id"], :name => "index_news_on_filial_id"
+  add_index "news", ["poster_id"], :name => "index_news_on_poster_id"
 
   create_table "news_reads", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "news_id"
+    t.integer  "user_id"
   end
+
+  add_index "news_reads", ["news_id"], :name => "index_news_reads_on_news_id"
+  add_index "news_reads", ["user_id"], :name => "index_news_reads_on_user_id"
 
   create_table "oblasts", :force => true do |t|
     t.string   "name"
