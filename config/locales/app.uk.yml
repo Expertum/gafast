@@ -272,10 +272,10 @@ uk:
         name: Назва
       good :
         Good: Товар
-        madein: Виробник
+        madein: ---
         nds: ПДВ, %
         cena: Ціна
-        srok: Срок вжитку
+        srok: ---
         count: Кількість
         codeg: Код
         morion: Моріон
