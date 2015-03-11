@@ -89,7 +89,11 @@
        <storages-filters style='float:left;'/>
 
       <div id="zakaz" style="background-color: gray;  color: white;  width: 300px; position:fixed; border: 2px solid; border-radius: 15px; opacity: 0.7; left:0%;top:10%;display:none;">
-        <h4 style="text-align:center;">Чек №<%= Check.last.id.to_i + 1%></h4>
+        <h4 style="text-align:center;">Чек № <%unless Check.all.count == 0%>
+                                             <%= Check.last.id.to_i + 1%>
+                                             <%else%>
+                                               1
+                                             <%end%></h4>
         <hr/>
         <ol id="list">
         </ol>
