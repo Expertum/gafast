@@ -1,0 +1,14 @@
+<show-page>
+    <content-header:>
+      <% unless current_user.role != 'provizor'%>
+      <a class="btn pull-right" action='edit' if="&can_edit?">Змiнити</a>
+      <% end %>
+      <h2>
+        <ht key="storage.show.heading">
+          Storage <name/>
+        </ht>
+      </h2>
+
+    </content-header:>
+
+</show-page>

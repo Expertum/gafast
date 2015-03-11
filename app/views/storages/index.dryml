@@ -33,9 +33,16 @@
 </def>
 
 <index-page>
-    <title:><t key="activerecord.models.storage.other">Storages</t> <%= " : GFS"-%></title:>
-    <collection: replace>
+    <content-header:>
+      <% unless current_user.role != 'provizor'%>
+      <a class="btn pull-right" action='new'>Додати на Склад</a>
+      <% end %>
+      <h2>
+        Список товарів на складі
+      </h2>
 
+    </content-header:>
+    <collection: replace>
          <script language="javascript">
            function add_list_ch(n) {
              var summ = 0; 

@@ -26,6 +26,15 @@
 
 <index-page>
     <title:><t key="activerecord.models.good.other">Goods</t> <%= " : GFS"-%></title:>
+    <content-header:>
+      <% unless current_user.role != 'provizor'%>
+      <a class="btn pull-right" action='new'>Додати прайсовий товар</a>
+      <% end %>
+      <h2>
+        Список товарів з прайсів простачальників
+      </h2>
+
+    </content-header:>
     <collection: replace>
     <div style="margin-bottom: 10px;">
                <% unless params[:price_name].nil?%>
