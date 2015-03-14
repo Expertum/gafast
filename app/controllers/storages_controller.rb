@@ -13,7 +13,7 @@ class StoragesController < ApplicationController
         @asum = 0
     # FILTERS
       #Save param to session
-      %w(pr_name location_good filial_name).each do |key|                                                                                                           
+      %w(location_good filial_name).each do |key|                                                                                                           
          if not params[key].nil?; session[key] = params[key]
            elsif not session[key].nil?; params[key] = session[key]
            end
@@ -22,7 +22,7 @@ class StoragesController < ApplicationController
       #---
 
     @storages = Storage.
-      search(params[:search], :id, :codeg, :name, :cena, :pr_name ).
+      search(params[:search], :id, :codeg, :name, :cena).
       order_by(parse_sort_param(:id, :name, :codeg, :cena, :count))
 
     @storages = @storages.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
@@ -64,6 +64,7 @@ class StoragesController < ApplicationController
         if @storages.filial_id.to_i == params[:filial_id].to_i then
              @storages.count = (@storages.count.to_f + Good.find(params[:id_good]).count.to_f).to_f
              @storages.cena = (Good.find(params[:id_good]).cena.to_f*(Good.find(params[:id_good]).nacenka.to_f/100)+Good.find(params[:id_good]).cena.to_f)
+             @storages.srok = Good.find(params[:id_good]).srok
         else
              @storages = Storage.new(params[:storagenew])
              @storages.count = Good.find(params[:id_good]).count

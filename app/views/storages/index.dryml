@@ -3,7 +3,7 @@
         <form action="storages.js" class="filter-menu" method="get" update="list-table">
          <div style="float:left; margin-left: 10px;">
             Вибiр прайса:
-             <% @s = []
+             <% @s = [""]
                 Storage.all.each{|u| @s << u.pr_name } %>
               <%= select_tag "pr_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
            </div> 
@@ -148,7 +148,15 @@
            <% end %>
          </check-view:>
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>
-         <srok-view:><view/> 
+         <srok-view:>
+           <%@d = Date.today%>
+           <%@s = this%>
+           <%@f = ((@s - @d).to_i).to_f/30%>
+           <% if (@f <= 6) && (this_parent.count >0) then%>
+               <div class="alert alert-danger" role="alert"><strong>!!!<view/>!!!</strong><br/>  срок вжитку меньше 6 місяців </div>
+           <%else%>
+           <view/> 
+           <%end%>
          </srok-view:>         
          <cena-view:>
             <editor/><%@c_summ += this.to_f%>
