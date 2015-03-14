@@ -33,6 +33,7 @@
 </def>
 
 <index-page>
+  <title:>Склад <%= " : GFS"-%></title:>
     <content-header:>
       <% unless current_user.role != 'provizor'%>
       <a class="btn pull-right" action='new'>Додати на Склад</a>
@@ -118,6 +119,12 @@
                             %>        
 
       </div>
+
+<p>
+  Download:
+  <%= link_to "Excel", storages_path(format: "xls") %>
+</p>
+
       <table-plus part="list-table" update="list-table"
         fields="num_plus, pr_name, this, filial, madein, nds, cena, srok, count, check, summ_good">
          <actions-heading:></actions-heading:>

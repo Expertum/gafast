@@ -1,3 +1,4 @@
+# coding: utf-8
 class StoragesController < ApplicationController
 
   hobo_model_controller
@@ -35,7 +36,23 @@ class StoragesController < ApplicationController
       format.html {}
       format.js   { hobo_ajax_response }
   #    format.csv  { send_data Order.to_csv(@goods) }
-  #    format.xls  { send_data Order.to_csv(@goods, col_sep: "\t") }
+       format.xls  { 
+         storages = Spreadsheet::Workbook.new
+         list = storages.create_worksheet :name => 'заказ'
+         list.row(0).concat %w{Код_товара Товар	Производитель Срок_годности Предоплата Признак_НДС} 
+         @storages.each_with_index { |storage, i|
+              @cena_p = (storage.cena.to_f/(1+(storage.nds.to_f+35)/100)).round(2)
+              list.row(i+1).push storage.codeg,	storage.name, storage.madein, storage.srok, @cena_p.to_s, storage.nds
+
+         }
+        header_format = Spreadsheet::Format.new ({ :weight => :bold, :pattern => 1, :pattern_fg_color => :silver})
+        list.row(0).default_format = header_format
+        #output to blob object
+        blob = StringIO.new()
+        storages.write blob
+        #respond with blob object as a file
+        send_data blob.string, :type => :xls, :filename => 'order_list.xls';
+       }
   #    format.xls {}
        format.json { render json: @storages}
     end
