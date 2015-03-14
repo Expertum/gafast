@@ -41,6 +41,10 @@
       <h2>
         Список товарів на складі
       </h2>
+<p>
+  Зберегти:
+  <%= link_to "Excel", storages_path(format: "xls") %>
+</p>
 
     </content-header:>
     <collection: replace>
@@ -120,10 +124,6 @@
 
       </div>
 
-<p>
-  Download:
-  <%= link_to "Excel", storages_path(format: "xls") %>
-</p>
 
       <table-plus part="list-table" update="list-table"
         fields="num_plus, pr_name, this, filial, madein, nds, cena, srok, count, check, summ_good">
