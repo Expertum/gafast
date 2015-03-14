@@ -5,7 +5,7 @@
             Вибiр прайса:
              <% @s = []
                 Storage.all.each{|u| @s << u.pr_name } %>
-              <%= select_tag "price_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
+              <%= select_tag "pr_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
            </div> 
          <div style="float:left; margin-left: 10px;">
             <% unless current_user.guest?%>
@@ -25,7 +25,7 @@
         </form>
         <script>$(function() {
 
-          $('select#price_name').change(function() { jQuery(this).closest('form').submit(); });
+          $('select#pr_name').change(function() { jQuery(this).closest('form').submit(); });
           $('select#filial_name').change(function() { jQuery(this).closest('form').submit(); });
           $('select#location_good').change(function() { jQuery(this).closest('form').submit(); });
           })</script>

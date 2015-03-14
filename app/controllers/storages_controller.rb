@@ -21,7 +21,7 @@ class StoragesController < ApplicationController
       #---
 
     @storages = Storage.
-      search(params[:search], :id, :codeg, :name, :cena ).
+      search(params[:search], :id, :codeg, :name, :cena, :pr_name ).
       order_by(parse_sort_param(:id, :name, :codeg, :cena, :count))
 
     @storages = @storages.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
