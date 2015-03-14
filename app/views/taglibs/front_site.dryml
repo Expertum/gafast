@@ -44,14 +44,14 @@
 
 <extend tag="main-nav">
   <navigation class="main-nav" merge-attrs param="default" unless="&current_user.guest?">
-    <nav-item with="&Filial" class="#{'active' if (page_is?('filials') and ((params[:reports] == false) || (params[:reports] == nil)))}">
+    <nav-item with="&Filial" class="#{'active' if page_is?('filials')}" if="&current_user.administrator?">
       <ht key="filial.nav_item" count="100">
         <model-name-human count="100"/>
       </ht>
     </nav-item>
-    <nav-item with="&News" class="#{'active' if page_is?('news')}"><ht key="news.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
-    <nav-item with="&Price" class="#{'active' if page_is?('prices')}"><ht key="price.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
-    <nav-item with="&Good" class="#{'active' if page_is?('goods')}"><ht key="good.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&News" class="#{'active' if page_is?('news')}" ><ht key="news.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Price" class="#{'active' if page_is?('prices')}" if="&current_user.administrator?"><ht key="price.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Good" class="#{'active' if page_is?('goods')}">Замовлення</nav-item>
     <nav-item with="&Storage" class="#{'active' if page_is?('storages')}"><ht key="good.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Check" class="#{'active' if page_is?('checks')}"><ht key="check.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&User" class="#{'active' if page_is?('users')}" if="&current_user.administrator?"><ht key="user.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>

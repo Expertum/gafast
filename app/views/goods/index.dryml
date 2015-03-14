@@ -25,13 +25,13 @@
 </def>
 
 <index-page>
-    <title:><t key="activerecord.models.good.other">Goods</t> <%= " : GFS"-%></title:>
+    <title:>Замовлення товару <%= " : GFS"-%></title:>
     <content-header:>
       <% unless current_user.role != 'provizor'%>
       <a class="btn pull-right" action='new'>Додати прайсовий товар</a>
       <% end %>
       <h2>
-        Список товарів з прайсів простачальників
+        Список товарів з прайсів постачальників
       </h2>
 
     </content-header:>
@@ -79,10 +79,17 @@
                                  :onclick => "add_list('#{this_parent.name}')"%> 
          </madein-view:>
          <cena-view:>
+              <%@c_summ += this.to_f%>
+          <%unless Storage.all.count == 0%>
+             <% @cg = Storage.find_by_name(this_parent.name)._?.cena.to_f%>
+             <% @cs = this.to_f%>
+             <% @nds = this_parent.nds.to_f%>
+             <% @c_d_b =  @cs*(1+(@nds+35)/100)%>
+          <% end %>
          <%if current_user.administrator?%>
-           <editor/> 
+           <editor/> <%unless Storage.find_by_name(this_parent.name).nil?%>/ <span class="label label-info"><%= @c_d_b._?.round(2)%></span> <%end%>
          <%else%>
-           <view/> 
+           <view/> <%unless Storage.find_by_name(this_parent.name).nil?%>/ <span class="label label-info"><%= @c_d_b._?.round(2)%></span> <%end%>
          <%end%>
          </cena-view:>
          <srok-view:>          <%= link_to "[D+]", 
@@ -95,7 +102,7 @@
                              :onclick => "add_list('#{this_parent.name}')"%>
 
          </srok-view:>
-         <nacenka-view:><editor/>%</nacenka-view:>
+         <nacenka-view:><editor/></nacenka-view:>
          <count-view:><editor/>
            <script language="javascript">
              function add_list(n) {

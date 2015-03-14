@@ -5,7 +5,10 @@ class GoodsController < ApplicationController
   auto_actions :all
 
   def index
-
+        @c_summ  = 0
+        @k_summ = 0
+        @i = 0
+        @asum = 0
     # FILTERS
       #Save param to session
       %w(filial_name).each do |key|                                                                                                           
