@@ -142,9 +142,6 @@
            <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count}','#{this_parent.cena}');"/>
            </span>
            <%else%>
-             <%= button_to ">>", 
-                            to_storage_storages_path(:id => this_parent.id), 
-                            {confirm: "Ви впевненні? Товар додастя до складу.", :method => :put, :remote => true, class: "btn btn-warning" }%>
            <% end %>
          </check-view:>
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>
@@ -176,6 +173,9 @@
            <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>
            <% if this_parent.location_good == 'defect' then%>
              <editor/>
+             <%= button_to ">>", 
+                            to_storage_storages_path(:id => this_parent.id), 
+                            {confirm: "Ви впевненні? Товар додастя до складу.", :method => :put, :remote => true, class: "btn btn-warning" }%>
            <% else %>
              <view/>
            <% end %>
