@@ -157,7 +157,7 @@
          </srok-view:>         
          <cena-view:>
             <editor/><%@c_summ += this.to_f%>
-          <%unless Good.all.count == 0%>
+     
              <% @cg = Good.find_by_name(this_parent.name)._?.cena.to_f%>
              <% @cs = this.to_f%>
              <% @nds = this_parent.nds.to_f%>
@@ -167,7 +167,7 @@
                <span class="label label-primary">рекомендована <%= @cg*((@nds+35)/100)+@cg %>грн.</span>
              <%else%>
              <%end%>
-          <%end%>
+ 
          </cena-view:>
          <count-view: id="&this_parent.id"><%@k_summ += this.to_f%>
            <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>
