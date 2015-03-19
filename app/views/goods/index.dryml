@@ -73,7 +73,8 @@
                <%= link_to "[S+]", 
                storages_path(:storagenew => 
                                { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
-                                 :nds => this_parent.nds, :cena => (this_parent.cena.to_f*((this_parent.nacenka.to_f/100)+(this_parent.nds.to_f/100))+this_parent.cena.to_f).round(2), :srok => this_parent.srok, :location_good => 'stor' 
+                                 :nds => this_parent.nds, 
+                                 :cena => ((this_parent.cena.to_f*(this_parent.nacenka.to_f/100+1))*(this_parent.nds.to_f/100+1)).round(2), :srok => this_parent.srok, :location_good => 'stor' 
                                  }, :pr_name =>Price.find_by_id(this_parent._?.price_id)._?.name,
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger", 
@@ -96,7 +97,8 @@
          <srok-view:> <%@t1 = '<span style="color:green;font-weight: bold;">дефектура</span>'%>         <%= link_to "[D+]", 
                storages_path(:storagenew => 
                                { :morion => this_parent.morion, :codeg => this_parent.codeg, :name => this_parent.name, :madein => this_parent.madein, 
-                                 :nds => this_parent.nds, :cena => (this_parent.cena.to_f*((this_parent.nacenka.to_f/100)+(this_parent.nds.to_f/100))+this_parent.cena.to_f).round(2), :srok => this_parent.srok, :location_good => 'defect' 
+                                 :nds => this_parent.nds, 
+                                 :cena => ((this_parent.cena.to_f*(this_parent.nacenka.to_f/100+1))*(this_parent.nds.to_f/100+1)).round(2), :srok => this_parent.srok, :location_good => 'defect' 
                                  }, :pr_name =>Price.find_by_id(this_parent._?.price_id)._?.name,
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success",

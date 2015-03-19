@@ -126,16 +126,14 @@
 
 
       <table-plus part="list-table" update="list-table"
-        fields="num_plus, pr_name, this, filial, madein, nds, cena, srok, count, check, summ_good">
+        fields="num_plus, pr_name, this, filial, madein, nds, cena,count, summ_good, check, srok">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <num_plus-view:> <%@i +=1%>
-                    <% if this_parent.location_good == 'defect' then%>
-           <%=@i%>
-           <% else %>
+  
              <%= link_to "#{@i} <<", goods_path(:search => this_parent.name),
                             {class: "btn btn-primary" }%>
-           <% end %></num_plus-view:>
+         </num_plus-view:>
          <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum +=(this_parent.cena.to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' then%><span id="c#{this_parent.id}">
@@ -157,14 +155,15 @@
          </srok-view:>         
          <cena-view:>
             <editor/><%@c_summ += this.to_f%>
-     
-             <% @cg = Good.find_by_name(this_parent.name)._?.cena.to_f%>
+             <% @md = this_parent.madein%>
+             <% @nm = this_parent.name%>
+             <% @cg = Good.where(:name => @nm, :madein => @md).first._?.cena.to_f%>
              <% @cs = this.to_f%>
-             <% @nds = this_parent.nds.to_f%>
-             <% @c_d_b =  @cs/(1+(@nds+35)/100)%>
+             <% @nds = (this_parent.nds.to_f/100)+1%>
+             <% @c_d_b =  (@cs/@nds)/1.35%>
              <% if @cg.round(2) > @c_d_b.round(2) then%>
-               <span class="label label-warning">!!! у прайсі <%= @cg%> грн. + ПДВ + нац. = <%= @cg*((@nds+35)/100)+@cg %>грн. !!!</span>
-               <span class="label label-primary">рекомендована <%= @cg*((@nds+35)/100)+@cg %>грн.</span>
+               <span class="label label-warning">!!! ціна закупки !!!</span>
+               <span class="label label-primary">реком. <%= ((@cg*@nds)*1.35).round(2)%>грн.</span>
              <%else%>
              <%end%>
  
