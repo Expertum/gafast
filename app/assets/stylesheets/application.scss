@@ -9,3 +9,33 @@
  *= require nprogress
  *= require nprogress-bootstrap
 */
+div.transitions form { margin: 0 2px 0; float: left; }
+
+.navbar {
+  .nav > li > a {
+    padding: 10px 10px 10px;
+  }
+  .brand {
+    padding: 7px 15px 10px 10px;
+    text-shadow: 1px 1px 2px silver;
+  }
+
+  select.dev-user-changer { width: 150px; }
+}
+
+.table-plus .table {
+  th { background-color: #656565; color: white; }
+  th { a, a:hover, a:focus { color: white; } }
+}
+
+.footer.page-footer {
+  text-align: right;
+  color: #ccc;
+  padding: 5px;
+  font-size: 11px;
+}
+.copyright a {
+  color: #CCCCCC;
+  background-color: transparent;
+  font: inherit;
+}

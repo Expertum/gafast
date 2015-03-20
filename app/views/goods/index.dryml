@@ -82,16 +82,13 @@
          </madein-view:>
          <cena-view:>
               <%@c_summ += this.to_f%>
-          <%unless Storage.all.count == 0%>
-             <% @cg = Storage.find_by_name(this_parent.name)._?.cena.to_f%>
-             <% @cs = this.to_f%>
-             <% @nds = this_parent.nds.to_f%>
-             <% @c_d_b =  @cs*(1+(@nds+35)/100)%>
-          <% end %>
+             <% @md = this_parent.madein%>
+             <% @nm = this_parent.name%>
+             <% @cg = Storage.where(:name => @nm, :madein => @md).first._?.cena.to_f%>
          <%if current_user.administrator?%>
-           <editor/> <%unless Storage.find_by_name(this_parent.name).nil?%>/ <span class="label label-info"><%= @c_d_b._?.round(2)%></span> <%end%>
+           <editor/> <%unless @cg == 0%><span class="label label-info"><%= @cg._?.round(2)%></span> <%end%>
          <%else%>
-           <view/> <%unless Storage.find_by_name(this_parent.name).nil?%>/ <span class="label label-info"><%= @c_d_b._?.round(2)%></span> <%end%>
+           <view/>   <%unless @cg == 0%><span class="label label-info"><%= @cg._?.round(2)%></span> <%end%>
          <%end%>
          </cena-view:>
          <srok-view:> <%@t1 = '<span style="color:green;font-weight: bold;">дефектура</span>'%>         <%= link_to "[D+]", 

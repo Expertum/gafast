@@ -126,9 +126,11 @@
 
 
       <table-plus part="list-table" update="list-table"
-        fields="num_plus, pr_name, this, filial, madein, nds, cena,count, summ_good, check, srok">
+        fields="num_plus, pr_name, this, filial, count, cena, summ_good, check, srok">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
+         <this-view: style="width: 40%;"><view/>(<%= this.madein%>,<%= this.nds%>%) 
+         </this-view:>
          <num_plus-view:> <%@i +=1%>
   
              <%= link_to "#{@i} <<", goods_path(:search => this_parent.name),
