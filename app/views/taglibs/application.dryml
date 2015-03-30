@@ -10,6 +10,8 @@ you can place common code in this file. -->
  - `first-option` - a string to be used for an extra option in the first position. E.g. "Please choose..."
  - `first-value` - the value to be used with the `first-option`. Typically not used, meaning the option has a blank value.
    -->
+<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/relative/path/to/file.ico" /> 
+
 <def tag="input" for="HoboFields::Types::EnumString" attrs="labels, titleize, first-option, first-value"><%
   labels ||= {}
   labels = HashWithIndifferentAccess.new(labels)
