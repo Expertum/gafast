@@ -16,7 +16,6 @@
 app/views/taglibs/auto/**/*
 config/hobo_routes.rb
 config/database.yml
-public/assets
 public/system
 config/initializers/gration-expertise.rb
 Gemfile.lock
