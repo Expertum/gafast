@@ -26,7 +26,7 @@ class Good < ActiveRecord::Base
       row = Hash[[header, spreadsheet.row(i)].transpose]
       good = find_by_id(row["id"]) || new
       good.attributes = row.to_hash.slice(*accessible_attributes)
-      d = good.nds
+      d = good.nds.to_s
       if d.split('-').count == 2 then good.nds = d.split('-')[1].to_f end
       if d.split('-').count == 1 then good.nds = d.split('-')[0].to_f end
       p = Price.find_or_create_by_name(cena)
