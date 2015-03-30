@@ -90,7 +90,7 @@
 
                       <form with="&stor" update="storages">
                         <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.<br/>
-                        <input class="good-minus-tag decimal storage-good-minus" type="number" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;"/>
+                        <input class="good-minus-tag decimal storage-good-minus" type="currency" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;"/>
                         <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;margin-top:4%;float:right;" type="submit"/>
                        </form>
                    </div>
@@ -182,7 +182,7 @@
                             to_storage_storages_path(:id => this_parent.id), 
                             {confirm: "Ви впевненні? Товар додастя до складу.", :method => :put, :remote => true, class: "btn btn-warning" }%>
            <% else %>
-             <view/>
+             <%= this._?.round(4)%>
            <% end %>
          </count-view:>
              <tfoot:>
