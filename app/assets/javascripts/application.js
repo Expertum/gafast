@@ -55,19 +55,5 @@ function sh_button() {
    
 }
 
-function rem_li(id) {
- if ($('#list li').length < 1){ $('#list li').remove(); $('#zakaz').hide();}
- var summ = 0; 
- $.ajax({url: "/storages/del_check",
-         type: 'PUT',
-         data: {'nocheck': id}
-        });
 
-  $('#c'+id).children('.storage').children('#storage_check').prop( "checked", false );
-
-  $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
-  $('#ch_summ').text('Загальна вартість товару - '+summ.toFixed(2)+' грн.');
-  
- //alert(summ);
-}
 
