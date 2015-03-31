@@ -165,7 +165,8 @@
            <%end%>
          </srok-view:>         
          <cena-view:>
-            <editor/><%@c_summ += this.to_f%>
+            <editor/><% unless this_parent.location_good == 'defect' then%>
+             <%@c_summ += this.to_f%>
              <% @md = this_parent.madein%>
              <% @nm = this_parent.name%>
              <% @cg = Good.where(:name => @nm, :madein => @md).first._?.cena.to_f%>
@@ -177,7 +178,7 @@
                <span class="label label-primary">реком. <%= ((@cg*@nds)*1.35).round(2)%>грн.</span>
              <%else%>
              <%end%>
- 
+                    <%end%>
          </cena-view:>
          <count-view: id="&this_parent.id"><%@k_summ += this.to_f%>
            <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>

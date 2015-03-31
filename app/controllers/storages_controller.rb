@@ -31,7 +31,7 @@ class StoragesController < ApplicationController
 
     @storages = @storages.where("pr_name like ?", params[:pr_name]) unless params[:pr_name].blank?
 
-    @storages = @storages.order("srok asc").paginate(:page => params[:page]) if params[:location_good] == 'stor'
+    @storages = @storages.order("srok asc").paginate(:page => params[:page]) if params[:location_good] != 'defect'
 
     hobo_index do |format|
       format.html {}
