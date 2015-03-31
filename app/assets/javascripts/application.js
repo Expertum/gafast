@@ -15,20 +15,6 @@
 
 $(document).ready(function() {
   $('input.import_submit').attr('onclick','start_progress()');
-  $('#myModal').on('hidden.bs.modal', function (e) {
-  //alert($('#zakaz'))
-  //$.put('/storages/del_check');
-  var id_good = $('#ch_id').text();
-  //alert(id_good)
-  if ( $('#zakaz').is(":visible") == false ) { $.ajax({
-                                                 url: "/storages/del_check",
-                                                 type: 'PUT',
-                                                 data: {'nocheck': id_good}
-                                                 });
-                                               //location.reload();
-                                                 $('#c'+id_good).children('.storage').children('#storage_check').prop( "checked", false );
-                                               } 
-})
 });
 
 
