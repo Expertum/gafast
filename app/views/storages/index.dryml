@@ -70,7 +70,7 @@
                $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
              
                $('#ch_summ').text('Загальна вартість товару - '+summ.toFixed(2)+' грн.');
-               alert(summ);
+               
              return false;
            }
            function remove_list_ch() {
