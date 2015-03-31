@@ -44,6 +44,11 @@
 <p>
   Зберегти:
   <%= link_to "Excel", storages_path(format: "xls") %>
+      <% unless current_user.role != 'provizor'%>
+      <span class="label label-prinary"><%=Storage.all.count%> шт.</span>
+      <span class="label label-success"><%= Storage.all.each{|x| @d += x.count * x.cena}
+                                            @d.round(2)%> грн.</span>
+      <% end %>
 </p>
 
     </content-header:>
