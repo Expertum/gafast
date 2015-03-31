@@ -60,14 +60,17 @@
              $('#button_to_check').hide();
             
              var name_good = $('#ch_text').text();
+             var id_good = $('#ch_id').text();
              var cena_good = $('#ch_cena_st').text();
              var new_task = $('#storage_good_minus').val();
                $('#zakaz').show();
-               $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+(parseFloat(cena_good)*n).toFixed(2)+'грн.}</li>');
+               $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+(parseFloat(cena_good)*n).toFixed(2)+
+               'грн.}<a href="#" class="btn btn-danger" onclick="$(this).parent().remove();rem_li('+id_good+'); ">-</a></li>');
                
                $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
              
-               $('#ch_summ').text('Загальна вартість товару - '+summ+' грн.');
+               $('#ch_summ').text('Загальна вартість товару - '+summ.toFixed(2)+' грн.');
+               alert(summ);
              return false;
            }
            function remove_list_ch() {
@@ -94,7 +97,7 @@
                       %>
 
                       <form with="&stor" update="storages">
-                        <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.<br/>
+                        <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.(код - <span id="ch_id" style=""></span>)<br/>
                         <input class="good-minus-tag decimal storage-good-minus" type="currency" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;"/>
                         <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;margin-top:4%;float:right;" type="submit"/>
                        </form>
@@ -108,7 +111,7 @@
 
        <storages-filters style='float:left;'/>
 
-      <div id="zakaz" style="background-color: gray;  color: white;  width: 300px; position:fixed; border: 2px solid; border-radius: 15px; opacity: 0.7; left:0%;top:10%;display:none;">
+      <div id="zakaz" style="background-color: gray;  color: white;  width: 300px; position:fixed; border: 2px solid; border-radius: 15px; left:0%;top:10%;display:none;">
         <h4 style="text-align:center;">Чек № <%unless Check.all.count == 0%>
                                              <%= Check.last.id.to_i + 1%>
                                              <%else%>
@@ -144,7 +147,7 @@
          <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum +=(this_parent.cena.to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' then%><span id="c#{this_parent.id}">
-           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count}','#{this_parent.cena}');"/>
+           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}','#{this_parent.id}');"/>
            </span>
            <%else%>
            <% end %>

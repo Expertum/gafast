@@ -111,11 +111,18 @@ class StoragesController < ApplicationController
   end
 
   def del_check
-    @s = Storage.where(:check => true)
-    @s.each{|x| x.check = false
-                x.good_minus = 0.0
-                    x.save!}
+    if params[:nocheck] then
+      @s = Storage.find(params[:nocheck].to_i)
+      @s.check = false
+      @s.good_minus = 0.0
+      @s.save!    
+    else
+      @s = Storage.where(:check => true)
+      @s.each{|x| x.check = false
+                  x.good_minus = 0.0
+                  x.save!}
     redirect_to :back
+    end
   end
 
 end

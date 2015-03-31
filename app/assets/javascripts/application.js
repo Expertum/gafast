@@ -18,10 +18,15 @@ $(document).ready(function() {
   $('#myModal').on('hidden.bs.modal', function (e) {
   //alert($('#zakaz'))
   //$.put('/storages/del_check');
+  var id_good = $('#ch_id').text();
+  //alert(id_good)
   if ( $('#zakaz').is(":visible") == false ) { $.ajax({
                                                  url: "/storages/del_check",
-                                                 type: 'PUT'});
-                                               location.reload();
+                                                 type: 'PUT',
+                                                 data: {'nocheck': id_good}
+                                                 });
+                                               //location.reload();
+                                                 $('#c'+id_good).children('.storage').children('#storage_check').prop( "checked", false );
                                                } 
 })
 });
@@ -37,9 +42,10 @@ $(document).on("ajax:succes", "a", function(data){
     $(data.id).remove();
 });
 
-function sh_modal_ch(n,t,c,p) {
+function sh_modal_ch(n,t,c,p,id) {
    $('#ch_count_st').text(c);
    $('#ch_text').text(t);
+   $('#ch_id').text(id);
 
    $('#ch_cena_st').text(p);
 
@@ -59,4 +65,19 @@ function sh_button() {
    
 }
 
+function rem_li(id) {
+ if ($('#list li').length < 1){ $('#list li').remove(); $('#zakaz').hide();}
+ var summ = 0; 
+ $.ajax({url: "/storages/del_check",
+         type: 'PUT',
+         data: {'nocheck': id}
+        });
+
+  $('#c'+id).children('.storage').children('#storage_check').prop( "checked", false );
+
+  $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
+  $('#ch_summ').text('Загальна вартість товару - '+summ.toFixed(2)+' грн.');
+  
+ //alert(summ);
+}
 
