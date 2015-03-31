@@ -42,11 +42,11 @@ $(document).on("ajax:succes", "a", function(data){
     $(data.id).remove();
 });
 
-function sh_modal_ch(n,t,c,p,id) {
+function sh_modal_ch(n,t,c,p) {
    $('#ch_count_st').text(c);
    $('#ch_text').text(t);
    
-   $('#ch_id').text(id);
+   $('#ch_id').text(n);
 
    $('#ch_cena_st').text(p);
 
