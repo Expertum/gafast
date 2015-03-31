@@ -97,7 +97,7 @@
                       %>
 
                       <form with="&stor" update="storages">
-                        <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.(код - <span id="ch_id" style=""></span>)<br/>
+                        <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.(код - <span id="ch_id"></span>)<br/>
                         <input class="good-minus-tag decimal storage-good-minus" type="currency" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;"/>
                         <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;margin-top:4%;float:right;" type="submit"/>
                        </form>
@@ -147,7 +147,7 @@
          <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum +=(this_parent.cena.to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' then%><span id="c#{this_parent.id}">
-           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}','#{this_parent.id}');alert('#{this_parent.id}');"/>
+           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}','#{this_parent.id}');"/>
            </span>
            <%else%>
            <% end %>

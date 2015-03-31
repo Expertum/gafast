@@ -45,6 +45,7 @@ $(document).on("ajax:succes", "a", function(data){
 function sh_modal_ch(n,t,c,p,id) {
    $('#ch_count_st').text(c);
    $('#ch_text').text(t);
+   alert(id);
    $('#ch_id').text(id);
 
    $('#ch_cena_st').text(p);
