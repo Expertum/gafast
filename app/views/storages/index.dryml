@@ -110,6 +110,8 @@
            }
 
             $(document).ready(function() {
+              $("form").on("keypress", function (e) { if (e.keyCode == 13) { return false;} });
+
               $('#myModal').on('hidden.bs.modal', function (e) {
               var id_good = $('#ch_id').text();
               if ( $('#zakaz').is(":visible") == false ) { $.ajax({
