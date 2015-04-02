@@ -43,7 +43,7 @@ class StoragesController < ApplicationController
          list.row(0).concat %w{Код_товара Товар	Производитель Срок_годности Предоплата Признак_НДС Количество} 
          @storages.each_with_index { |storage, i|
               @cena_p = (storage.cena.to_f/(1+(storage.nds.to_f+35)/100)).round(2)
-              list.row(i+1).push storage.codeg,	storage.name, storage.madein, storage.srok, @cena_p.to_s, storage.nds, storage.count
+              list.row(i+1).push storage.codeg.to_s, storage.name, storage.madein, storage.srok, @cena_p.to_s, storage.nds, storage.count
 
          }
         header_format = Spreadsheet::Format.new ({ :weight => :bold, :pattern => 1, :pattern_fg_color => :silver})
