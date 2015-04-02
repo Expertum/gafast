@@ -52,6 +52,21 @@ class Storage < ActiveRecord::Base
     end
   end
 
+  def w_cena?
+    @md = self.madein
+    @nm = self.name
+    @cg = Good.where(:name => @nm, :madein => @md).first._?.cena.to_f
+    @cs = self.cena.to_f
+    @nds = (self.nds.to_f/100)+1
+    @c_d_b =  (@cs/@nds)/1.35
+     if @cg.round(2) > @c_d_b.round(2) then
+        @@res = ((@cg*@nds)*1.35).round(2)
+       return true, @@res
+     else
+       return false
+     end
+  end
+
   def num_plus
       
   end

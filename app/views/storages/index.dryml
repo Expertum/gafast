@@ -41,7 +41,7 @@
       <h2>
         Список товарів на складі
       </h2>
-<p>
+ 
   Зберегти:
   <%= link_to "Excel", storages_path(format: "xls") %>
       <% unless current_user.role != 'provizor'%>
@@ -49,7 +49,11 @@
       <span class="label label-success"><%= Storage.all.each{|x| @d += x.count * x.cena}
                                             @d.round(2)%> грн.</span>
       <% end %>
-</p>
+  <%= button_to " Перенацінка ", 
+                 perenac_storages_path, 
+                 {confirm: "Перенацінити весь товар?", :method => :put, class: "btn btn-danger", style: "float: right;" }
+                 %>
+ 
 
     </content-header:>
     <collection: replace>
@@ -204,18 +208,12 @@
            <editor/>
            <%end%>
          </srok-view:>         
-         <cena-view:>
+         <cena-view: style="font-weight: 600;">
             <editor/><% unless this_parent.location_good == 'defect' then%>
              <%@c_summ += this.to_f%>
-             <% @md = this_parent.madein%>
-             <% @nm = this_parent.name%>
-             <% @cg = Good.where(:name => @nm, :madein => @md).first._?.cena.to_f%>
-             <% @cs = this.to_f%>
-             <% @nds = (this_parent.nds.to_f/100)+1%>
-             <% @c_d_b =  (@cs/@nds)/1.35%>
-             <% if @cg.round(2) > @c_d_b.round(2) then%>
+             <% if this_parent.w_cena? then%>
                <span class="label label-warning">!!! ціна закупки !!!</span>
-               <span class="label label-primary">реком. <%= ((@cg*@nds)*1.35).round(2)%>грн.</span>
+               <span class="label label-primary">реком. <%= this_parent.w_cena?[1]%>грн.</span>
              <%else%>
              <%end%>
                     <%end%>
@@ -228,7 +226,11 @@
                             to_storage_storages_path(:id => this_parent.id), 
                             {confirm: "Ви впевненні? Товар додастя до складу.", :method => :put, :remote => true, class: "btn btn-warning" }%>
            <% else %>
-             <%= this._?.round(4)%>
+             <%if this == 0 then%>
+               <span style="font-weight: 600;color:red;">0</span>
+             <%else%>
+               <%= this._?.round(4)%>
+             <%end%>
            <% end %>
          </count-view:>
              <tfoot:>
