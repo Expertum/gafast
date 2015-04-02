@@ -12,6 +12,7 @@ class StoragesController < ApplicationController
         @i = 0
         @asum = 0
         @d = 0
+        @ii = 0
     # FILTERS
       #Save param to session
       %w(location_good filial_name pr_name).each do |key|                                                                                                           
