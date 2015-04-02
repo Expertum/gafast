@@ -14,7 +14,7 @@ class StoragesController < ApplicationController
         @d = 0
     # FILTERS
       #Save param to session
-      %w(location_good filial_name).each do |key|                                                                                                           
+      %w(location_good filial_name pr_name).each do |key|                                                                                                           
          if not params[key].nil?; session[key] = params[key]
            elsif not session[key].nil?; params[key] = session[key]
            end
