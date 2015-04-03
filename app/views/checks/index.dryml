@@ -19,7 +19,7 @@
     <collection: replace>
     <checks-filters style='float:left;'/>
       <table-plus part="list-table" update="list-table"
-        fields="this, check_text, deliver, filial">
+        fields="this, check_text, poster, deliver, filial">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
       </table-plus>
