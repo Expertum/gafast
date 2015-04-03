@@ -67,6 +67,10 @@
              var id_good = $('#ch_id').text();
              var cena_good = $('#ch_cena_st').text();
              var new_task = $('#storage_good_minus').val();
+
+             $('#c'+id_good).children('.storage').children('#storage_check').prop( "disabled", true )
+             $('#c'+id_good).children('.storage').children('#storage_check').prop( "readonly", true )
+
                $('#zakaz').show();
                $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+(parseFloat(cena_good)*n).toFixed(2)+
                'грн.}<a href="#" class="btn btn-danger" onclick="$(this).parent().remove();rem_li('+id_good+'); ">-</a></li>');
@@ -104,6 +108,8 @@
                     });
 
              $('#c'+id).children('.storage').children('#storage_check').prop( "checked", false );
+             $('#c'+id).children('.storage').children('#storage_check').prop( "disabled", false )
+             $('#c'+id).children('.storage').children('#storage_check').prop( "readonly", false )
 
              $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
              $('#ch_summ').text('Загальна вартість товару - '+summ.toFixed(2)+' грн.');
@@ -161,7 +167,7 @@
                                                1
                                              <%end%></h4>
         <hr/>
-        <ol id="list">
+        <ol id="list" style="height: 300px; overflow: auto;">
         </ol>
         <span id="ch_summ"> </span>
              <%= button_to "Зберегти", 
