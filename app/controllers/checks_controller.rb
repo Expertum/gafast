@@ -5,10 +5,13 @@ class ChecksController < ApplicationController
   auto_actions :all
 
   def index
-
+      @ss = 0
+      @sum = 0
+      @ii = 0
+      @dd1 = []
     # FILTERS
       #Save param to session
-      %w(filial_name).each do |key|                                                                                                           
+      %w(filial_name date_order startdate enddate).each do |key|                                                                                                           
          if not params[key].nil?; session[key] = params[key]
            elsif not session[key].nil?; params[key] = session[key]
            end
@@ -19,6 +22,13 @@ class ChecksController < ApplicationController
     @checks = Check.
       search(params[:search], :check_text, :id).
       order_by(parse_sort_param(:id, :check_text))
+
+    params[:enddate]   = Date.today.to_s                if params[:enddate].  blank? and !params[:startdate].blank?
+    params[:startdate] = Date.parse('2015-01-01').to_s  if params[:startdate].blank? and !params[:enddate].  blank?
+    @s = params[:date_order]
+    if !params[:startdate].blank? and !params[:enddate].blank? then
+         @checks = @checks.where("#{@s} between ? and ?", Date.parse(params[:startdate]) ,Date.parse(params[:enddate]))
+    end
 
     @checks = @checks.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
 
@@ -41,7 +51,7 @@ class ChecksController < ApplicationController
         @checks.poster_id = params[:poster_id]
         @s = Storage.where(:check => true)
         @s.each{|x| d << x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s}
-        @ct = d.join('/')
+        @ct = d.join('||')
         @checks.check_text = @ct
 
         @s.each{|x| x.check = false

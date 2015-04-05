@@ -1,11 +1,28 @@
 <def tag="checks-filters">
     <div class='filters' merge-attrs param="default">
-        <form action="checks.js" class="filter-menu" method="get" update="list-table">
+        <form action="checks.html" class="filter-menu" method="get">
          <div style="float:left; margin-left: 10px;">
-            Вибiр філіала:
+            <% unless current_user.guest?%>
+              <%if current_user.farmaceft?%>
+              <%= select_tag "filial_name", options_for_select([[current_user.filial, current_user.filial_id],], params[:filial_name]), :style => 'margin-top: 0px'%>
+              <% else %>
               <%= select_tag "filial_name", options_for_select(Filial.all.collect {|u| [ u.name, u.id ] }, params[:filial_name]), :style => 'margin-top: 0px'%>
+              <% end %>
+            <%end%>
            </div>
+         <div style="float:left; margin-left: 10px;">
+            Вибiр сорт. по датi:
+              <%= select_tag "date_order", options_for_select([['Створення', 'created_at']],
+                params[:date_order] || ''), :style => 'margin-top: 0px' %>
+            <input style="width:100px;margin-top: 0px;" type="text" placeholder="вiд" class="bootstrap-datepicker" name="startdate" 
+                   value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
+            <input style="width:100px;margin-left:3px;margin-top: 0px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate" 
+                   value="&params[:enddate]"   data-date-format="yyyy-mm-dd" />
+          </div>
            <button type="submit" class="btn" style="margin-left: 10px;" onClick="jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
+          <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');" class="btn">
+            <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
+          </button>
         </form>
         <script>$(function() {
 
@@ -16,12 +33,55 @@
 
 <index-page>
     <title:><t key="activerecord.models.check.other">Cheks</t> <%= " : GFS"-%></title:>
+    <content-header:>
+      <% unless current_user.role != 'provizor'%>
+      <span class="label label-prinary"><%= @checks.each{|x| unless x.check_text.nil? 
+                                                                 @ii += x.check_text.split('||').count.to_i 
+                                                                 @d1 = x.check_text.split('||')
+                                                                 @d1.each{|x| @dd1 << x.split(';')}
+                                                                 @dd1.each do |name, count, cena|
+                                                                  @ss += cena.to_f  
+                                                                 end
+                                                                end}
+                                            @ii %> шт.</span>
+      <span class="label label-success"><%= @ss.round(2)%> грн.</span>
+      <% end %>
+    </content-header:>
     <collection: replace>
     <checks-filters style='float:left;'/>
       <table-plus part="list-table" update="list-table"
-        fields="this, check_text, poster, deliver, filial">
+        fields="this, check_text">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
+         <check_text-view:>
+           <span style="float:right;"> <%= this_parent.poster%>(<%= this_parent.created_at.strftime("%d.%m.%Y - %T")%>), <%= this_parent.filial%>, доставка(<%= this_parent.deliver%>)</span>
+           <% @dd = []%>
+ 
+           <% @d = this.split('||')%>
+           <% @d.each{|x| @dd << x.split(';')}%>
+           <table style="width:100%;">
+             <tr>
+               <th style="color: rebeccapurple;">Назва</th>
+               <th style="color: rebeccapurple;">Кількість</th>
+               <th style="color: rebeccapurple;">Ціна</th>
+             </tr>
+             <% @dd.each do |name, count, cena| -%>
+             <tr>
+               <td><%= name %></td>
+               <td><%= count.to_f._?.round(2) %></td>
+               <td><% @sum += cena.to_f %> 
+                      <%=  cena.to_f._?.round(2)%></td>
+             </tr>
+           <% end -%>
+             <tfoot>
+               <tr bgcolor="#bd979f">
+                  <td colspan="2"></td>
+
+                       <td >Всього: <%= @sum.round(2)%> грн.</td> 
+               </tr>
+             </tfoot>
+          </table>
+         </check_text-view:>
       </table-plus>
     </collection:>
     <bottom-page-nav: replace/>
