@@ -1,6 +1,6 @@
 <def tag="checks-filters">
     <div class='filters' merge-attrs param="default">
-        <form action="checks.html" class="filter-menu" method="get">
+        <form action="checks.html" class="filter-menu" method="get" update="list-table">
          <div style="float:left; margin-left: 10px;">
             <% unless current_user.guest?%>
               <%if current_user.farmaceft?%>
@@ -34,8 +34,14 @@
 <index-page>
     <title:><t key="activerecord.models.check.other">Cheks</t> <%= " : GFS"-%></title:>
     <content-header:>
+    </content-header:>
+    <collection: replace>
+    <checks-filters style='float:left;'/>
+      <table-plus part="list-table" update="list-table"
+        fields="this, check_text">
+         <header:>
       <% unless current_user.role != 'provizor'%>
-      <span class="label label-prinary"><%= @checks.each{|x| unless x.check_text.nil? 
+      <span update="list-table" class="label label-prinary"><%= @checks.each{|x| unless x.check_text.nil? 
                                                                  @ii += x.check_text.split('||').count.to_i 
                                                                  @d1 = x.check_text.split('||')
                                                                  @d1.each{|x| @dd1 << x.split(';')}
@@ -46,11 +52,7 @@
                                             @ii %> шт.</span>
       <span class="label label-success"><%= @ss.round(2)%> грн.</span>
       <% end %>
-    </content-header:>
-    <collection: replace>
-    <checks-filters style='float:left;'/>
-      <table-plus part="list-table" update="list-table"
-        fields="this, check_text">
+         </header:>
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <check_text-view:>
