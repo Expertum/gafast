@@ -41,14 +41,19 @@
         fields="this, check_text">
          <header:>
       <% unless current_user.role != 'provizor'%>
-      <span update="list-table" class="label label-prinary"><%= @checks.each{|x| unless x.check_text.nil? 
-                                                                 @ii += x.check_text.split('||').count.to_i 
-                                                                 @d1 = x.check_text.split('||')
-                                                                 @d1.each{|x| @dd1 << x.split(';')}
-                                                                 @dd1.each do |name, count, cena|
-                                                                  @ss += cena.to_f  
-                                                                 end
-                                                                end}
+      <span update="list-table" class="label label-prinary"><%=    
+                                                                   @checks.each{|x| 
+                                                                   unless x.check_text.nil? 
+                                                                     @ii += x.check_text.split('||').count.to_i 
+
+                                                                     @d1 = x.check_text.split('||')
+                                                                     @d1.each{|c| @dd1 << c.split(';')}
+                                                                     @ss = 0
+                                                                     @dd1.each do |name, count, cena|
+                                                                       @ss += cena.to_f  
+                                                                     end
+                                                                   end
+                                                                  }
                                             @ii %> шт.</span>
       <span class="label label-success"><%= @ss.round(2)%> грн.</span>
       <% end %>
@@ -58,7 +63,7 @@
          <check_text-view:>
            <span style="float:right;"> <%= this_parent.poster%>(<%= this_parent.created_at.strftime("%d.%m.%Y - %T")%>), <%= this_parent.filial%>, доставка(<%= this_parent.deliver%>)</span>
            <% @dd = []%>
- 
+           <% @sum = 0%>
            <% @d = this.split('||')%>
            <% @d.each{|x| @dd << x.split(';')}%>
            <table style="width:100%;">

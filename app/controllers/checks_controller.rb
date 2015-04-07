@@ -6,6 +6,7 @@ class ChecksController < ApplicationController
 
   def index
       @ss = 0
+      @sm = 0
       @sum = 0
       @ii = 0
       @dd1 = []
