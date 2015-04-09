@@ -160,7 +160,7 @@
 
        <storages-filters style='float:left;'/>
 
-      <div id="zakaz" style="background-color: gray;  color: white;  width: 300px; position:fixed; border: 2px solid; border-radius: 15px; left:0%;top:10%;display:none;">
+      <div id="zakaz" style="background-color: gray;  color: white;  width: 300px; position:fixed; border: 2px solid; border-radius: 15px; left:0%;top:10%;display:none; opacity: 0.5;">
         <h4 style="text-align:center;">Чек № <%unless Check.all.count == 0%>
                                              <%= Check.last.id.to_i + 1%>
                                              <%else%>
