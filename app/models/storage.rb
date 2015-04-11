@@ -55,7 +55,8 @@ class Storage < ActiveRecord::Base
   def w_cena?
     @md = self.madein
     @nm = self.name
-    @cg = Good.where(:name => @nm, :madein => @md).first._?.cena.to_f
+    @s_price = Price.find_by_name(self.pr_name).id
+    @cg = Good.where(:name => @nm, :price_id => @s_price, :madein => @md).first._?.cena.to_f
     @cs = self.cena.to_f
     @nds = (self.nds.to_f/100)+1
     @c_d_b =  (@cs/@nds)/1.35

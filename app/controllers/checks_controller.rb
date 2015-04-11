@@ -48,8 +48,12 @@ class ChecksController < ApplicationController
   def create
         d =[]
         @checks = Check.new
-        @checks.filial_id = params[:filial_id]
         @checks.poster_id = params[:poster_id]
+        if params[:filial_id].nil? then
+           @checks.filial_id = User.find(params[:poster_id]).filial_id
+        else
+           @checks.filial_id = params[:filial_id]
+        end
         @s = Storage.where(:check => true)
         @s.each{|x| d << x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s}
         @ct = d.join('||')

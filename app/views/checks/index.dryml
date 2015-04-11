@@ -62,6 +62,7 @@
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <check_text-view:>
            <span style="float:right;"> <%= this_parent.poster%>(<%= this_parent.created_at.strftime("%d.%m.%Y - %T")%>), <%= this_parent.filial%>, доставка(<%= this_parent.deliver%>)</span>
+           <% unless this.nil?%>
            <% @dd = []%>
            <% @sum = 0%>
            <% @d = this.split('||')%>
@@ -88,6 +89,7 @@
                </tr>
              </tfoot>
           </table>
+           <%end%>
          </check_text-view:>
       </table-plus>
     </collection:>

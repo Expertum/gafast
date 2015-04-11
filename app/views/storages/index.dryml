@@ -199,6 +199,7 @@
            <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}');"/>
            </span>
            <%else%>
+           <%= current_user%>
            <% end %>
          </check-view:>
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>

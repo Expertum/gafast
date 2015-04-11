@@ -61,11 +61,16 @@ class StoragesController < ApplicationController
   end
 
   def create
-      @storages = Storage.find_by_name(params[:storagenew][:name])
-      if @storages && params[:storagenew][:location_good] == 'stor' then
+#      @storages = Storage.find_by_name(params[:storagenew][:name])
+      @s_name = params[:storagenew][:name]
+      @s_madein = params[:storagenew][:madein]
+      @s_price = params[:pr_name]
+      
+      @storages = Storage.where(:name => @s_name, :pr_name => @s_price, :madein => @s_madein).first
+      if (@storages != nil) && params[:storagenew][:location_good] == 'stor' then
         if @storages.filial_id.to_i == params[:filial_id].to_i then
              @storages.count = (@storages.count.to_f + Good.find(params[:id_good]).count.to_f).to_f
-             @storages.cena = (Good.find(params[:id_good]).cena.to_f*(Good.find(params[:id_good]).nacenka.to_f/100)+Good.find(params[:id_good]).cena.to_f)
+             @storages.cena = params[:storagenew][:cena].to_f
              @storages.srok = Good.find(params[:id_good]).srok
         else
              @storages = Storage.new(params[:storagenew])
