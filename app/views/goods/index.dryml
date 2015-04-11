@@ -78,13 +78,15 @@
                                  }, :pr_name =>Price.find_by_id(this_parent._?.price_id)._?.name,
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger", 
-                                 :onclick => "add_list('#{this_parent.name}','#{@t2}')"%> 
+                                 :onclick => "add_list('#{this_parent.name}','#{@t2}', '#{Good.find(this_parent.id).count}')"%> 
          </madein-view:>
          <cena-view:>
               <%@c_summ += this.to_f%>
              <% @md = this_parent.madein%>
              <% @nm = this_parent.name%>
-             <% @cg = Storage.where(:name => @nm, :madein => @md).first._?.cena.to_f%>
+             <% @pn = this_parent.price.name%>
+             <% @f = params[:filial_name] %>
+             <% @cg = Storage.where(:name => @nm, :filial_id => @f, :pr_name => @pn, :madein => @md).first._?.cena.to_f%>
          <%if current_user.administrator?%>
            <editor/> <%unless @cg == 0%><span class="label label-info"><%= @cg._?.round(2)%></span> <%end%>
          <%else%>
@@ -99,16 +101,16 @@
                                  }, :pr_name =>Price.find_by_id(this_parent._?.price_id)._?.name,
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success",
-                             :onclick => "add_list('#{this_parent.name}','#{@t1}')"%>
+                             :onclick => "add_list('#{this_parent.name}','#{@t1}','#{Good.find(this_parent.id).count}')"%>
 
          </srok-view:>
          <nacenka-view:><editor/></nacenka-view:>
          <count-view:><editor/>
            <script language="javascript">
-             function add_list(n,t) {
+             function add_list(n,t,c) {
                var new_task = n;
                  $('#zakaz').show();
-                 $('#list').append('<li>'+new_task+'('+t+')</li>');
+                 $('#list').append('<li>'+new_task+'('+t+') -'+c+'шт.</li>');
                return false;
              }
            </script>
