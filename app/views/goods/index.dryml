@@ -78,7 +78,7 @@
                                  }, :pr_name =>Price.find_by_id(this_parent._?.price_id)._?.name,
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger", 
-                                 :onclick => "add_list('#{this_parent.name}','#{@t2}', '#{Good.find(this_parent.id).count}')"%> 
+                                 :onclick => "add_list('#{this_parent.name}','#{@t2}', '#{this_parent.id}')"%> 
          </madein-view:>
          <cena-view:>
               <%@c_summ += this.to_f%>
@@ -101,16 +101,17 @@
                                  }, :pr_name =>Price.find_by_id(this_parent._?.price_id)._?.name,
                                  :id_good => this_parent.id, :filial_id => params[:filial_name]), 
                              data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success",
-                             :onclick => "add_list('#{this_parent.name}','#{@t1}','#{Good.find(this_parent.id).count}')"%>
+                             :onclick => "add_list('#{this_parent.name}','#{@t1}','#{this_parent.id}')"%>
 
          </srok-view:>
          <nacenka-view:><editor/></nacenka-view:>
-         <count-view:><editor/>
+         <count-view: id="count_#{this_parent.id}"><editor/>
            <script language="javascript">
              function add_list(n,t,c) {
                var new_task = n;
+               var count = $('#count_'+c+' input')[3].value
                  $('#zakaz').show();
-                 $('#list').append('<li>'+new_task+'('+t+') -'+c+'шт.</li>');
+                 $('#list').append('<li>'+new_task+'('+t+') -'+count+'шт.</li>');
                return false;
              }
            </script>
