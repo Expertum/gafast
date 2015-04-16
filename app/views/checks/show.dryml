@@ -1,5 +1,10 @@
  <show-page>
    <title:><t key="activerecord.attributes.check.Check">Price</t> <%= this.id -%> : GFS</title:>
+  <after-custom-scripts:>
+    <stylesheet media="all" name="application"/>
+    <stylesheet media="print" name="print"/>
+  </after-custom-scripts:>
+
      <parent-link: replace></parent-link:>
 
      <content-header:>

@@ -1,0 +1,23 @@
+div.header-margin, div.header.page-header,div.footer.page-footer { display:none; }
+.edit-link { display:none; }
+span.data {background-color:lightgrey; text-align:center;}
+div.body-div { width: 100%; padding: 0px 0px; }
+li { margin-left: 0px; }
+html, body, div.section.content { background: white;color: black; }
+p { margin: 0; padding: 0;}
+.navbar{display:none;}
+.filters {display:none;}
+.h-name {display:none;}
+.nav {display:none;}
+.excel {display:none;}
+tr.deliver-field {display:none;}
+th {display:none;}
+.tab-content > .tab-pane, .pill-content > .pill-pane {display:none;}
+.tab-content > .active, .pill-content > .active {display: block;}
+table.one-page { page-break-before: always; }
+ 
+body{
+  -webkit-print-color-adjust:exact;
+   font-size: 7pt;
+   width: 220px;
+}
