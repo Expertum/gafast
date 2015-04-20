@@ -15,8 +15,14 @@ th {display:none;}
 .tab-content > .tab-pane, .pill-content > .pill-pane {display:none;}
 .tab-content > .active, .pill-content > .active {display: block;}
 table.one-page { page-break-before: always; }
+
+@font-face {
+    font-family: Dotf1;
+    src: url(epson1.woff);
+}
  
 body{
+   font-family: Dotf1;
   -webkit-print-color-adjust:exact;
    font-size: 7pt;
    width: 220px;
