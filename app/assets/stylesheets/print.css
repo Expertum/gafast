@@ -22,7 +22,7 @@ table.one-page { page-break-before: always; }
 }
  
 body{
-   font-family: Dotf1;
+   font-weight: 600;
   -webkit-print-color-adjust:exact;
    font-size: 7pt;
    width: 220px;

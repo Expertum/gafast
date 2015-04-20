@@ -14,11 +14,11 @@
          </ht>
        </a>
 
-       <p style="text-align: center;">СМТ БАРИШІВКА, АПТЕКА<br/> ВУЛ. ПАРХОМЕНКА, 34/1 <br/> ТОВ "ФАРМ-СИСТЕМ-КА"</p>
+       <p style="text-align: center;">СМТ БАРИШIВКА, АПТЕКА<br/> ВУЛ. ПАРХОМЕНКА, 34/1 <br/> ТОВ "ФАРМ-СИСТЕМ-КА"</p>
        <p style="text-align: center;font-weight: 600;"><ht key="check.show.heading" name="#{name(:no_wrapper => true)}" > ЧЕК № <%= this.id.to_i%></ht> </p>
 
-         <p style="text-align: center;">КАСИР: ПРОВІЗОР <a:poster class="creator-link"/></p><br/> 
-         <p style="text-align: center;">ВІДД. БАРИШЕВКА</p>
+         <p style="text-align: center;">КАСИР: ПРОВIЗОР <%= this.poster%></p><br/> 
+         <p style="text-align: center;">ВIДД. БАРИШЕВКА</p>
 
      </content-header:>
 
@@ -35,8 +35,8 @@
            <table style="width:100%;">
              <tr>
                <th style="color: rebeccapurple;">Назва</th>
-               <th style="color: rebeccapurple;">Кількість</th>
-               <th style="color: rebeccapurple;">Ціна</th>
+               <th style="color: rebeccapurple;">Кiлькiсть</th>
+               <th style="color: rebeccapurple;">Цiна</th>
              </tr>
              <% @dd.each do |name, count, cena| -%>
              <tr>
