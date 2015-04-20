@@ -24,6 +24,6 @@ table.one-page { page-break-before: always; }
 body{
    font-weight: 600;
   -webkit-print-color-adjust:exact;
-   font-size: 7pt;
+   font-size: 10pt;
    width: 220px;
 }
