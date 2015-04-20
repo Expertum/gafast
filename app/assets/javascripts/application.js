@@ -31,11 +31,14 @@ $(document).on("ajax:succes", "a", function(data){
  
 
 function sh_button() {
-   var t = $('#storage_good_minus').val();
+
+   var t = $('#storage_good_minus');
    var cs = $('#ch_count_st').text();
 
-   if ( $.isNumeric(t) ) { $('#button_to_check').show();} else {$('#button_to_check').hide();}
-   if ( parseFloat(cs) - parseFloat(t) >= 0) { $('#button_to_check').show();} else {$('#button_to_check').hide();}
+   t.val(t.val().replace(/,/g,"."));
+
+   if ( $.isNumeric(t.val()) && t.val() > 0) { $('#button_to_check').show();} else {$('#button_to_check').hide();}
+   if ( ((parseFloat(cs) - parseFloat(t.val())) >= 0) && (t.val() > 0 )) { $('#button_to_check').show();} else {$('#button_to_check').hide();}
 
    //alert($.isNumeric(t) );
    

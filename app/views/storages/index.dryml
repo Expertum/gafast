@@ -96,7 +96,8 @@
 
              $('#storage_good_minus').val('');
              $('#storage_good_minus').focus();
-             if ( $('#c'+n+' .boolean').is(':checked') ) { $('#myModal').modal('show');}
+             if ( $('#c'+n+' .boolean').is(':checked') ) { $('#myModal').modal('show'); setTimeout(function(){$('#storage_good_minus').focus();}, 700);
+}
            }
 
            function rem_li(id) {
@@ -147,7 +148,7 @@
 
                       <form with="&stor" update="storages">
                         <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.(код - <span id="ch_id"></span>)<br/>
-                        <input class="good-minus-tag decimal storage-good-minus" type="currency" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;"/>
+                        <input class="good-minus-tag decimal storage-good-minus" type="currency" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;" autofocus/>
                         <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;margin-top:4%;float:right;" type="submit"/>
                        </form>
                    </div>
