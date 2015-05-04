@@ -95,7 +95,7 @@ class StoragesController < ApplicationController
 
   def update
     @gg = Storage.where(:check => true).order("updated_at desc").first
-    if params[:storage][:good_minus] &&  @gg != nil
+    if params[:storage][:good_minus] && @gg != nil
         @storages = Storage.where(:check => true).order("updated_at desc").first
         @storages.good_minus = params[:storage][:good_minus]
         @storages.save!
