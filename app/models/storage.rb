@@ -68,6 +68,20 @@ class Storage < ActiveRecord::Base
      end
   end
 
+  def w_codeg?
+    @md = self.madein
+    @nm = self.name
+    @s_price = Price.find_by_name(self.pr_name).id
+    @g_codeg = Good.where(:name => @nm, :price_id => @s_price, :madein => @md).first._?.codeg.to_s
+    @s_codeg = self.codeg.to_s
+    if @s_codeg != @g_codeg then
+        @@res = @g_codeg
+       return true, @@res
+     else
+       return false
+     end
+  end
+
   def num_plus
       
   end

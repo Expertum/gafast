@@ -25,6 +25,7 @@ Gafast::Application.routes.draw do
      put :to_storage, :on => :collection
      put :del_check, :on => :collection
      put :perenac, :on => :collection
+     put :chcodeg, :on => :collection
   end
 
   # The priority is based upon order of creation:

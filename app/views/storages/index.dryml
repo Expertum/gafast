@@ -53,7 +53,12 @@
                  perenac_storages_path, 
                  {confirm: "Перенацінити весь товар?", :method => :put, class: "btn btn-danger", style: "float: right;" }
                  %>
- 
+<%if current_user.administrator?%>
+  <%= button_to " Зміна коду товару ", 
+                 chcodeg_storages_path, 
+                 {confirm: "Змінити код товару на складі?", :method => :put, class: "btn btn-success"}
+                 %>
+<%end%>
 
     </content-header:>
     <collection: replace>
