@@ -20,6 +20,12 @@ class Good < ActiveRecord::Base
   belongs_to :poster, :class_name => "User", :creator => true
 
   def self.import(file,cena,poster,filid)
+#--- Add Price
+      p = Price.find_or_create_by_name(cena)
+      p.filial_id = filid
+      p.poster = poster
+      p.save!
+#---
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
@@ -29,10 +35,7 @@ class Good < ActiveRecord::Base
       d = good.nds.to_s
       if d.split('-').count == 2 then good.nds = d.split('-')[1].to_f end
       if d.split('-').count == 1 then good.nds = d.split('-')[0].to_f end
-      p = Price.find_or_create_by_name(cena)
-      p.filial_id = filid
-      p.poster = poster
-      p.save!
+
       good.price = p
       good.save!
     end
