@@ -60,6 +60,7 @@
          <script language="javascript">
            function add_list_ch(n) {
              var summ = 0; 
+             $('.btn-success').hide();
              $('#myModal').modal('hide');
              $('#button_to_check').hide();
             
@@ -73,7 +74,7 @@
 
                $('#zakaz').show();
                $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+(parseFloat(cena_good)*n).toFixed(2)+
-               'грн.}<a href="#" class="btn btn-danger" onclick="$(this).parent().remove();rem_li('+id_good+'); ">-</a><span id="check_suc_res'+id_good+'" class="label label-danger">loading...</span></li>');
+               'грн.}<a href="#" class="btn btn-danger" onclick="$(this).parent().remove();rem_li('+id_good+'); ">-</a></li>');
               
                $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
              
@@ -83,8 +84,7 @@
            }
 
            function suc_str(n) {
-              $('#check_suc_res'+n).text('Loaded!');
-              $('#check_suc_res'+n).attr('class','label label-success');
+              $('.btn-success').show();
               return false;
            }
 
