@@ -19,7 +19,8 @@ class Good < ActiveRecord::Base
   belongs_to :price
   belongs_to :poster, :class_name => "User", :creator => true
 
-  def self.import(file,cena,poster,filid)
+  def self.imports(file,cena,poster,filid)
+     inserts = []
 #--- Add Price
       p = Price.find_or_create_by_name(cena)
       p.filial_id = filid
@@ -37,8 +38,9 @@ class Good < ActiveRecord::Base
       if d.split('-').count == 1 then good.nds = d.split('-')[0].to_f end
 
       good.price = p
-      good.save!
+      inserts.push good #good.save!
     end
+     Good.import inserts
   end
 
   def self.open_spreadsheet(file)

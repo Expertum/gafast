@@ -38,7 +38,7 @@ class GoodsController < ApplicationController
   end
 
   def import
-    Good.import(params[:file], params[:price], params[:poster], params[:filid])
+    Good.imports(params[:file], params[:price], params[:poster], params[:filid])
     redirect_to :back, notice: "Goods imported."
   end
 
