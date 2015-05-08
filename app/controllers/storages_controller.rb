@@ -132,12 +132,7 @@ class StoragesController < ApplicationController
   end
 
   def perenac
-      @s = Storage.all
-      @s.each{|x| if x.w_cena?
-                     d = x.w_cena?[1]
-                     x.cena = d
-                     x.save!
-                   end}
+    Storage.pernac
     redirect_to(storages_url)
   end
 
