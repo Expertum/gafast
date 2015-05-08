@@ -60,7 +60,7 @@ class Storage < ActiveRecord::Base
     @cs = self.cena.to_f
     @nds = (self.nds.to_f/100)+1
     @c_d_b =  (@cs/@nds)/1.35
-     if @cg.round(2) != @c_d_b.round(2) then
+     if (@cg.round(2) != @c_d_b.round(2)) && (@cg.round(2) != 0) then
         @@res = ((@cg*@nds)*1.35).round(2)
        return true, @@res
      else
