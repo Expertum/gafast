@@ -72,6 +72,7 @@ class StoragesController < ApplicationController
              @storages.count = (@storages.count.to_f + Good.find(params[:id_good]).count.to_f).to_f
              @storages.cena = params[:storagenew][:cena].to_f
              @storages.srok = Good.find(params[:id_good]).srok
+             @storages.location_good = params[:storagenew][:location_good]
         else
              @storages = Storage.new(params[:storagenew])
              @storages.count = Good.find(params[:id_good]).count
