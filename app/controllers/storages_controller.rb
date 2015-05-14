@@ -85,6 +85,7 @@ class StoragesController < ApplicationController
         @storages.filial_id = params[:filial_id]
         @storages.pr_name = params[:pr_name]
       end
+      @storages.poster_id = params[:poster_id]
       respond_to do |format|
         if @storages.save
           format.html { redirect_to(:back, :notice => 'Goods was created.') }
