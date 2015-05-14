@@ -86,11 +86,12 @@
              <% @nm = this_parent.name%>
              <% @pn = this_parent.price.name%>
              <% @f = params[:filial_name] %>
-             <% @cg = Storage.where(:name => @nm, :filial_id => @f, :pr_name => @pn, :madein => @md).first._?.cena.to_f%>
+             <% @fg = Storage.where(:name => @nm, :filial_id => @f, :pr_name => @pn, :madein => @md).first._?%>
+             <% @cg = @fg.cena.to_f%>
          <%if current_user.administrator?%>
-           <editor/> <%unless @cg == 0%><span class="label label-info"><%= @cg._?.round(2)%></span> <%end%>
+           <editor/> <%unless @cg == 0%><span class="label label-info"><%= @cg._?.round(2)%></span><span class="label label-warning"><%= @fg.count%></span> <%end%>
          <%else%>
-           <view/>   <%unless @cg == 0%><span class="label label-info"><%= @cg._?.round(2)%></span> <%end%>
+           <view/>   <%unless @cg == 0%><span class="label label-info"><%= @cg._?.round(2)%></span><span class="label label-warning"><%= @fg.count%></span> <%end%>
          <%end%>
          </cena-view:>
          <srok-view:> <%@t1 = '<span style="color:green;font-weight: bold;">дефектура</span>'%>         <%= link_to "[D+]", 
