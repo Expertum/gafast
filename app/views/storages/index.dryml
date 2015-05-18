@@ -204,7 +204,7 @@
              <%= link_to "#{@i} <<", goods_path(:search => this_parent.name),
                             {class: "btn btn-primary" }%>
          </num_plus-view:>
-         <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum +=(this_parent.cena.to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
+         <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum += (( (this_parent.cena/1.35) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' || this_parent.count == 0 then%><span id="c#{this_parent.id}" style="text-align: center;">
            <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}');"/>
@@ -257,7 +257,7 @@
                <tr bgcolor="#bd979f">
                   <td colspan="8"></td>
 
-                       <td colspan="3">Всього: <%= @asum.round(2)%> грн.</td> 
+                       <td>Всього: <%= @asum.round(2)%> грн. (без ПДВ та націнки)</td> 
                </tr>
              </tfoot:>
       </table-plus>
