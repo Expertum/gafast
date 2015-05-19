@@ -76,7 +76,7 @@
              <% @dd.each do |name, count, cena| -%>
              <tr>
                <td><%= name %></td>
-               <td><%= count.to_f._?.round(2) %></td>
+               <td><%= count.to_f._?.round(3) %></td>
                <td><% @sum += cena.to_f %> 
                       <%=  cena.to_f._?.round(2)%></td>
              </tr>

@@ -12,7 +12,7 @@ class Storage < ActiveRecord::Base
     srok :date
     count :decimal, :precision => 12, :scale => 2, :default => 0.00
     location_good enum_string(:stor, :defect, :check, :double)
-    good_minus :decimal, :precision => 12, :scale => 2, :default => 0.00
+    good_minus :decimal, :precision => 12, :scale => 3, :default => 0.000
 #    date_check :date
 #    date_deliver :date
     check :boolean, :default => false
