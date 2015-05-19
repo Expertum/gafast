@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150519125201) do
+ActiveRecord::Schema.define(:version => 20150519131713) do
 
   create_table "checks", :force => true do |t|
     t.string   "check_text"
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(:version => 20150519125201) do
     t.datetime "updated_at"
     t.integer  "price_id"
     t.integer  "filial_id"
-    t.decimal  "count",         :precision => 12, :scale => 2, :default => 0.0
+    t.decimal  "count",         :precision => 12, :scale => 3, :default => 0.0
     t.string   "location_good"
     t.boolean  "check",                                        :default => false
     t.decimal  "good_minus",    :precision => 12, :scale => 3, :default => 0.0
