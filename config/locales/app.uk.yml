@@ -240,7 +240,7 @@ uk:
         srok: Срок вжитку
         count: Кількість
         codeg: Код
-        morion: Моріон
+        morion: Штрикод
         price: Прайс
         name: Назва
       user :
@@ -278,7 +278,7 @@ uk:
         srok: ---
         count: Кількість
         codeg: Код
-        morion: Моріон
+        morion: Штрикод
         price: Прайс
         name: Назва
         nacenka: Націнка, %
@@ -705,7 +705,7 @@ uk:
         srok: Срок вжитку
         count: Кількість
         codeg: Код
-        morion: Моріон
+        morion: Штрикод
         price: Прайс
         name: Назва
         date_check: Дата чеку
