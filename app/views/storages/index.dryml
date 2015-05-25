@@ -194,7 +194,7 @@
 
       </div>
 
-      <table-plus part="list-table" update="list-table" fields= "num_plus, pr_name, this, morion, count, cena, summ_good, check, srok">
+      <table-plus part="list-table" update="list-table" fields= "num_plus, pr_name, morion, this, count, cena, summ_good, check, srok">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <this-view: style="width: 40%;"><view/>(<%= this.madein%>,<%= this.nds%>%) 
