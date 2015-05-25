@@ -19,6 +19,8 @@ class GoodsController < ApplicationController
      end
       #---
 
+    if params[:filial_name].blank? then params[:filial_name] = current_user.filial end
+
     @goods = Good.
       search(params[:search], :id, :codeg, :name, :cena ).
       order_by(parse_sort_param(:id, :name, :codeg))

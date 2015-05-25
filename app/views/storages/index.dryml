@@ -193,7 +193,6 @@
                             %>        
 
       </div>
-
       <table-plus part="list-table" update="list-table" fields= "num_plus, pr_name, morion, this, count, cena, summ_good, check, srok">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>

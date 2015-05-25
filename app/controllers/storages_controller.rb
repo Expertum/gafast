@@ -23,6 +23,9 @@ class StoragesController < ApplicationController
      end
       #---
 
+    if params[:location_good].blank? then params[:location_good] = 'stor' end
+    if params[:filial_name].blank? then params[:filial_name] = current_user.filial end
+ 
     @storages = Storage.
       search(params[:search], :id, :codeg, :name, :cena, :morion).
       order_by(parse_sort_param(:id, :name, :codeg, :cena, :count))
@@ -70,17 +73,20 @@ class StoragesController < ApplicationController
       @storages = Storage.where(:name => @s_name, :pr_name => @s_price, :madein => @s_madein).first
       if (@storages != nil) && params[:storagenew][:location_good] == 'stor' then
         if @storages.filial_id.to_i == params[:filial_id].to_i then
+#             puts "Мі тут ***********************************"
              @storages.count = (@storages.count.to_f + Good.find(params[:id_good]).count.to_f).to_f
              @storages.cena = params[:storagenew][:cena].to_f
              @storages.srok = Good.find(params[:id_good]).srok
              @storages.location_good = params[:storagenew][:location_good]
         else
+#             puts "Мі тут ***********************************"
              @storages = Storage.new(params[:storagenew])
              @storages.count = Good.find(params[:id_good]).count
              @storages.filial_id = params[:filial_id]
              @storages.pr_name = params[:pr_name]
         end
       else
+#             puts "Мі тут ***********************************"
         @storages = Storage.new(params[:storagenew])
         @storages.count = Good.find(params[:id_good]).count
         @storages.filial_id = params[:filial_id]
