@@ -99,6 +99,7 @@
            }
 
            function sh_modal_ch(n,t,c,p,u_id) {
+             $('#count_li').val($('#list li').length)
              $('#ch_count_st').text(c);
              $('#ch_text').text(t);
    
@@ -116,6 +117,7 @@
 
            function rem_li(id) {
              if (1 > $('#list li').length){ $('#list li').remove(); $('#zakaz').hide();}
+             $('#count_li').val('')
              var summ = 0; 
              $.ajax({url: "/storages/del_check",
                      type: 'PUT',
@@ -129,6 +131,14 @@
              $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
              $('#ch_summ').text('Загальна вартість товару - '+summ.toFixed(2)+' грн.');
            }
+
+           function add_poster(id,poster) {
+             $.ajax({url: "/storages/addposter",
+                     type: 'PUT',
+                     data: {'storage_id': id, 'add_poster_id': poster}
+                    });
+
+           }
  
             $(document).ready(function() {
               $("form").on("keypress", function (e) { if (e.keyCode == 13) { return false;} });
@@ -136,7 +146,10 @@
               $('#myModal').on('hidden.bs.modal', function (e) {
               var id_good = $('#ch_id').text();
               var u_id = $('#poster_id').val();
-              if ( $('#storage_good_minus').val() == '' ) { $.ajax({
+              var l_li = parseFloat($('#list li').length);
+              var c_li = parseFloat($('#count_li').val());
+              $('#button_to_check').hide();
+              if ( l_li - c_li == 0  ) { $.ajax({
                                                            url: "/storages/del_check",
                                                            type: 'PUT',
                                                            data: {'nocheck': id_good, 'poster_id' : u_id}
@@ -163,7 +176,7 @@
 
                       <form with="&stor" update="storages" success="suc_str($('#ch_id').text());" run="$('#loading').toggle()" complete ="$('#loading').toggle()">
                         <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.(код - <span id="ch_id"></span>)<br/>
-                        <input type="hidden" id="poster_id" name="current_user_id"/>
+                        <input type="hidden" id="count_li"/>
                         <input class="good-minus-tag decimal storage-good-minus" type="currency" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;" autofocus/>
                         <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;margin-top:4%;float:right;" type="submit"/>
                        </form>
@@ -211,7 +224,7 @@
          <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum += (( (this_parent.cena/1.35) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' || this_parent.count == 0 || (this_parent.poster_id != current_user.id && this_parent.check) then%><span id="c#{this_parent.id}" style="text-align: center;">
-           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}','#{current_user.id}');"/>
+           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}'); add_poster('#{this_parent.id}','#{current_user.id}');"/>
            </span>
            <%else%>
              <% if this_parent.poster_id != current_user.id && this_parent.check%>

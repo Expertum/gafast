@@ -107,7 +107,6 @@ class StoragesController < ApplicationController
     if params[:storage][:good_minus] && @gg != nil
         @storages = Storage.where(:check => true).order("updated_at desc").first
         @storages.good_minus = params[:storage][:good_minus]
-        @storages.poster_id = params[:current_user_id]
         @storages.save!
      respond_to do |format|
        format.js  { hobo_ajax_response }
@@ -130,12 +129,14 @@ class StoragesController < ApplicationController
     if params[:nocheck] then
       @s = Storage.find(params[:nocheck].to_i)
       @s.check = false
+      @s.poster_id = nil
       @s.good_minus = 0.0
       @s.save!   
      render :action => "index"
     else
       @s = Storage.where(:check => true, :filial_id => params[:filial_id], :poster_id => params[:poster_id])
       @s.each{|x| x.check = false
+                  x.poster_id = nil
                   x.good_minus = 0.0
                   x.save!}
       redirect_to(storages_url)
@@ -160,5 +161,13 @@ class StoragesController < ApplicationController
     redirect_to(storages_url)
   end
 
+  def addposter
+    if params[:add_poster_id] then
+       @s = Storage.find(params[:storage_id].to_i)
+       @s.poster_id = params[:add_poster_id]
+       @s.save!
+    end
+    render :action => "index"
+  end
 
 end
