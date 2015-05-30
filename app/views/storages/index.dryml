@@ -98,13 +98,15 @@
               return false;
            }
 
-           function sh_modal_ch(n,t,c,p) {
+           function sh_modal_ch(n,t,c,p,u_id) {
              $('#ch_count_st').text(c);
              $('#ch_text').text(t);
    
              $('#ch_id').text(n);
 
              $('#ch_cena_st').text(p);
+
+             $('#poster_id').val(u_id);
 
              $('#storage_good_minus').val('');
              $('#storage_good_minus').focus();
@@ -133,10 +135,11 @@
               $('#zakaz').draggable();
               $('#myModal').on('hidden.bs.modal', function (e) {
               var id_good = $('#ch_id').text();
+              var u_id = $('#poster_id').val();
               if ( $('#storage_good_minus').val() == '' ) { $.ajax({
                                                            url: "/storages/del_check",
                                                            type: 'PUT',
-                                                           data: {'nocheck': id_good}
+                                                           data: {'nocheck': id_good, 'poster_id' : u_id}
                                                           });
                                                           $('#c'+id_good).children('.storage').children('#storage_check').prop( "checked", false );
                                                          } 
@@ -160,6 +163,7 @@
 
                       <form with="&stor" update="storages" success="suc_str($('#ch_id').text());" run="$('#loading').toggle()" complete ="$('#loading').toggle()">
                         <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.(код - <span id="ch_id"></span>)<br/>
+                        <input type="hidden" id="poster_id" name="current_user_id"/>
                         <input class="good-minus-tag decimal storage-good-minus" type="currency" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;" autofocus/>
                         <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;margin-top:4%;float:right;" type="submit"/>
                        </form>
@@ -188,7 +192,7 @@
                             {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success", :mouseup => "remove_list_ch()", style: "float:right;margin-top:22px;" }%>   
        
              <%= button_to " Відмова ", 
-                            del_check_storages_path, 
+                            del_check_storages_path(:filial_id => params[:filial_name], :poster_id => current_user.id), 
                             {confirm: "Видалити Чек?", :method => :put, class: "btn btn-danger", :mouseup => "remove_list_ch()",  style: "margin-top:0px;" }
                             %>        
 
@@ -206,11 +210,15 @@
          </num_plus-view:>
          <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum += (( (this_parent.cena/1.35) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
          <check-view:>        
-           <% unless this_parent.location_good == 'defect' || this_parent.count == 0 then%><span id="c#{this_parent.id}" style="text-align: center;">
-           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}');"/>
+           <% unless this_parent.location_good == 'defect' || this_parent.count == 0 || (this_parent.poster_id != current_user.id && this_parent.check) then%><span id="c#{this_parent.id}" style="text-align: center;">
+           <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}','#{current_user.id}');"/>
            </span>
            <%else%>
-           <%= this_parent.poster%>
+             <% if this_parent.poster_id != current_user.id && this_parent.check%>
+               Використовується користовучам - <%= this_parent.poster%>
+             <%else%>
+               <%= this_parent.poster%>
+             <%end%>
            <% end %>
          </check-view:>
          <deliver-view:><span id="d#{this_parent.id}"><live-editor-innards onclick="sh_modal_dl('#{this_parent.id}');"/></span></deliver-view:>

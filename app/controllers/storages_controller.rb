@@ -107,6 +107,7 @@ class StoragesController < ApplicationController
     if params[:storage][:good_minus] && @gg != nil
         @storages = Storage.where(:check => true).order("updated_at desc").first
         @storages.good_minus = params[:storage][:good_minus]
+        @storages.poster_id = params[:current_user_id]
         @storages.save!
      respond_to do |format|
        format.js  { hobo_ajax_response }
@@ -131,13 +132,14 @@ class StoragesController < ApplicationController
       @s.check = false
       @s.good_minus = 0.0
       @s.save!   
+     render :action => "index"
     else
-      @s = Storage.where(:check => true)
+      @s = Storage.where(:check => true, :filial_id => params[:filial_id], :poster_id => params[:poster_id])
       @s.each{|x| x.check = false
                   x.good_minus = 0.0
                   x.save!}
+      redirect_to(storages_url)
     end
-    render :action => "index"
   end
 
   def perenac

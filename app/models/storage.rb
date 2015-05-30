@@ -35,12 +35,11 @@ class Storage < ActiveRecord::Base
       @ss = find_by_name(storage.name)
       if @ss && (@ss.id.to_i != id.to_i) && @ss.location_good == 'stor' then
          @ss.count = @ss.count.to_f + storage.count.to_f
-         storage.location_good = 'double'
          @ss.save!
       else
          storage.location_good = 'stor'
+         storage.save!
       end
-      storage.save!
   end
 
   def self.to_csv(options = {})
