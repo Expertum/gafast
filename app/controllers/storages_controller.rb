@@ -110,7 +110,7 @@ class StoragesController < ApplicationController
         @storages.save!
      respond_to do |format|
        format.js  { hobo_ajax_response }
-       format.html {}
+       format.html {  redirect_to(@storages)  }
       end
     else
       hobo_update
