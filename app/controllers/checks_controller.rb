@@ -1,3 +1,4 @@
+# coding: utf-8
 class ChecksController < ApplicationController
 
   hobo_model_controller
@@ -55,6 +56,15 @@ class ChecksController < ApplicationController
            @checks.filial_id = params[:filial_id]
         end
         @s = Storage.where(:check => true, :filial_id => @checks.filial_id, :poster_id => params[:poster_id])
+        puts ''
+        puts "Формування товару у Чеці:"
+        puts "*************************"
+        i = 0
+        @s.each{|s| puts i+=1
+                    puts 'Назва препарату - '+s.name.to_s
+                    puts 'Кількість проданого - '+s.good_minus.to_s
+                    puts 'Ціна за 1 шт - '+s.cena.to_f.to_s
+                    puts 'Ціна проданого -'+(s.cena.to_f*s.good_minus.to_f).to_s;}
         @s.each{|x| d.push(x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s);x.check = false;x.count -= x.good_minus;x.good_minus = 0.0;x.poster_id =nil;x.save! }
         @checks.check_text = d.join('||')
 

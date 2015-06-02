@@ -156,6 +156,11 @@ class StoragesController < ApplicationController
     if params[:add_poster_id] then
        @s = Storage.find(params[:storage_id].to_i)
        @s.poster_id = params[:add_poster_id]
+       puts ''
+       puts "Додали постера після натискання галочкі"
+       puts "***************************************"
+       puts User.find(@s.poster_id.to_i)
+       puts "***************************************"
        @s.save!
     end
     render :action => "index"
@@ -165,6 +170,12 @@ class StoragesController < ApplicationController
     if params[:add_minus] == 'add_minus'
        @s = Storage.find(params[:stor_id].to_i)
        @s.good_minus = params[:storage][:good_minus]
+       puts ''
+       puts "Додали кількість товару яку необхідно продати"
+       puts "***************************************"
+       puts @s.good_minus
+       puts "***************************************"
+       @s.save!
        @s.save!
     end
     render :action => "index"
