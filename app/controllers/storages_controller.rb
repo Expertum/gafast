@@ -107,11 +107,14 @@ class StoragesController < ApplicationController
   end
 
   def update
-    @gg = Storage.where(:check => true).order("updated_at desc").first
-    if params[:storage][:good_minus] && @gg != nil
-        @storage = Storage.where(:check => true).order("updated_at desc").first
-        @storage.good_minus = params[:storage][:good_minus]
-        @storage.save!
+    if params[:storage][:good_minus].to_i > 0
+        @gg = Storage.where(:check => true).order("updated_at desc").first
+        if @gg != nil
+           @storage = Storage.where(:check => true).order("updated_at desc").first
+           @storage.good_minus = params[:storage][:good_minus]
+           @storage.save!
+        
+        end
      respond_to do |format|
        format.js  { hobo_ajax_response }
        format.html {  redirect_to(@storage)  }
