@@ -47,7 +47,11 @@ class StoragesController < ApplicationController
          list.row(0).concat %w{Код_товара Товар	Производитель Срок_годности Предоплата Признак_НДС Количество} 
          @storages.each_with_index { |storage, i|
               @cena_p = (storage.cena.to_f/(1+(storage.nds.to_f+35)/100)).round(2)
-              if storage.pr_name == 'Оптима' then @dd = storage.codeg.to_i.to_s end
+              if storage.pr_name == 'Оптима' || storage.pr_name == 'Вента' then 
+                 @dd = storage.codeg.to_i.to_s
+              else
+                 @dd = storage.codeg.to_s
+              end
               list.row(i+1).push @dd, storage.name, storage.madein, storage.srok, @cena_p.to_s, storage.nds.to_i.to_s, storage.count
 
          }
@@ -95,7 +99,7 @@ class StoragesController < ApplicationController
       @storages.poster_id = params[:poster_id]
       respond_to do |format|
         if @storages.save
-          format.html { redirect_to(:back, :notice => 'Goods was created.') }
+          format.html { redirect_to(:back, :notice => 'Storage was created.') }
         else
           format.html { render :action => "new" }
         end
