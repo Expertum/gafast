@@ -104,6 +104,7 @@
              $('#ch_text').text(t);
    
              $('#ch_id').text(n);
+             $('#stor_id').val(n);
 
              $('#ch_cena_st').text(p);
 
@@ -174,9 +175,11 @@
                            stor = Storage.first
                       %>
 
-                      <form with="&stor" update="storages" success="suc_str($('#ch_id').text());" run="$('#loading').toggle()" complete ="$('#loading').toggle()">
+                      <form action="/storages/add_minus" method="put" success="suc_str($('#ch_id').text());" run="$('#loading').toggle()" complete ="$('#loading').toggle()">
                         <span id="ch_text"></span>, кіл. на складі -<span id="ch_count_st"></span>шт. вартість 1шт - <span id="ch_cena_st"></span>грн.(код - <span id="ch_id"></span>)<br/>
                         <input type="hidden" id="count_li"/>
+                        <input type="hidden" id="stor_id" name="stor_id"/>
+                        <input type="hidden" name="add_minus" value="add_minus"/>
                         <input class="good-minus-tag decimal storage-good-minus" type="currency" id="storage_good_minus" name="storage[good_minus]" onkeyup="sh_button();" onckick="sh_button();" style="width:97%; margin-top:4%;" autofocus/>
                         <input class="btn btn-default" onclick="add_list_ch($('#storage_good_minus').val())" id="button_to_check" style="display:none;margin-top:4%;float:right;" type="submit"/>
                        </form>

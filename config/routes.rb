@@ -27,6 +27,7 @@ Gafast::Application.routes.draw do
      put :perenac, :on => :collection
      put :chcodeg, :on => :collection
      put :addposter, :on => :collection
+     put :add_minus, :on => :collection
   end
 
   # The priority is based upon order of creation:

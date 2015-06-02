@@ -35,6 +35,8 @@ class StoragesController < ApplicationController
 
     @storages = @storages.where("pr_name like ?", params[:pr_name]) unless params[:pr_name].blank?
 
+    @storages.each{|s| if s.count == 0 then s.location_good = 'defect' end; s.save!}
+
     @storages = @storages.order("srok asc").paginate(:page => params[:page]) if params[:location_good] != 'defect'
 
     hobo_index do |format|
@@ -106,24 +108,6 @@ class StoragesController < ApplicationController
       end
   end
 
-  def update
-    if params[:storage][:good_minus].to_i > 0
-        @gg = Storage.where(:check => true).order("updated_at desc").first
-        if @gg != nil
-           @storage = Storage.where(:check => true).order("updated_at desc").first
-           @storage.good_minus = params[:storage][:good_minus]
-           @storage.save!
-        
-        end
-     respond_to do |format|
-       format.js  { hobo_ajax_response }
-       format.html {  redirect_to(@storage)  }
-      end
-    else
-      hobo_update
-    end
-  end
-
   def to_storage
     Storage.to_storage(params[:id])
      respond_to do |format|
@@ -172,6 +156,15 @@ class StoragesController < ApplicationController
     if params[:add_poster_id] then
        @s = Storage.find(params[:storage_id].to_i)
        @s.poster_id = params[:add_poster_id]
+       @s.save!
+    end
+    render :action => "index"
+  end
+
+  def add_minus
+    if params[:add_minus] == 'add_minus'
+       @s = Storage.find(params[:stor_id].to_i)
+       @s.good_minus = params[:storage][:good_minus]
        @s.save!
     end
     render :action => "index"
