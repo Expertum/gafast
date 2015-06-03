@@ -140,6 +140,13 @@
                     });
 
            }
+
+           function del_stor(id) {
+            
+             $('#'+id+'_del-lbl').toggle();
+             $('#'+id+'_del-btn').toggle();
+             $('#'+id+'_del-spn').toggle();
+           }
  
             $(document).ready(function() {
               $("form").on("keypress", function (e) { if (e.keyCode == 13) { return false;} });
@@ -233,7 +240,15 @@
              <% if this_parent.poster_id != current_user.id && this_parent.check%>
                Використовується користовучам - <%= this_parent.poster%>
              <%else%>
-               <%= this_parent.poster%>
+           <span class="label label-success" id="#{this_parent.id}_del-lbl" style="display:none;">Товар на ВИДАЛЕНИЙ!</span>
+               <%  if current_user.provizor? then %>
+                 <span class="label label-warning" id="#{this_parent.id}_del-spn" >Видалити!</span>
+                 <%= button_to "DEL", 
+                                to_del_storages_path(:id => this_parent.id), 
+                                {:method => :put, :remote => true, class: "btn btn-danger", id: "#{this_parent.id}_del-btn" , onclick: "del_stor(#{this_parent.id});", style: "margin-left:12%;"}%>
+               <% else %>
+                 <%= this_parent.poster%>
+               <% end %> 
              <%end%>
            <% end %>
          </check-view:>

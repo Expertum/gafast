@@ -42,6 +42,12 @@ class Storage < ActiveRecord::Base
       end
   end
 
+  def self.to_del(id)
+      storage = find_by_id(id)
+      storage.location_good = 'double'
+      storage.save!
+  end
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names

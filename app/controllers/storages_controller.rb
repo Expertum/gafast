@@ -116,6 +116,14 @@ class StoragesController < ApplicationController
       end
   end
 
+  def to_del
+    Storage.to_del(params[:id])
+     respond_to do |format|
+       format.js  { redirect_to(storages_url) }
+       format.html { redirect_to(storages_url) }
+      end
+  end
+
   def del_check
     if params[:nocheck] then
       @s = Storage.find(params[:nocheck].to_i)
