@@ -32,14 +32,16 @@ class Storage < ActiveRecord::Base
 
   def self.to_storage(id)
       storage = find_by_id(id)
-      @ss = find_by_name(storage.name)
+      #@ss = find_by_name(storage.name)
+      @ss = Storage.where(:name => storage.name, :filial_id => storage.filial_id, :madein => storage.madein).first
       if @ss && (@ss.id.to_i != id.to_i) && @ss.location_good == 'stor' then
          @ss.count = @ss.count.to_f + storage.count.to_f
+         storage.location_good = 'double'
          @ss.save!
       else
          storage.location_good = 'stor'
-         storage.save!
       end
+      storage.save!
   end
 
   def self.to_del(id)
