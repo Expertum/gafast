@@ -45,14 +45,20 @@
   Зберегти:
   <%= link_to "Excel", storages_path(format: "xls") %>
       <% unless current_user.role != 'provizor'%>
-      <span class="label label-prinary"><%= Storage.all.each{|x| if x.location_good == 'stor' then @d += x.count * x.cena; @ii +=1 end}
+        <span class="label label-prinary"><%= @storages.each{|x| if x.location_good == 'stor' then @d += x.count * x.cena; @ii +=1 end}
                                             @ii %> шт.</span>
-      <span class="label label-success"><%= @d.round(2)%> грн.</span>
-      <% end %>
-  <%= button_to " Перенацінка ", 
+        <span class="label label-success"><%= @d.round(2)%> грн.</span>
+
+         
+          <%= link_to("Змінити", "/filials/"+params[:filial_name].to_s+"/edit", style: 'float:right;' )%>
+          <%= @j = this.first.filial.nacenka
+               button_to " Перенацінка " + @j.to_s + "%", 
                  perenac_storages_path, 
-                 {confirm: "Перенацінити весь товар?", :method => :put, class: "btn btn-danger", style: "float: right;" }
+                 {confirm: "Перенацінити весь товар?", :method => :put, class: "btn btn-danger", style: 'float:right;' }
                  %>
+         
+      <% end %>
+
 <%if current_user.administrator?%>
   <%= button_to " Зміна коду товару ", 
                  chcodeg_storages_path, 
@@ -294,7 +300,8 @@
          </count-view:>
              <tfoot:>
                <tr bgcolor="#bd979f">
-                  <td colspan="8"></td>
+                  <td colspan="8">
+                  </td>
 
                        <td>Всього: <%= @asum.round(2)%> грн. (без ПДВ та націнки)</td> 
                </tr>

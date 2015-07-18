@@ -60,15 +60,16 @@ class Storage < ActiveRecord::Base
   end
 
   def w_cena?
+    @nac = (self.filial.nacenka.to_f/100)+1
     @md = self.madein
     @nm = self.name
     @s_price = Price.find_by_name(self.pr_name).id
     @cg = Good.where(:name => @nm, :price_id => @s_price, :madein => @md).first._?.cena.to_f
     @cs = self.cena.to_f
     @nds = (self.nds.to_f/100)+1
-    @c_d_b =  (@cs/@nds)/1.35
+    @c_d_b =  (@cs/@nds)/@nac
      if (@cg.round(2) != @c_d_b.round(2)) && (@cg.round(2) != 0) then
-        @@res = ((@cg*@nds)*1.35).round(2)
+        @@res = ((@cg*@nds)*@nac).round(2)
        return true, @@res
      else
        return false

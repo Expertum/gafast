@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150519131713) do
+ActiveRecord::Schema.define(:version => 20150718055317) do
 
   create_table "checks", :force => true do |t|
     t.string   "check_text"
@@ -38,6 +38,22 @@ ActiveRecord::Schema.define(:version => 20150519131713) do
   add_index "comments", ["price_id"], :name => "index_comments_on_price_id"
   add_index "comments", ["recipient_id"], :name => "index_comments_on_recipient_id"
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0, :null => false
+    t.integer  "attempts",   :default => 0, :null => false
+    t.text     "handler",                   :null => false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
   create_table "filials", :force => true do |t|
     t.string   "name"
     t.string   "contact_name"
@@ -45,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20150519131713) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "nacenka",      :precision => 12, :scale => 2, :default => 30.0
   end
 
   create_table "goods", :force => true do |t|
