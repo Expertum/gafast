@@ -282,6 +282,7 @@ uk:
         price: Прайс
         name: Назва
         nacenka: Націнка, %
+        to_order: На заказ
       act :
         coin: Ланцюг виплат
         vic_select: Вибір потерпілого
@@ -714,6 +715,7 @@ uk:
         check_text: товар чеку
         deliver_text: товар доставки
         pr_name: Прайс
+        to_order: Заказ
       check:
         Check: Чек
         check_text: товар чеку

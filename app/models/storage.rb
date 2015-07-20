@@ -13,6 +13,7 @@ class Storage < ActiveRecord::Base
     count :decimal, :precision => 12, :scale => 3, :default => 0.000
     location_good enum_string(:stor, :defect, :check, :double)
     good_minus :decimal, :precision => 12, :scale => 3, :default => 0.000
+    to_order :boolean, :default => false
 #    date_check :date
 #    date_deliver :date
     check :boolean, :default => false
@@ -23,7 +24,7 @@ class Storage < ActiveRecord::Base
     timestamps
   end
   attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :filial, :filial_id, :count, :location_good, :price, :price_id,
-                  :date_check, :date_deliver, :check, :deliver, :check_text, :deliver_text, :good_minus, :pr_name
+                  :date_check, :date_deliver, :check, :deliver, :check_text, :deliver_text, :good_minus, :pr_name, :to_order
 
 
   belongs_to :price
@@ -41,11 +42,13 @@ class Storage < ActiveRecord::Base
       else
          storage.location_good = 'stor'
       end
+      storage.to_order = 'false'
       storage.save!
   end
 
   def self.to_del(id)
       storage = find_by_id(id)
+      storage.to_order = 'false'
       storage.location_good = 'double'
       storage.save!
   end

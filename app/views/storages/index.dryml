@@ -49,14 +49,14 @@
                                             @ii %> шт.</span>
         <span class="label label-success"><%= @d.round(2)%> грн.</span>
 
-         
+          <% unless this.count == 0%>
           <%= link_to("Змінити", "/filials/"+params[:filial_name].to_s+"/edit", style: 'float:right;' )%>
           <%= @j = this.first.filial.nacenka
                button_to " Перенацінка " + @j.to_s + "%", 
                  perenac_storages_path, 
                  {confirm: "Перенацінити весь товар?", :method => :put, class: "btn btn-danger", style: 'float:right;' }
                  %>
-         
+          <%end%>
       <% end %>
 
 <%if current_user.administrator?%>
@@ -229,7 +229,13 @@
       <table-plus part="list-table" update="list-table" fields= "num_plus, pr_name, morion, this, count, cena, summ_good, check, srok">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
-         <this-view: style="width: 40%;"><view/>(<%= this.madein%>,<%= this.nds%>%) 
+         <this-view: style="width: 40%;">
+           <view/>(<%= this.madein%>,<%= this.nds%>%) 
+           <%if this.to_order?%>
+              <span class="label label-success"> Товар на ЗАКАЗ!
+              </span>
+           <%else%>
+           <%end%>
          </this-view:>
          <morion-view:><%= this.to_i%></morion-view:>
          <num_plus-view:> <%@i +=1%>
@@ -237,7 +243,9 @@
              <%= link_to "#{@i} <<", goods_path(:search => this_parent.name),
                             {class: "btn btn-primary" }%>
          </num_plus-view:>
-         <summ_good-view:><%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum += (( (this_parent.cena/1.35) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%></summ_good-view:>
+         <summ_good-view: style="font-weight:600; text-align: center; line-height: 50px;">
+         <%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum += (( (this_parent.cena/1.35) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%>
+         </summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' || this_parent.count == 0 || (this_parent.poster_id != current_user.id && this_parent.check) then%><span id="c#{this_parent.id}" style="text-align: center;">
            <live-editor-innards onclick="sh_modal_ch('#{this_parent.id}','#{this_parent.name}','#{this_parent.count._?.round(4)}','#{this_parent.cena._?.round(2)}'); add_poster('#{this_parent.id}','#{current_user.id}');"/>
@@ -246,7 +254,7 @@
              <% if this_parent.poster_id != current_user.id && this_parent.check%>
                Використовується користовучам - <%= this_parent.poster%>
              <%else%>
-           <span class="label label-success" id="#{this_parent.id}_del-lbl" style="display:none;">Товар на ВИДАЛЕНИЙ!</span>
+           <span class="label label-danger" id="#{this_parent.id}_del-lbl" style="display:none;">Товар ВИДАЛЕНИЙ!</span>
                <%  if current_user.provizor? then %>
                  <span class="label label-warning" id="#{this_parent.id}_del-spn" >Видалити!</span>
                  <%= button_to "DEL", 
@@ -273,15 +281,18 @@
            <editor/>
            <%end%>
          </srok-view:>         
-         <cena-view: style="font-weight: 600;">
-            <editor/><% unless this_parent.location_good == 'defect' then%>
-             <%@c_summ += this.to_f%>
-             <% if this_parent.w_cena? then%>
-               <span class="label label-warning">!!! ціна закупки !!!</span>
-               <span class="label label-primary">реком. <%= this_parent.w_cena?[1]%>грн.</span>
-             <%else%>
-             <%end%>
-                    <%end%>
+         <cena-view: style="font-weight: normal; line-height: 50px;">
+
+            <span style="text-align: center;">    <%if current_user.administrator? || current_user.provizor?%><editor/><%else%><view/><%end%></span>
+
+            <% unless this_parent.location_good == 'defect' then%>
+              <%@c_summ += this.to_f%>
+               <% if this_parent.w_cena? then%>
+                 <span class="label label-warning">!!! ціна закупки !!!</span>
+                 <span class="label label-primary">реком. <%= this_parent.w_cena?[1]%>грн.</span>
+               <%else%>
+               <%end%>
+            <%end%>
          </cena-view:>
          <count-view: id="&this_parent.id"><%@k_summ += this.to_f%>
            <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>

@@ -64,11 +64,12 @@
       </div>
 
       <table-plus part="list-table" update="list-table"
-        fields="this, madein, nds, cena, srok, count, nacenka, price">
+        fields="this, madein, nds, cena, srok, count, nacenka, to_order, price">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <this-view:><view/>(<%= this.madein%>,<%= this.srok._?.strftime("%d.%m.%Y")%>) 
          </this-view:>
+         <to-order-view:><editor/></to-order-view:>
          <madein-view:><%@t2 = '<span style="color:red;font-weight: bold;">склад</span>'%>        
                <%= link_to "[S+]", 
                storages_path(:storagenew => 
@@ -76,7 +77,7 @@
                                  :nds => this_parent.nds, 
                                  :cena => ((this_parent.cena.to_f*(this_parent.nacenka.to_f/100+1))*(this_parent.nds.to_f/100+1)).round(2), :srok => this_parent.srok, :location_good => 'stor' 
                                  }, :pr_name =>Price.find_by_id(this_parent._?.price_id)._?.name,
-                                 :id_good => this_parent.id, :filial_id => params[:filial_name], :poster_id => current_user.id), 
+                                 :id_good => this_parent.id, :filial_id => params[:filial_name], :poster_id => current_user.id, :to_order => this_parent.to_order), 
                              data: { confirm: "Ви впевненні? Товар додастя до складу.", :method => :post, remote: true}, class: "btn btn-danger", 
                                  :onclick => "add_list('#{this_parent.name}','#{@t2}', '#{this_parent.id}')"%> 
          </madein-view:>
@@ -101,7 +102,7 @@
                                  :nds => this_parent.nds, 
                                  :cena => ((this_parent.cena.to_f*(this_parent.nacenka.to_f/100+1))*(this_parent.nds.to_f/100+1)).round(2), :srok => this_parent.srok, :location_good => 'defect' 
                                  }, :pr_name =>Price.find_by_id(this_parent._?.price_id)._?.name,
-                                 :id_good => this_parent.id, :filial_id => params[:filial_name], :poster_id => current_user.id), 
+                                 :id_good => this_parent.id, :filial_id => params[:filial_name], :poster_id => current_user.id, :to_order => this_parent.to_order), 
                              data: { confirm: "Товар до дефектури?", :method => :post, remote: true}, class: "btn btn-success",
                              :onclick => "add_list('#{this_parent.name}','#{@t1}','#{this_parent.id}')"%>
 
@@ -113,7 +114,7 @@
                var new_task = n;
                var count = $('#count_'+c+' input')[3].value
                  $('#zakaz').show();
-                 $('#list').append('<li>'+new_task+'('+t+') -'+count+'шт.</li>');
+                 $('#list').append('<li>'+new_task+'('+t+') -'+count+'шт. </li>');
                return false;
              }
            </script>

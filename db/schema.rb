@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150718055317) do
+ActiveRecord::Schema.define(:version => 20150720070003) do
 
   create_table "checks", :force => true do |t|
     t.string   "check_text"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20150718055317) do
     t.decimal  "count",      :precision => 12, :scale => 2, :default => 0.0
     t.decimal  "nacenka",    :precision => 12, :scale => 2, :default => 35.0
     t.integer  "poster_id"
+    t.boolean  "to_order",                                  :default => false
   end
 
   add_index "goods", ["poster_id"], :name => "index_goods_on_poster_id"
@@ -165,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20150718055317) do
     t.decimal  "good_minus",    :precision => 12, :scale => 3, :default => 0.0
     t.string   "pr_name"
     t.integer  "poster_id"
+    t.boolean  "to_order",                                     :default => false
   end
 
   add_index "storages", ["filial_id"], :name => "index_storages_on_filial_id"
