@@ -45,7 +45,7 @@
   Зберегти:
   <%= link_to "Excel", storages_path(format: "xls") %>
       <% unless current_user.role != 'provizor'%>
-        <span class="label label-prinary"><%= @storages.each{|x| if x.location_good == 'stor' then @d += x.count * x.cena; @ii +=1 end}
+        <span class="label label-prinary"><%= Storage.all.each{|x| if x.location_good == 'stor' then @d += x.count * x.cena; @ii +=1 end}
                                             @ii %> шт.</span>
         <span class="label label-success"><%= @d.round(2)%> грн.</span>
 
@@ -244,7 +244,7 @@
                             {class: "btn btn-primary" }%>
          </num_plus-view:>
          <summ_good-view: style="font-weight:600; text-align: center; line-height: 50px;">
-         <%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum += (( (this_parent.cena/1.35) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%>
+         <%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum += (( (this_parent.cena/this_parent.filial.nacenka.to_f) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%>
          </summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' || this_parent.count == 0 || (this_parent.poster_id != current_user.id && this_parent.check) then%><span id="c#{this_parent.id}" style="text-align: center;">
@@ -280,21 +280,27 @@
            <%else%>
            <editor/>
            <%end%>
-         </srok-view:>         
-         <cena-view: style="font-weight: normal; line-height: 50px;">
-
-            <span style="text-align: center;">    <%if current_user.administrator? || current_user.provizor?%><editor/><%else%><view/><%end%></span>
-
+         </srok-view:> 
+         <cena-view: style="font-weight: normal; ">
             <% unless this_parent.location_good == 'defect' then%>
               <%@c_summ += this.to_f%>
                <% if this_parent.w_cena? then%>
-                 <span class="label label-warning">!!! ціна закупки !!!</span>
-                 <span class="label label-primary">реком. <%= this_parent.w_cena?[1]%>грн.</span>
+                 <div class="alert alert-warning" role="alert" style="padding:0px 0px 0px 0px; margin-bottom:0px; line-height: 20px;">
+                   <span style="text-align: center;">    
+                     <%if current_user.administrator? || current_user.provizor?%><editor/><%else%><view/><%end%>
+                   </span>
+                   <span class="label label-warning" style="margin: auto;">
+                     !!! реком. <%= this_parent.w_cena?[1]%>грн. !!!
+                   </span>
+                 </div>
                <%else%>
+                 <span style="text-align: center; line-height: 50px;">    <%if current_user.administrator? || current_user.provizor?%><editor/><%else%><view/><%end%></span>
                <%end%>
+            <%else%>
+              <span style="text-align: center; line-height: 50px;">    <%if current_user.administrator? || current_user.provizor?%><editor/><%else%><view/><%end%></span>
             <%end%>
          </cena-view:>
-         <count-view: id="&this_parent.id"><%@k_summ += this.to_f%>
+         <count-view: id="&this_parent.id" style="font-weight: normal; line-height: 50px; text-align: center;"><%@k_summ += this.to_f%>
            <span class="label label-success" id="1l" style="display:none;">Товар на Складі!</span>
            <% if this_parent.location_good == 'defect' then%>
              <editor/>
