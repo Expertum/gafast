@@ -250,7 +250,8 @@
                             {class: "btn btn-primary" }%>
          </num_plus-view:>
          <summ_good-view: style="font-weight:600; text-align: center; line-height: 50px;">
-         <%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%><% @asum += (( (this_parent.cena/this_parent.filial.nacenka.to_f) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%>
+         <%= (this_parent.cena.to_f*this_parent.count.to_f).round(2)%>
+         <% @asum += (( (this_parent.cena/((this_parent.filial.nacenka.to_f/100)+1)) / ((this_parent.nds.to_f/100)+1) ).to_f*this_parent.count.to_f).round(2)%>
          </summ_good-view:>
          <check-view:>        
            <% unless this_parent.location_good == 'defect' || this_parent.count == 0 || (this_parent.poster_id != current_user.id && this_parent.check) then%><span id="c#{this_parent.id}" style="text-align: center;">
