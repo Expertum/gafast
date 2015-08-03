@@ -50,7 +50,7 @@
         <span class="label label-success"><%= @d.round(2)%> грн.</span>
         -
         <% unless params[:filial_name].nil?
-             @fid= params[:filial_name].to_i
+             @fid= params[:filial_name].id.to_i
            end
          %>
         <span class="label label-prinary"><%= Storage.all.each{|x| if (x.location_good == 'stor') && (x.filial_id ==  @fid) then @cd += x.count * x.cena; @ci +=1 end}
