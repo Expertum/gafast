@@ -27,7 +27,7 @@ class StoragesController < ApplicationController
       #---
 
     if params[:location_good].blank? then params[:location_good] = 'stor' end
-    if params[:filial_name].blank? then params[:filial_name] = current_user.filial end
+    if params[:filial_name].blank? then params[:filial_name] = current_user.filial.id.to_i end
  
     @storages = Storage.
       search(params[:search], :id, :codeg, :name, :cena, :morion).
