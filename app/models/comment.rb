@@ -12,6 +12,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :poster, :class_name => "User", :creator => true
   belongs_to :price, :touch => true
+  belongs_to :news, :touch => true
 
   def recent?
     created_at ? created_at > Time.now - 2.days : false

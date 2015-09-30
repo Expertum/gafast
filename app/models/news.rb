@@ -4,11 +4,13 @@ class News < ActiveRecord::Base
 
   fields do
     title   :string, :required
-    content :text, :required
+    content :text
     timestamps
   end
 
   attr_accessible :title, :content
+
+  has_many :comments, :dependent => :destroy, :order => 'created_at DESC'
 
   belongs_to :poster, :class_name => "User", :creator => true
   belongs_to :filial
@@ -19,11 +21,11 @@ class News < ActiveRecord::Base
   # --- Permissions --- #
 
   def create_permitted?
-    acting_user.administrator?
+    true
   end
 
   def update_permitted?
-    acting_user.administrator?
+    true
   end
 
   def destroy_permitted?

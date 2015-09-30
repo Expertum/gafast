@@ -1,0 +1,57 @@
+<show-page>
+    <content-header:>
+      <span><%=this%></span>
+      <% unless current_user.role != 'provizor'%>
+      <a class="btn pull-right" action='edit' if="&can_edit?">Змiнити</a>
+      <% end %>
+
+      <form:comments.new update="comments-collection" reset-form refocus-form>
+        <field-list:>
+          <content-field:>
+            <div class="row">
+              <div class="span8"><input rows="4" style="width: 95%; margin-top: 5px;"/></div>
+              <div><submit value="Додати" style="margin-top: 5px;"/></div>
+            </div>
+          </content-field:>
+        </field-list:>
+        <actions: replace/>
+      </form>
+
+    </content-header:>
+    <content-body:>
+    </content-body:>
+    <field-list: replace/>
+    <after-content-body:>
+      <hr/>
+      <h4>Чат:</h4>
+
+
+      <div part="comments-collection" class="comments-collection">
+        <% @comments = this.comments.paginate(page: params[:page]) %>
+        <page-nav with="&@comments" ajax/>
+        <% @comments.each { |this| %>
+          <% if this.class == Comment %>
+          <div class="row">
+            <div class="span11">
+              <blockquote>
+                <p><%= simple_format h(this.content) -%></p>
+                <% unless this.poster.nil?%>
+                <small><%= this.poster.name if this.poster_id -%> <cite title="Обновлено"><%= I18n.l this.updated_at, format: :long if this.updated_at-%></cite></small>
+                <% end %>
+              </blockquote>
+            </div>
+            <div class="span1 comment-actions">
+              <do with="&this">
+                <a action="edit" if="&can_edit? && object_url(this, :edit)"><i class="icon icon-edit"></i></a>
+                <delete-link update="comments-collection"/>
+              </do>
+            </div>
+          </div>
+          <% end %>
+        <% } %>
+        <page-nav with="&@comments" ajax/>
+      </div>
+
+    </after-content-body:>
+
+</show-page>

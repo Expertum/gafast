@@ -50,6 +50,9 @@ uk:
   Price:
     actions:
       new: Додати прайс
+  News:
+    actions:
+      new: Додати чат
   order:
     new:
       heading: Додати випадок
@@ -210,10 +213,10 @@ uk:
         many : Документів
         other : Документи
       news :
-        one : Новина
-        few : Новини
-        many : Новин
-        other : Новини
+        one : Чат
+        few : Чатів
+        many : Чати
+        other : Чати
       act :
         one : Страховий Акт
         few : Страхових Акта
@@ -544,103 +547,10 @@ uk:
         date_oplat_policy : Дата оплати поліса
       news :
         title : Тема
-        content : Текст новини
+        content : Тема повна
         filial : Філія
-        News : Новини
+        News : Чати
         actions : Дії
-      order :
-        driver_owner: Водій є власником
-        ser_prava : Серiя вод. прав
-        nom_prava : Номер вод. прав
-        driver_fio : ФIО водія
-        driver_date_birth : Дата народження вод.
-        driver_male : Стать
-        driver_ind_code : IНН вод.
-        driver_telephone : Номер тел.
-        driver_adress : Адреса вод.
-        driver_status_osob : Статус особини вод.
-        driver_resident : Резидент вод.
-        degree_of_damage: Уступiнь ушкодження
-        strahovik_victim: Страховик потерпiлого
-        ins_num_victim: Номер страх. поліса
-        rezerv: Резерв
-        t_ny_s: Начальник вруглювання
-        t_sb_s: Служба Безпеки
-        t_ur_s: Юр. управлiння
-        t_pp_s: Голова правлiння
-        vizirov: Погодження
-        haracter: Характеристики настання страхового випадку 
-        first_m: Страховий випадок настав у перший місяць дії договору/поліса. 
-        last_m: Страховий випадок настав в останній місяць дії договору/поліса.
-        night_out_city: ДТП сталося в нічний час доби за межами населеного пункту. 
-        naezd_dog: ТЗ пошкоджено в результаті наїзду на тварину, перешкоду, перекидання, з`їзду до кювету. 
-        second_man_leave: Другий учасник ДТП зник з місця події. 
-        no_damage_true: Характер пошкоджень не відповідає дійсності. 
-        damage_before: Пошкодження були нанесені до зазначеного випадку.
-        vse_ok: Жодна з характеристик не має мiсця
-        regress_type: Тип
-        regress_to: Претензія
-        report: Зберегти звiт
-        clear: Очистити
-        evroprotokol : Європротокол
-        misce_dtp: Мicце пригоди
-        expertiza: Експертиза
-        zapros: Запити
-        strah_act: Страховий Акт
-        add_act: Додати Акт
-        view_act: Показати Акт
-        doc_strah: Документи страховика
-        doc_vic: Документи потерпiлого
-        perelicdocs : Перелік документів
-        srok_ot : Термін дії поліса
-        prog_strah : Програма страх.
-        strahovatel : Страхувальник
-        Order : Випадок
-        srok_yreg : Термін врег.
-        filial : Філія
-        type_order : Тип
-        misce : Місце знах.
-        crash_date : Дата події
-        uved_date : Дата повід .
-        pis_uv_date : Дата пис. повідом.
-        crash_time : Час події
-        strah_driver_fio : Водій забезпеченого ТЗ
-        strah_ins_number : Номер страх. поліса
-        strah_owner_fio : Страхувальник
-        strah_property : Майно
-        strah_status_osob : Статус особи
-        suma_zbytku : Сума збитку
-        suma_expertyza : Сума Експертиза/Рахунок
-        suma_expert_ot: Експертиза/Рахунок вiд
-        date_strah_akt : Дата страх. акта
-        date_viplaty : Дата виплати
-        regress : Регрес
-        regress_name : ПІБ/Назва компанії
-        claim : Претензія
-        claim_to : ПІБ/Назва компанії
-        risk : Ризик
-        notes : Примiтки / Обставини
-        damage_strah : Пошкодження ТЗ Страхувальника
-        actions : Дії
-        adjuster : Відповідальний
-        state : Стан
-        victims : Потерпiлi
-        strahovatels : Страх.
-        time_call : Час тел. дзвінка
-        date_pidpus_policy : Дата закл. дог.
-        srok_deyst_policy : Термін дії поліса
-        suma_strah : Страхова сума
-        suma_strah_plat : Страховий платіж
-        vigodonabyvach : Вигодонабувач
-        franshiza : Франшиза
-        date_nadhodg_GO : Дата надходження до ГО
-        gorod : Місто
-        kod : Індекс
-        street : Вулиця, Будинок
-        yregulir : Ознака врегульов. за ЄВРО-протоколом
-        num_schem_dtp : № схеми ДТП
-        degree_of_guilt : Ступінь вини страхувальника
-        log: Журнал
         lifecycle :
           states :
             ustnoe_uvedomlenie : Усне повідомлення
