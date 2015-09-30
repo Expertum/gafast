@@ -11,15 +11,16 @@ class NewsController < ApplicationController
       order_by(parse_sort_param(:id, :title))
 
      respond_to do |format|
-      @news.each do |one|
-       unless one.read_by?(current_user)
-         format.js  { render :js => "find_read();" } 
+         format.js  { 
+                     @news.each do |one|
+                         unless one.read_by?(current_user)
+                           render :js => "find_read();"
+                         else
+                           hobo_ajax_response
+                         end 
+                      end
+                     } 
          format.html {}
-       else
-         format.js  { hobo_ajax_response }
-         format.html {}
-       end
-      end
      end
   end
 

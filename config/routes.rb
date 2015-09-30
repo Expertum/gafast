@@ -31,6 +31,10 @@ Gafast::Application.routes.draw do
      put :to_del, :on => :collection
   end
 
+  resources :news do
+     put :check_read, :on => :collection
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
