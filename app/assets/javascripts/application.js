@@ -12,11 +12,29 @@
 //= require nprogress
 //= require nprogress-turbolinks
 
-
 $(document).ready(function() {
   $('input.import_submit').attr('onclick','start_progress()');
+
+(function worker() {
+  $.ajax({
+    url: "/news",
+    type: 'GET',
+    success: function(data) {
+      $('#alert_read').show();
+    },
+    complete: function() {
+      // Schedule the next request when the current one's complete
+      setTimeout(worker, 5000);
+    }
+  });
+})();
+ 
 });
 
+function find_read() {
+      $('#alert_read').animate({opacity: "show"}, 1000);
+      $('#alert_read').animate({opacity: "hide"}, 1000);
+}
 
 function start_progress() {
   NProgress.configure({ ease: 'ease', speed: 15000 });

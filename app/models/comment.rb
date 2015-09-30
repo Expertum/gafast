@@ -1,6 +1,15 @@
+#encoding: utf-8
 class Comment < ActiveRecord::Base
 
   hobo_model # Don't put anything above this
+
+  after_create do |comment|
+    puts '-----------------------------------------'
+    puts 'ми в автер сейве'
+    @n_id = comment.news.id.to_i
+    @p_id = comment.poster_id.to_i
+    NewsRead.all.each{|x| if x.news_id.to_i == @n_id && x.user_id != @p_id then x.delete;puts 'delete************************'; end}
+  end
 
   fields do
     content :string

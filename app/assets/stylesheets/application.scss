@@ -40,3 +40,10 @@ div.transitions form { margin: 0 2px 0; float: left; }
   background-color: transparent;
   font: inherit;
 }
+
+@keyframes readanimate {
+    from {background-color: white;}
+    to {background-color: yellow;}
+}
+
+.order-not-read { font-weight: bold; color: #4cae4c; animation-name: readanimate; animation-duration: 4s;}
