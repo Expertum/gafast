@@ -53,6 +53,16 @@ uk:
   News:
     actions:
       new: Додати чат
+      create: "Стоврити"
+  news:
+    show:
+      title: Чат
+    actions:
+      new: Додати чат
+      create: "Створити"
+    new:
+      heading: Додати чат
+      title: Додати чат
   order:
     new:
       heading: Додати випадок
