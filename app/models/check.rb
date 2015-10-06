@@ -3,7 +3,7 @@ class Check < ActiveRecord::Base
   hobo_model # Don't put anything above this
 
   fields do
-    check_text :string
+    check_text :text
     deliver :boolean, :default => false
 #    deliver_text :string
     timestamps
