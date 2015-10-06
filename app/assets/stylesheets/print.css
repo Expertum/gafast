@@ -24,8 +24,8 @@ table.one-page { page-break-before: always; }
 body{
    font-weight: 600;
   -webkit-print-color-adjust:exact;
-   font-size: 8pt;
+   font-size: 10pt;
    width: 220px;
 }
 
-.table-striped {font-weight: 800; font-size: 6pt;}
+table.checkp td.namep{font-weight: 800; font-size: 6pt;}
