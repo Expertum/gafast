@@ -12,9 +12,10 @@ class NewsController < ApplicationController
 
      respond_to do |format|
          format.js  { 
-                     @news.each do |one|
+                     @news.each_with_index do |one, index|
                          unless one.read_by?(current_user)
                            render :js => "find_read();"
+                           break
                          else
                            hobo_ajax_response
                          end 
