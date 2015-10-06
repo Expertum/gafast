@@ -32,7 +32,7 @@
            <% @sum = 0%>
            <% @d = this.split('||')%>
            <% @d.each{|x| @dd << x.split(';')}%>
-           <table style="width:100%;">
+           <table class="checkp" style="width:100%;">
              <tr>
                <th style="color: rebeccapurple;">Назва</th>
                <th style="color: rebeccapurple;">Кiлькiсть</th>

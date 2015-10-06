@@ -11,7 +11,7 @@ p { margin: 0; padding: 0;}
 .nav {display:none;}
 .excel {display:none;}
 tr.deliver-field {display:none;}
-th {display:none;}
+th {display:none; width:20%;}
 .tab-content > .tab-pane, .pill-content > .pill-pane {display:none;}
 .tab-content > .active, .pill-content > .active {display: block;}
 table.one-page { page-break-before: always; }
@@ -24,6 +24,6 @@ table.one-page { page-break-before: always; }
 body{
    font-weight: 600;
   -webkit-print-color-adjust:exact;
-   font-size: 10pt;
+   font-size: 8pt;
    width: 220px;
 }
