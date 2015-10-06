@@ -50,7 +50,9 @@
       </ht>
     </nav-item>
     <nav-item with="&News" class="#{'active' if page_is?('news')}"><ht key="news.nav_item" count="100"><model-name-human count="100"/></ht>
-      <image src="spling.png" style="width:20px; left:40px; top:15px; display: none;" id="alert_read"/>
+    <div style="width:30px;">
+      <image src="spling.png" style="width:20px; left:100px; top:15px; display: none; position:absolute;" id="alert_read"/>
+    </div>
     </nav-item>
     <nav-item with="&Price" class="#{'active' if page_is?('prices')}" if="&current_user.administrator? || current_user.provizor?"><ht key="price.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Good" class="#{'active' if page_is?('goods')}">Замовлення</nav-item>
