@@ -116,7 +116,7 @@
         @ss.each{|x| @w << x[0]}
         @w.uniq!
     
-        @w.each_with_index{|x,ind| @i=0; @ci=0; @ss.each{|y| if x == y[0] then @i= @i + 1; @c[ind] = @i; @ci += y[1].to_i; @c1[ind] = @ci end}}
+        @w.each_with_index{|x,ind| @i=0; @ci=0; @ss.each{|y| if x == y[0] then @i= @i + 1; @c[ind] = @i; @ci += y[1].to_f; @c1[ind] = @ci end}}
         
      %>
 
