@@ -42,7 +42,9 @@ class ChecksController < ApplicationController
          #  puts '-----------------------------------------------------------'
         end
 
-    @checks = @checks.paginate(:page => params[:page], :per_page => @o_count)
+    @checks_for_stat = @checks.paginate(:page => params[:page], :per_page => @o_count)
+
+    @checks = @checks.paginate(:page => params[:page])
 
     hobo_index do |format|
       format.html {}

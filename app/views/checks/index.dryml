@@ -112,7 +112,7 @@
         @c  = [] 
         @c1 = []
 
-        @checks.each{|y| y.check_text.split("||").each{|x| @ss << x.split(';')}} 
+        @checks_for_stat.each{|y| y.check_text.split("||").each{|x| @ss << x.split(';')}} 
         @ss.each{|x| @w << x[0]}
         @w.uniq!
     
