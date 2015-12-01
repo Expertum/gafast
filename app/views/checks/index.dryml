@@ -111,28 +111,31 @@
         @w  = [] 
         @c  = [] 
         @c1 = []
-
+        @allc =[[]]
+ 
         @checks_for_stat.each{|y| y.check_text.split("||").each{|x| @ss << x.split(';')}} 
         @ss.each{|x| @w << x[0]}
         @w.uniq!
     
         @w.each_with_index{|x,ind| @i=0; @ci=0; @ss.each{|y| if x == y[0] then @i= @i + 1; @c[ind] = @i; @ci += y[1].to_f; @c1[ind] = @ci end}}
-        
+        @w.each_with_index{|x,ind| @allc.push([x.to_s,@c[ind],@c1[ind]])}
+        @allc.reject!(&:empty?)
+        @allc.sort_by!{|x,y,z|z}.reverse!
      %>
 
-           <table style="width:100%;">
+           <table id="myTable" style="width:100%;">
              <tr>
                <th style="color: rebeccapurple;">Назва</th>
                <th style="color: rebeccapurple;">Кількість запросу</th>
                <th style="color: rebeccapurple;">Кількість реального продажу</th>
              </tr>
-             <% @w.each_with_index{|x,ind| %>
+             <% @allc.each do |name, count, count_r| -%>
              <tr>
-               <td><%= x %></td>
-               <td><%= @c[ind] %></td>
-               <td><%= @c1[ind] %></td>
+               <td><%= name %></td>
+               <td><%= count %></td>
+               <td><%= count_r %></td>
              </tr>
-           <% }%>
+           <% end -%>
           </table>
 
     </div>
