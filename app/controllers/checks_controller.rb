@@ -34,7 +34,15 @@ class ChecksController < ApplicationController
 
     @checks = @checks.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
 
-    @checks = @checks.paginate(:page => params[:page])
+        if !params[:enddate].blank? || !params[:startdate].blank? 
+          # puts '**************************************'
+           @o_count = @checks.count
+        else
+          @o_count = 30
+         #  puts '-----------------------------------------------------------'
+        end
+
+    @checks = @checks.paginate(:page => params[:page], :per_page => @o_count)
 
     hobo_index do |format|
       format.html {}
