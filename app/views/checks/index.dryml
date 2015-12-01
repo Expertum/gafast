@@ -36,7 +36,17 @@
     <content-header:>
     </content-header:>
     <collection: replace>
-    <checks-filters style='float:left;'/>
+    <checks-filters style='float:left;'/><br/><br/>
+
+  <div class="tabbable"> 
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab1" data-toggle="tab">Список</a></li>
+      <li><a href="#tab2" data-toggle="tab">Статистика</a></li>
+    </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+
       <table-plus part="list-table" update="list-table"
         fields="this, check_text">
          <header:>
@@ -92,6 +102,44 @@
            <%end%>
          </check_text-view:>
       </table-plus>
+
+    </div>
+
+    <div class="tab-pane" id="tab2">
+
+     <% @ss = []
+        @w  = [] 
+        @c  = [] 
+        @c1 = []
+
+        @checks.each{|y| y.check_text.split("||").each{|x| @ss << x.split(';')}} 
+        @ss.each{|x| @w << x[0]}
+        @w.uniq!
+    
+        @w.each_with_index{|x,ind| @i=0; @ci=0; @ss.each{|y| if x == y[0] then @i= @i + 1; @c[ind] = @i; @ci += y[1].to_i; @c1[ind] = @ci end}}
+        
+     %>
+
+           <table style="width:100%;">
+             <tr>
+               <th style="color: rebeccapurple;">Назва</th>
+               <th style="color: rebeccapurple;">Кількість запросу</th>
+               <th style="color: rebeccapurple;">Кількість реального продажу</th>
+             </tr>
+             <% @w.each_with_index{|x,ind| %>
+             <tr>
+               <td><%= x %></td>
+               <td><%= @c[ind] %></td>
+               <td><%= @c1[ind] %></td>
+             </tr>
+           <% }%>
+          </table>
+
+    </div>
+
+    </div>
+    </div>
+
     </collection:>
     <bottom-page-nav: replace/>
 </index-page>
