@@ -54,5 +54,6 @@ gem "thin"
 gem 'paperclip', '~> 3.0'
 gem "ru_propisju"
 gem 'roo'
+gem 'roo-xls'
 gem 'nprogress-rails'
 gem 'test-unit'
