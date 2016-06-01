@@ -44,20 +44,20 @@
  
   Зберегти:
   <%= link_to "Excel", storages_path(format: "xls") %>
-      <% unless current_user.role != 'provizor'%>
-        <span class="label label-prinary"><%= Storage.all.each{|x| if x.location_good == 'stor' then @d += x.count * x.cena; @ii +=1 end}
-                                            @ii %> шт.</span>
-        <span class="label label-success"><%= @d.round(2)%> грн.</span>
-        -
-        <% @fid= params[:filial_name].to_i %>
-        <span class="label label-prinary"><%= Storage.all.each{|x| if (x.location_good == 'stor') && (x.filial_id ==  @fid) then @cd += x.count * x.cena; @ci +=1 end}
-                                            @ci %> шт.</span>
-        <span class="label label-success"><%= @cd.round(2)%> грн.</span>
-        
+      <% unless current_user._?.role != 'provizor'%>
+           <span class="label label-prinary"><%= Storage.all.each{|x| if x._?.location_good == 'stor' then @d += x.cena.to_f * x.count.to_f ; @ii += 1 end}
+                                                 @ii%> шт.</span>
+           <span class="label label-success"><%=@d.round(2)%> грн.</span>
+         -
+           <% @fid= params[:filial_name].to_i%>
 
+           <span class="label label-prinary"><%=Storage.all.each{|x| if (x._?.location_good == 'stor') && (x._?.filial_id ==  @fid) then @cd += x.cena.to_f * x.count.to_f; @ci +=1 end}
+                                               @ci %> шт.</span>
+           <span class="label label-success"><%= @cd.round(2)%> грн.</span>
+ 
           <% unless this.count == 0%>
-          <%= link_to("Змінити", "/filials/"+params[:filial_name].to_s+"/edit", style: 'float:right;' )%>
-          <%= @j = this.first.filial.nacenka
+          <%= link_to("Змінити", "/filials/"+params[:filial_name]._?.to_s+"/edit", style: 'float:right;' )%>
+          <%= @j = this.first._?.filial.nacenka
                button_to " Перенацінка " + @j.to_s + "%", 
                  perenac_storages_path, 
                  {confirm: "Перенацінити весь товар?", :method => :put, class: "btn btn-danger", style: 'float:right;' }
