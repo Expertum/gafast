@@ -64,6 +64,7 @@ class Storage < ActiveRecord::Base
 
   def w_cena?
   unless self.filial.name.nil? 
+    unless Price.find_by_name(self.pr_name).nil?
     if (self.location_good == 'stor' || self.location_good == 'defect') then
       @nac = (self.filial.nacenka.to_f/100)+1
       @md = self.madein
@@ -80,6 +81,7 @@ class Storage < ActiveRecord::Base
           return false
         end
     end
+  end
   end
   end
 
