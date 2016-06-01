@@ -45,10 +45,11 @@ class Good < ActiveRecord::Base
   end
 
   def self.open_spreadsheet(file)
+    File.rename(file.path,file.path.to_s+'.xls')
     case File.extname(file.original_filename)
-    when ".csv" then Csv.new(file.path, nil, :ignore)
-    when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-    when ".xlsx" then Excelx.new(file.path, nil, :ignore)
+    when ".csv"  then Csv.new(file.path, nil, :ignore)
+    when ".xls"  then Roo::Excel.new(file.path.to_s+'.xls')
+    when ".xlsx" then Roo::Excelx.new(file.path)
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
