@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.18'
+gem 'rails', '~> 3.2.18'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -39,14 +39,14 @@ gem 'activerecord-import'
 # To use debugger
 # gem 'debugger'
 
-gem "hobo", "= 2.0.1"
+gem "hobo", "~> 2.0.0"
 # Hobo has a lot of assets.   Stop cluttering the log in development mode.
 gem "quiet_assets", :group => :development
 # Hobo's version of will_paginate is required.
 gem "will_paginate", :git => "git://github.com/Hobo/will_paginate.git"
-gem "hobo_bootstrap", "2.0.1"
-gem "hobo_jquery_ui", "2.0.1"
-gem "hobo_bootstrap_ui", "2.0.1"
+gem "hobo_bootstrap", "~> 2.0.0"
+gem "hobo_jquery_ui", "~> 2.0.0"
+gem "hobo_bootstrap_ui", "~> 2.0.0"
 gem "jquery-ui-themes", "~> 0.0.4"
 gem 'rails-i18n', '~> 3.0.0' # For 3.x
 gem "russian"
@@ -55,3 +55,4 @@ gem 'paperclip', '~> 3.0'
 gem "ru_propisju"
 gem 'roo'
 gem 'nprogress-rails'
+gem 'test-unit'
