@@ -40,13 +40,23 @@ class StoragesController < ApplicationController
 
     @storages.each{|s| if s.count == 0 then s.location_good = 'defect' end; s.save!}
 
-    @storages = @storages.order("srok asc").paginate(:page => params[:page]) if params[:location_good] != 'defect'
+    @storages = @storages.order("srok asc").paginate(:page => params[:page])
 
     hobo_index do |format|
       format.html {}
       format.js   { hobo_ajax_response }
   #    format.csv  { send_data Order.to_csv(@goods) }
        format.xls  { 
+
+        if params[:location_good] == 'defect'
+          # puts '**************************************'
+           @o_count = @storages.count
+        else
+          @o_count = 30
+         #  puts '-----------------------------------------------------------'
+        end
+        @storages = @storages.paginate(:page => params[:page], :per_page => @o_count) 
+
          storages = Spreadsheet::Workbook.new
          list = storages.create_worksheet :name => 'заказ'
          list.row(0).concat %w{Код_товара Товар	Производитель Срок_годности Предоплата Признак_НДС Количество} 
