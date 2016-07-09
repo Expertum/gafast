@@ -16,6 +16,21 @@ class Check < ActiveRecord::Base
 
   has_many :storages
 
+  validate :cena_is_not_nil
+
+  private
+    def cena_is_not_nil
+    @dd = [] 
+    @cht = self.check_text.split('||')
+    @cht.each{|x| @dd << x.split(';')}
+    @dd.each do |name, count, cena|
+      if cena.to_i == 0 
+        errors.add(:check, '!!! У чеці прісутня нульова ціна !!! - ' + name.to_s)
+        break
+      end
+    end
+  end
+
   # --- Permissions --- #
 
   def create_permitted?

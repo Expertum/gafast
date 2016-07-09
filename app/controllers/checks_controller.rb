@@ -58,30 +58,53 @@ class ChecksController < ApplicationController
 
   def create
         d =[]
-        @checks = Check.new
-        @checks.poster_id = params[:poster_id]
-        if params[:filial_id].nil? then
-           @checks.filial_id = User.find(params[:poster_id]).filial_id
-        else
-           @checks.filial_id = params[:filial_id]
-        end
-        @s = Storage.where(:check => true, :filial_id => @checks.filial_id, :poster_id => params[:poster_id])
-        puts ''
-        puts "Формування товару у Чеці:"
-        puts "*************************"
-        i = 0
-        @s.each{|s| puts i+=1
-                    puts 'Назва препарату - '+s.name.to_s
-                    puts 'Кількість проданого - '+s.good_minus.to_s
-                    puts 'Ціна за 1 шт - '+s.cena.to_f.to_s
-                    puts 'Ціна проданого -'+(s.cena.to_f*s.good_minus.to_f).to_s;}
-        @s.each{|x| d.push(x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s);x.check = false;x.count -= x.good_minus;x.good_minus = 0.0;x.poster_id =nil;x.save! }
-        @checks.check_text = d.join('||')
 
+        if params[:poster_id].blank? then 
+
+          @checks = Check.new(params[:check])
+      
+        else
+          @ch_nil =true
+          @checks = Check.new
+
+          @checks.poster_id = params[:poster_id]
+
+          if params[:filial_id].nil? then
+             @checks.filial_id = User.find(params[:poster_id]).filial_id
+          else
+             @checks.filial_id = params[:filial_id]
+          end
+          @s = Storage.where(:check => true, :filial_id => @checks.filial_id, :poster_id => params[:poster_id])
+          puts ''
+          puts "Формування товару у Чеці:"
+          puts "*************************"
+          i = 0
+          @s.each{|s| puts i+=1
+                      puts 'Назва препарату - '+s.name.to_s
+                      puts 'Кількість проданого - '+s.good_minus.to_s
+                      puts 'Ціна за 1 шт - '+s.cena.to_f.to_s
+                      puts 'Ціна проданого -'+(s.cena.to_f*s.good_minus.to_f).to_s;}
+
+            @s.each{|x| d.push(x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s);x.check = false;x.save!;
+                        if x.good_minus.to_i == 0 then @ch_nil = false end
+                    }
+            @checks.check_text = d.join('||')
+
+            if @ch_nil == true then 
+              @s.each{|x|
+                          x.check = false;
+                          x.count -= x.good_minus;
+                          x.good_minus = 0.0;
+                          x.poster_id =nil;
+                          x.save! 
+                      }
+            end
 #        @s.each{|x| x.check = false
 #                    x.count -= x.good_minus
 #                    x.good_minus = 0.0
 #                    x.save!}
+      end
+
       respond_to do |format|
         if @checks.save
           format.html { 
