@@ -86,7 +86,7 @@ class ChecksController < ApplicationController
                       puts 'Ціна проданого -'+(s.cena.to_f*s.good_minus.to_f).to_s;}
 
             @s.each{|x| d.push(x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s);x.check = false;x.save!;
-                        if x.good_minus.to_i == 0 then @ch_nil = false end
+                        if x.good_minus.to_f == 0 then @ch_nil = false end
                     }
             @checks.check_text = d.join('||')
 
