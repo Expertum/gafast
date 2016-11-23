@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
     last_active_at   :datetime
     timestamps
   end
+  
+  attr_accessor :password, :password_confirmation, :current_password
   attr_accessible :phone_number, :receive_messages, :role, :filial, :position,
                   :name, :email_address, :password, :password_confirmation, :current_password
 
