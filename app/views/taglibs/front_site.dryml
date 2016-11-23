@@ -44,14 +44,9 @@
 
 <extend tag="main-nav">
   <navigation class="main-nav" merge-attrs param="default" unless="&current_user.guest?">
-    <nav-item with="&Filial" class="#{'active' if page_is?('filials')}" if="&current_user.administrator?">
-      <ht key="filial.nav_item" count="100">
-        <model-name-human count="100"/>
-      </ht>
-    </nav-item>
     <nav-item with="&News" class="#{'active' if page_is?('news')}"><ht key="news.nav_item" count="100"><model-name-human count="100"/></ht>
-    <div style="width:30px;">
-      <image src="spling.png" style="width:20px; left:100px; top:15px; display: none; position:absolute;" id="alert_read"/>
+    <div style="width:30px; float: right">
+      <image src="spling.png" style="width:20px; left:100px; top:15px; display: none; position:relitive;" id="alert_read"/>
     </div>
     </nav-item>
     <nav-item with="&Price" class="#{'active' if page_is?('prices')}" if="&current_user.administrator? || current_user.provizor?"><ht key="price.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
@@ -59,6 +54,11 @@
     <nav-item with="&Storage" class="#{'active' if page_is?('storages')}"><ht key="good.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Check" class="#{'active' if page_is?('checks')}"><ht key="check.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&User" class="#{'active' if page_is?('users')}" if="&current_user.administrator?"><ht key="user.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Filial" class="#{'active' if page_is?('filials')}" if="&current_user.administrator?">
+      <ht key="filial.nav_item" count="100">
+        <model-name-human count="100"/>
+      </ht>
+    </nav-item>
   </navigation>
 </extend>
 
