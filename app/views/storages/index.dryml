@@ -6,6 +6,7 @@
              <% @s = [""]
                 Storage.all.each{|u| @s << u.pr_name } %>
               <%= select_tag "pr_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
+              Знижка<%= select_tag "discount", options_for_select([['0%', '0'],['3%','3'], ['5%','5'],], params[:discount] ) %>
            </div> 
          <div style="float:left; margin-left: 10px;">
             <% unless current_user.guest?%>
@@ -21,12 +22,13 @@
               <%= select_tag "location_good", options_for_select([['Склад', 'stor'],
                 ['Дефектура','defect']], params[:location_good] || ''), :style => 'margin-top: 0px' %>
           </div>
-           <button type="submit" class="btn" style="margin-left: 10px;" onClick="jQuery(this).closest('form').submit();" ><i class="icon-ok"></i> Ok</button>         
+           <button type="submit" class="btn" style="margin-left: 10px;" onClick="jQuery(this).closest('form').submit();location.reload();" ><i class="icon-ok"></i> Ok</button>         
         </form>
         <script>$(function() {
 
           $('select#pr_name').change(function() { jQuery(this).closest('form').submit(); });
           $('select#filial_name').change(function() { jQuery(this).closest('form').submit(); });
+          $('select#discount').change(function() { jQuery(this).closest('form').submit();});
           $('select#location_good').change(function() { jQuery(this).closest('form').submit(); });
           })</script>
     </div>
@@ -71,15 +73,21 @@
                  {confirm: "Змінити код товару на складі?", :method => :put, class: "btn btn-success"}
                  %>
 <%end%>
-
+<div style="float:right;">
+	<% if params[:discount].to_i != 0 then%>
+	  <span class="alert alert-danger">!!! Увага знижка на товар - <%= params[:discount] %>% !!!</span>
+	<%end%>
+</div>
     </content-header:>
     <collection: replace>
          <script language="javascript">
            function add_list_ch(n) {
+           	 var znigka = parseFloat($('#discount').val()) 
+           	 document.getElementById('skidka').innerHTML = 'Знижка '+$('#discount').val()+'%'
            	 var x;
              x = document.getElementById("storage_good_minus").value;
              if (x == "" || x == 0) {
-               alert("Enter a Valid Roll Number");
+               alert("Значение не должно быть пустым или равно 0!");
                return false;
              } else { 
              var summ = 0; 
@@ -96,7 +104,10 @@
              $('#c'+id_good).children('.storage').children('#storage_check').prop( "readonly", true )
 
                $('#zakaz').show();
-               $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+(parseFloat(cena_good)*n).toFixed(2)+
+               
+               cena_zn = parseFloat(cena_good) - (parseFloat(cena_good)*(znigka/100))
+               
+               $('#list').append('<li>'+name_good+'('+new_task+' шт.) { '+(cena_zn*n).toFixed(2)+
                'грн.}<a href="#" class="btn btn-danger" onclick="$(this).parent().remove();rem_li('+id_good+'); ">-</a></li>');
               
                $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
@@ -199,7 +210,6 @@
                       <h4 class="modal-title" id="myModalLabel">Ведіть кілкість товару:</h4>
                     </div>
                    <div class="modal-body">
-
                       <% 
                            stor = Storage.first
                       %>
@@ -227,13 +237,13 @@
                                              <%= Check.last.id.to_i + 1%>
                                              <%else%>
                                                1
-                                             <%end%></h4>
+                                             <%end%><span id="skidka" style="color:red"> Знижка </span></h4>
         <hr/>
         <ol id="list" style="height: 300px; overflow: auto;">
         </ol>
         <span id="ch_summ"> </span>
              <%= button_to "Зберегти", 
-                            checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id), 
+                            checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id, :znigka => params[:discount]), 
                             {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success", :mouseup => "remove_list_ch()", style: "float:right;margin-top:22px;" }%>   
        
              <%= button_to " Відмова ", 

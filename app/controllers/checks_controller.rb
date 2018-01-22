@@ -68,6 +68,7 @@ class ChecksController < ApplicationController
           @checks = Check.new
 
           @checks.poster_id = params[:poster_id]
+          @skidka = params[:znigka].to_i
 
           if params[:filial_id].nil? then
              @checks.filial_id = User.find(params[:poster_id]).filial_id
@@ -75,6 +76,7 @@ class ChecksController < ApplicationController
              @checks.filial_id = params[:filial_id]
           end
           @s = Storage.where(:check => true, :filial_id => @checks.filial_id, :poster_id => params[:poster_id])
+          #puts params[:znigka]
           puts ''
           puts "Формування товару у Чеці:"
           puts "*************************"
@@ -85,8 +87,17 @@ class ChecksController < ApplicationController
                       puts 'Ціна за 1 шт - '+s.cena.to_f.to_s
                       puts 'Ціна проданого -'+(s.cena.to_f*s.good_minus.to_f).to_s;}
 
-            @s.each{|x| d.push(x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s);x.check = false;x.save!;
-                        if x.good_minus.to_f == 0 then @ch_nil = false end
+            @s.each{|x| if @skidka != 0 then
+                          cena_kon = x.cena.to_f - (x.cena.to_f*(@skidka.to_f/100))
+                          d.push(x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s+';'+(cena_kon.to_f*x.good_minus.to_f).round(2).to_s+';'+@skidka.to_s);
+                        else
+                          d.push(x.name.to_s+';'+x.good_minus.to_s+';'+(x.cena.to_f*x.good_minus.to_f).to_s);
+                        end
+                        x.check = false;
+                        x.save!;
+                        if x.good_minus.to_f == 0 then 
+                          @ch_nil = false 
+                        end
                     }
             @checks.check_text = d.join('||')
 

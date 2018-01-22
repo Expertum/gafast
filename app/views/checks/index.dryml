@@ -75,30 +75,69 @@
            <% unless this.nil?%>
            <% @dd = []%>
            <% @sum = 0%>
+           <% @sum_zn = 0%>
            <% @d = this.split('||')%>
-           <% @d.each{|x| @dd << x.split(';')}%>
-           <table style="width:100%;">
+           <% @d.each{|x| @dd << x.split(';') 
+               if x.split(';').size == 5 then 
+                 @snig = x.split(';')[4].to_s
+               else
+                 @snig = '0'
+               end
+            }%>
+
+           <%if @snig != '0'%> 
+            
+           <table class="checkp" style="width:100%;">
+           	
              <tr>
                <th style="color: rebeccapurple;">Назва</th>
-               <th style="color: rebeccapurple;">Кількість</th>
-               <th style="color: rebeccapurple;">Ціна</th>
+               <th style="color: rebeccapurple;">Кiлькiсть</th>
+               <th style="color: rebeccapurple;">Цiна</th>
+               <th style="color: rebeccapurple;">Цiна зі зніжкою <%= @snig%>%</th>
              </tr>
-             <% @dd.each do |name, count, cena| -%>
+             <% @dd.each do |name, count, cena, cena_zng| -%>
              <tr>
-               <td><%= name %></td>
-               <td><%= count.to_f._?.round(3) %></td>
+               <td class="namep"><%= name %></td>
+               <td><%= count.to_f._?.round(3) %>шт-</td>
                <td><% @sum += cena.to_f %> 
-                      <%=  cena.to_f._?.round(2)%></td>
+                      <%=  cena.to_f._?.round(2)%>грн./</td>
+               <td><% @sum_zn += cena_zng.to_f %> 
+                      <%=  cena_zng.to_f._?.round(2)%>грн.</td>
              </tr>
            <% end -%>
              <tfoot>
-               <tr bgcolor="#bd979f">
-                  <td colspan="2"></td>
-
-                       <td >Всього: <%= @sum.round(2)%> грн.</td> 
+               <tr>
+                 <td style="text-align: right;">СУМА: <%= @sum.round(2)%> грн.</td> 
+                 <td colspan="3" style="text-align: right;font-weight: 600;">СУМА: <%= @sum_zn.round(2)%> грн. зі зніжкою</td> 
                </tr>
              </tfoot>
           </table>
+         
+           <% else %>
+           
+           <table class="checkp" style="width:100%;">
+           	
+             <tr>
+               <th style="color: rebeccapurple;">Назва</th>
+               <th style="color: rebeccapurple;">Кiлькiсть</th>
+               <th style="color: rebeccapurple;">Цiна</th>
+             </tr>
+             <% @dd.each do |name, count, cena| -%>
+             <tr>
+               <td class="namep"><%= name %></td>
+               <td><%= count.to_f._?.round(3) %>шт-</td>
+               <td><% @sum += cena.to_f %> 
+                      <%=  cena.to_f._?.round(2)%>грн.</td>
+             </tr>
+           <% end -%>
+             <tfoot>
+               <tr>
+                 <td colspan="3" style="text-align: center;font-weight: 600;">СУМА: <%= @sum.round(2)%> грн.</td> 
+               </tr>
+             </tfoot>
+          </table>           
+           
+           <% end %>
            <%end%>
          </check_text-view:>
       </table-plus>
