@@ -76,6 +76,12 @@
     <collection: replace>
          <script language="javascript">
            function add_list_ch(n) {
+           	 var x;
+             x = document.getElementById("storage_good_minus").value;
+             if (x == "" || x == 0) {
+               alert("Enter a Valid Roll Number");
+               return false;
+             } else { 
              var summ = 0; 
              $('.btn-success').hide();
              $('#myModal').modal('hide');
@@ -98,6 +104,7 @@
                $('#ch_summ').text('Загальна вартість товару - '+summ.toFixed(2)+' грн.');
                
              return false;
+             } //else end
            }
 
            function suc_str(n) {
@@ -161,7 +168,10 @@
            }
  
             $(document).ready(function() {
-              $("form").on("keypress", function (e) { if (e.keyCode == 13) { return false;} });
+              var s_mn_ch = $('#storage_good_minus').val();
+              $("form").on("keypress", function (e) { 
+              	                             //if (e.keyCode == 13) { return false;} 
+              	                             });
               $('#zakaz').draggable();
               $('#myModal').on('hidden.bs.modal', function (e) {
               var id_good = $('#ch_id').text();
