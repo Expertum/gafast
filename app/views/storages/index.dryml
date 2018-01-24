@@ -87,14 +87,14 @@
            function chng_discount(n) {
            var disc = 'znigka='+$('#discount').val()
            var znigka = $('#discount').val() 
-           var x = document.forms
-           var text_act = x[5].action
+           var x = $('#s_1').children()[0]
+           var text_act = x.action
            
            if (text_act.includes('znigka')) {
              text_act = text_act.slice(0, text_act.length-8) 
-             x[5].action =  text_act + disc
+             x.action =  text_act + disc
             } else {
-             x[5].action =  text_act +n+ disc
+             x.action =  text_act +n+ disc
             }
            
            document.getElementById('skidka').innerHTML = 'Знижка '+$('#discount').val()+'%'
@@ -271,13 +271,15 @@
         <ol id="list" style="height: 300px; overflow: auto;">
         </ol>
         <span id="ch_summ"> </span>
-             <%= button_to "Зберегти", 
+             <div id="s_1"><%= button_to "Зберегти", 
                             checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id, :znigka => session[:discount]), 
-                            {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success", :id => "save", :mouseup => "remove_list_ch()", style: "float:right;margin-top:22px;" }%>   
-             <%= button_to " Відмова ", 
+                            {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success", :id => "save", :mouseup => "remove_list_ch()", style: "float:right;" }%>   
+             </div>
+             <div id="s_2"><%= button_to " Відмова ", 
                             del_check_storages_path(:filial_id => params[:filial_name], :poster_id => current_user.id), 
                             {confirm: "Видалити Чек?", :method => :put, class: "btn btn-danger", :id => "cancel", :mouseup => "remove_list_ch()",  style: "margin-top:0px;" }
-                            %>        
+                            %>
+             </div>        
 
       </div>
       <table-plus part="list-table" update="list-table" fields= "num_plus, pr_name, morion, this, count, cena, summ_good, check, srok">
