@@ -6,8 +6,8 @@
              <% @s = [""]
                 Storage.all.each{|u| @s << u.pr_name } %>
               <%= select_tag "pr_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
-              Знижка<%= select_tag "discount", options_for_select([['0%', '0'],['3%','3'], ['5%','5'],], params[:discount] ),
-              {:onchange => "chng_discount('&')" } %>
+              <span id="label_zn" style="display:none;">Знижка</span><%= select_tag "discount", options_for_select([['0%', '0'],['3%','3'], ['5%','5'],], params[:discount] ),
+              {:onchange => "chng_discount('&')", style: "display:none;" } %>
            </div> 
          <div style="float:left; margin-left: 10px;">
             <% unless current_user.guest?%>
@@ -31,6 +31,9 @@
           $('select#filial_name').change(function() { jQuery(this).closest('form').submit(); });
           $('select#location_good').change(function() { jQuery(this).closest('form').submit(); });
           $('select#discount').change(function() {jQuery(this).closest('form').submit();});
+          $('select#discount').mouseup(function() {
+          	                                      ;
+           });
           })</script>
     </div>
 </def>
@@ -84,9 +87,19 @@
     <collection: replace>
          <script language="javascript">
          
-           function chng_discount(n) {
+         function check_chek() {
+           var chek_all = document.getElementsByClassName("boolean storage-check");
+           $.each(chek_all , function( index, value ){
+                if ( value.checked) {value.disabled = true; value.readonly=true;};
+                 })
+         }
+         
+         function chng_discount(n) {
+           
            var disc = 'znigka='+$('#discount').val()
            var znigka = $('#discount').val() 
+           var s_zn = parseFloat($('#ch_summ_zn').text())
+           var zn = parseFloat(znigka)
            var x = $('#s_1').children()[0]
            var text_act = x.action
            
@@ -98,6 +111,11 @@
             }
            
            document.getElementById('skidka').innerHTML = 'Знижка '+$('#discount').val()+'%'
+
+           $('#ch_summ_zn_ds').show();
+           s_zn_n = s_zn - (s_zn*(znigka/100))
+           $('#ch_summ_zn_ds').text(s_zn_n.toFixed(2))
+           
            
            if (disc != 'znigka=0') {
              $('#for_params').hide();
@@ -111,7 +129,8 @@
            }
            
            function add_list_ch(n) {
-           	 var znigka = parseFloat($('#discount').val()) 
+           	 var znigka = 0
+           	 var disc_zn = $('#discount').val()
            	 document.getElementById('skidka').innerHTML = 'Знижка '+$('#discount').val()+'%'
            	 var x;
              x = document.getElementById("storage_good_minus").value;
@@ -122,6 +141,9 @@
              var summ = 0; 
              $('.btn-success').hide();
              $('#myModal').modal('hide');
+             $('#discount').show();
+             $('#label_zn').show();
+              
              $('#button_to_check').hide();
             
              var name_good = $('#ch_text').text();
@@ -142,6 +164,12 @@
                $("#list li").each(function() { summ += parseFloat(this.innerHTML.split('{')[1]); });
              
                $('#ch_summ').text('Загальна вартість товару - '+summ.toFixed(2)+' грн.');
+               $('#ch_summ_zn').text(summ.toFixed(2));
+               
+                    $('#ch_summ_zn_ds').show();
+               	    var s_zn = parseFloat($('#ch_summ_zn').text())
+                    s_zn_n = s_zn - ((s_zn*(parseFloat(disc_zn)))/100)
+                    $('#ch_summ_zn_ds').text(s_zn_n.toFixed(2))
                
              return false;
              } //else end
@@ -154,6 +182,8 @@
 
            function remove_list_ch() {
               $('#list li').remove();
+              $('#discount').hide();
+              $('#label_zn').hide();
               return false;
            }
 
@@ -261,7 +291,7 @@
 
        <storages-filters style='float:left;'/>
 
-      <div id="zakaz" style="background-color: gray;  color: white;  width: 300px; position:fixed; border: 2px solid; border-radius: 15px; left:0%;top:10%;display:none; opacity: 0.5;">
+      <div id="zakaz" style="background-color: gray;  color: white;  width: 350px; position:fixed; border: 2px solid; border-radius: 15px; left:0%;top:10%;display:none; opacity: 0.5;">
         <h4 style="text-align:center;">Чек № <%unless Check.all.count == 0%>
                                              <%= Check.last.id.to_i + 1%>
                                              <%else%>
@@ -271,6 +301,8 @@
         <ol id="list" style="height: 300px; overflow: auto;">
         </ol>
         <span id="ch_summ"> </span>
+        <span id="ch_summ_zn" style="display:none;"> </span>
+        <div class="alert alert-warning" style="width:4%; float: right; margin-bottom: 0px;"><span id="ch_summ_zn_ds" style="display:none; color:red; font-weight: bold;"> </span></div>
              <div id="s_1"><%= button_to "Зберегти", 
                             checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id, :znigka => session[:discount]), 
                             {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success", :id => "save", :mouseup => "remove_list_ch()", style: "float:right;" }%>   
@@ -282,7 +314,7 @@
              </div>        
 
       </div>
-      <table-plus part="list-table" update="list-table" fields= "num_plus, pr_name, morion, this, count, cena, summ_good, check, srok">
+      <table-plus part="list-table" update="list-table" fields= "num_plus, pr_name, morion, this, count, cena, summ_good, check, srok" onmousemove="check_chek()">
          <actions-heading:></actions-heading:>
          <actions-view:><bootstrap-table-actions/></actions-view:>
          <this-view: style="width: 40%;">
