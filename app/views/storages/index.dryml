@@ -6,7 +6,8 @@
              <% @s = [""]
                 Storage.all.each{|u| @s << u.pr_name } %>
               <%= select_tag "pr_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
-              Знижка<%= select_tag "discount", options_for_select([['0%', '0'],['3%','3'], ['5%','5'],], params[:discount] ) %>
+              Знижка<%= select_tag "discount", options_for_select([['0%', '0'],['3%','3'], ['5%','5'],], params[:discount] ),
+              {:onchange => "chng_discount($('#discount').val())" } %>
            </div> 
          <div style="float:left; margin-left: 10px;">
             <% unless current_user.guest?%>
@@ -28,8 +29,8 @@
 
           $('select#pr_name').change(function() { jQuery(this).closest('form').submit(); });
           $('select#filial_name').change(function() { jQuery(this).closest('form').submit(); });
-          $('select#discount').change(function() { jQuery(this).closest('form').submit();});
           $('select#location_good').change(function() { jQuery(this).closest('form').submit(); });
+          $('select#discount').change(function() {jQuery(this).closest('form').submit();});
           })</script>
     </div>
 </def>
@@ -73,14 +74,46 @@
                  {confirm: "Змінити код товару на складі?", :method => :put, class: "btn btn-success"}
                  %>
 <%end%>
-<div style="float:right;">
+<div id="alert_div" style="float:right;">
 	<% if params[:discount].to_i != 0 then%>
-	  <span class="alert alert-danger">!!! Увага знижка на товар - <%= params[:discount] %>% !!!</span>
+	  <span id="for_params" class="alert alert-danger">!!! Увага знижка на товар - <%= params[:discount] %>% !!!</span>
 	<%end%>
+    <span id="for_hack" class="alert alert-danger" style="display:none;">!!! Увага знижка на товар - % !!!</span>
 </div>
     </content-header:>
     <collection: replace>
          <script language="javascript">
+         
+           function chng_discount(n) {
+           var disc = 'znigka='+$('#discount').val()
+           var znigka = $('#discount').val() 
+           var x = document.forms
+           var text_act = x[3].action
+           text_act = text_act.slice(0, text_act.length-8)
+           //var text_act1 = x[3].action.replace('znigka=3','')
+           //var text_act2 = x[3].action.replace('znigka=5','')
+               
+             // console.log(n)
+             // console.log(znigka)
+             //  console.log(text_act1)
+             //  console.log(text_act2)
+               console.log('---------------------------------')
+               
+           x[3].action =  text_act + disc
+           
+           document.getElementById('skidka').innerHTML = 'Знижка '+$('#discount').val()+'%'
+           
+           if (disc != 'znigka=0') {
+             $('#for_params').hide();
+             $('#for_hack').text('!!! Увага знижка на товар -'+znigka+'% !!!');
+             $('#for_hack').show();
+           } else {
+             $('#for_params').hide();
+             $('#for_hack').hide();
+           	
+           }
+           }
+           
            function add_list_ch(n) {
            	 var znigka = parseFloat($('#discount').val()) 
            	 document.getElementById('skidka').innerHTML = 'Знижка '+$('#discount').val()+'%'
@@ -243,12 +276,11 @@
         </ol>
         <span id="ch_summ"> </span>
              <%= button_to "Зберегти", 
-                            checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id, :znigka => params[:discount]), 
-                            {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success", :mouseup => "remove_list_ch()", style: "float:right;margin-top:22px;" }%>   
-       
+                            checks_path(:filial_id => params[:filial_name], :poster_id => current_user.id, :znigka => session[:discount]), 
+                            {confirm: "Зберегти Чек?", :method => :post, class: "btn btn-success", :id => "save", :mouseup => "remove_list_ch()", style: "float:right;margin-top:22px;" }%>   
              <%= button_to " Відмова ", 
                             del_check_storages_path(:filial_id => params[:filial_name], :poster_id => current_user.id), 
-                            {confirm: "Видалити Чек?", :method => :put, class: "btn btn-danger", :mouseup => "remove_list_ch()",  style: "margin-top:0px;" }
+                            {confirm: "Видалити Чек?", :method => :put, class: "btn btn-danger", :id => "cancel", :mouseup => "remove_list_ch()",  style: "margin-top:0px;" }
                             %>        
 
       </div>
