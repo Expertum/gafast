@@ -7,7 +7,7 @@
                 Storage.all.each{|u| @s << u.pr_name } %>
               <%= select_tag "pr_name", options_for_select(@s.uniq.collect{|u| [u] }, params[:pr_name]), :style => 'margin-top: 0px'%>
               Знижка<%= select_tag "discount", options_for_select([['0%', '0'],['3%','3'], ['5%','5'],], params[:discount] ),
-              {:onchange => "chng_discount($('#discount').val())" } %>
+              {:onchange => "chng_discount('&')" } %>
            </div> 
          <div style="float:left; margin-left: 10px;">
             <% unless current_user.guest?%>
@@ -89,17 +89,13 @@
            var znigka = $('#discount').val() 
            var x = document.forms
            var text_act = x[5].action
-           text_act = text_act.slice(0, text_act.length-8) 
-           //var text_act1 = x[3].action.replace('znigka=3','')
-           //var text_act2 = x[3].action.replace('znigka=5','')
-               
-             // console.log(n)
-             // console.log(znigka)
-             //  console.log(text_act1)
-             //  console.log(text_act2)
-             //  console.log('---------------------------------')
-               
-           x[3].action =  text_act + disc
+           
+           if (text_act.includes('znigka')) {
+             text_act = text_act.slice(0, text_act.length-8) 
+             x[5].action =  text_act + disc
+            } else {
+             x[5].action =  text_act +n+ disc
+            }
            
            document.getElementById('skidka').innerHTML = 'Знижка '+$('#discount').val()+'%'
            
