@@ -51,7 +51,7 @@
         fields="this, check_text">
          <header:>
       <% unless current_user.role != 'provizor'%>
-      <span update="list-table" class="label label-prinary"><%=    
+      <%=   
                                                                    @checks.each{|x| 
                                                                    unless x.check_text.nil? 
                                                                      @ii += x.check_text.split('||').count.to_i 
@@ -65,20 +65,24 @@
                                                                         end}
                                                                         
                                                                      @ss = 0
+                                                                     @ss_z = 0
                                                                      
                                                                     
                                                                        @dd1.each do |name, count, cena, cena_zng|
                                                                          if cena_zng.nil?
+                                                                            @ss_z += cena.to_f
                                                                             @ss += cena.to_f
                                                                          else
-                                                                           @ss += cena_zng.to_f
+                                                                           @ss_z += cena_zng.to_f
+                                                                           @ss += cena.to_f
                                                                          end  
                                                                        end
                                                                       
                                                                    end
                                                                   }
-                                            @ii %> шт.</span>
-      <span class="label label-success"><%= @ss.round(2)%> грн.</span>
+                                            @ii %> шт.
+      <%= @ss.round(2)%> грн.
+      <span update="list-table" class="label label-success"> <%= @ss_z.round(2) %></span>
       <% end %>
          </header:>
          <actions-heading:></actions-heading:>
