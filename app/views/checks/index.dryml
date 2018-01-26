@@ -57,10 +57,23 @@
                                                                      @ii += x.check_text.split('||').count.to_i 
 
                                                                      @d1 = x.check_text.split('||')
-                                                                     @d1.each{|c| @dd1 << c.split(';')}
+                                                                     @d1.each{|c| @dd1 << c.split(';')
+                                                                        if c.split(';').size == 5 then 
+                                                                          @snig = c.split(';')[4].to_s
+                                                                        else
+                                                                          @snig = '0'
+                                                                        end}
+                                                                        
                                                                      @ss = 0
-                                                                     @dd1.each do |name, count, cena|
-                                                                       @ss += cena.to_f  
+                                                                     
+                                                                     if @snig != '0' then
+                                                                       @dd1.each do |name, count, cena, cena_zng|
+                                                                         @ss += cena_zng.to_f  
+                                                                       end
+                                                                     else
+                                                                       @dd1.each do |name, count, cena|
+                                                                         @ss += cena.to_f  
+                                                                       end
                                                                      end
                                                                    end
                                                                   }
