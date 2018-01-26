@@ -66,15 +66,15 @@
                                                                         
                                                                      @ss = 0
                                                                      
-                                                                     if @snig != '0' then
+                                                                    
                                                                        @dd1.each do |name, count, cena, cena_zng|
-                                                                         @ss += cena_zng.to_f  
+                                                                         if cena_zng.nil?
+                                                                            @ss += cena.to_f
+                                                                         else
+                                                                           @ss += cena_zng.to_f
+                                                                         end  
                                                                        end
-                                                                     else
-                                                                       @dd1.each do |name, count, cena|
-                                                                         @ss += cena.to_f  
-                                                                       end
-                                                                     end
+                                                                      
                                                                    end
                                                                   }
                                             @ii %> шт.</span>
