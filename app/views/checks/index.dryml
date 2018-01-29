@@ -82,7 +82,7 @@
                                                                   }
                                             @ii %> шт.
       <%= @ss.round(2)%> грн.
-      <span update="list-table" class="label label-success"> <%= @ss_z.round(2) %></span>
+      <span update="list-table" class="label label-success"> <%= @ss_z._?.round(2) %></span>
       <% end %>
          </header:>
          <actions-heading:></actions-heading:>
