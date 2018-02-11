@@ -132,9 +132,9 @@
            	 var znigka = 0
            	 var disc_zn = $('#discount').val()
            	 document.getElementById('skidka').innerHTML = 'Знижка '+$('#discount').val()+'%'
-           	 var x;
-             x = document.getElementById("storage_good_minus").value;
-             if (x == "" || x == 0) {
+           	 var g_count = parseFloat($('#ch_count_st').text())
+             var x = document.getElementById("storage_good_minus").value;
+             if (x == "" || x == 0 || x > g_count){
                alert("Значение не должно быть пустым или равно 0!");
                return false;
              } else { 
@@ -416,4 +416,3 @@
     </collection:>
     <bottom-page-nav: replace/>
 </index-page>
-
