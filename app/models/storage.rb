@@ -24,7 +24,7 @@ class Storage < ActiveRecord::Base
     timestamps
   end
   attr_accessible :morion, :codeg, :name, :madein, :nds, :cena, :srok, :filial, :filial_id, :count, :location_good, :price, :price_id,
-                  :date_check, :date_deliver, :check, :deliver, :check_text, :deliver_text, :good_minus, :pr_name, :to_order
+                  :date_check, :date_deliver, :check, :deliver, :check_text, :deliver_text, :good_minus, :pr_name, :to_order, :poster_id
 
 
   belongs_to :price

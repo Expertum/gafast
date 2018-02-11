@@ -40,7 +40,7 @@ class GoodsController < ApplicationController
   end
 
   def import
-    Good.imports(params[:file], params[:price], params[:poster], params[:filid])
+    Good.imports(params[:file], params[:price], params[:poster], params[:filid], params[:nakladna], params[:nds])
     redirect_to :back, notice: "Goods imported."
   end
 

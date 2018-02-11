@@ -122,7 +122,10 @@
       </table-plus>
 
    <%if current_user.administrator? || current_user.provizor?%>
+   <% selec_optin = [['7',7],['20',20]]%>
       <%= form_tag import_goods_path, multipart: true do %>
+        Накладна <%= check_box_tag :nakladna, 'true' %>
+        <%= select_tag 'nds', options_for_select(selec_optin, "nds")%><br/>
         <%= file_field_tag :file %>
         <%= text_field_tag :price, nil, placeholder: 'Ведіть назву прайсу...', :style => 'margin-bottom: 0px'%>
         <%= hidden_field_tag :poster, current_user%>
