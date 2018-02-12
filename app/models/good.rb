@@ -62,6 +62,40 @@ class Good < ActiveRecord::Base
           #puts '***************************'
         end
       end # Optima end
+      if cena == 'ЛАКС'
+        spreadsheet = open_spreadsheet(file)
+        header = spreadsheet.row(1)
+        (2..spreadsheet.last_row).each do |i|
+          row = Hash[[header, spreadsheet.row(i)].transpose]
+
+          strg = row.to_hash
+           p = Price.find_by_name('ЛАКС')
+           nacenka = Filial.find_by_id(filid).nacenka.to_f
+           
+           count_str = strg['Количество'].to_f
+           name_str  = strg['Наименование товара'].to_s
+           
+           morion    = strg['Код Морион'].to_s 
+           codeg     = strg['Код Морион'].to_s
+           madein    = strg['Производитель'].to_s
+           nds       = nds
+           cena      = ((strg['Цена'].to_f*(nacenka.to_f/100+1))*(nds.to_f/100+1)).round(2)
+           srok      = strg['Срок годн.']._?.to_date.strftime("%d.%m.%Y")
+           
+           storag_ad = Storage.find_by_name(name_str)
+           
+           if storag_ad.nil? then
+             storag_ad = Storage.new(:morion =>morion, :codeg => codeg, :name => name_str, :madein => madein, :nds =>nds, :cena =>cena, :srok =>srok, 
+                                     :price_id => p.id, :filial_id => filid, :pr_name => 'ЛАКС', :poster_id => User.find_by_name(poster).id)
+           else
+             storag_ad.morion = morion
+             storag_ad.cena = cena
+           end  
+             storag_ad.location_good = 'stor'
+             storag_ad.count += count_str
+             storag_ad.save!        
+         end        
+      end   # LAKS end
     else
       #puts "PRICE ****************************************"
 #--- Add Price
