@@ -44,7 +44,7 @@ class Good < ActiveRecord::Base
            cena      = ((strg['SellPrice'].to_f*(nacenka.to_f/100+1))*(nds.to_f/100+1)).round(2)
            srok      = strg['BestBefore'].to_date.strftime("%d.%m.%Y")
            
-           storag_ad = Storage.where(:name => name_str, :filial_id => filid, :price_id => p.id)[0]
+           storag_ad = Storage.where(:name => name_str, :filial_id => filid, :pr_name => p.name)[0]
            
            if storag_ad.nil? then
              storag_ad = Storage.new(:morion =>morion, :codeg => codeg, :name => name_str, :madein => madein, :nds =>nds, :cena =>cena, :srok =>srok, 
@@ -82,7 +82,7 @@ class Good < ActiveRecord::Base
            cena      = ((strg['Цена'].to_f*(nacenka.to_f/100+1))*(nds.to_f/100+1)).round(2)
            srok      = strg['Срок годн.']._?.to_date.strftime("%d.%m.%Y")
            
-           storag_ad = Storage.where(:name => name_str, :filial_id => filid, :price_id => p.id)[0]
+           storag_ad = Storage.where(:name => name_str, :filial_id => filid, :pr_name => p.name)[0]
            
            if storag_ad.nil? then
              storag_ad = Storage.new(:morion =>morion, :codeg => codeg, :name => name_str, :madein => madein, :nds =>nds, :cena =>cena, :srok =>srok, 
