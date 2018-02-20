@@ -55,6 +55,7 @@ class Good < ActiveRecord::Base
            end  
              storag_ad.location_good = 'stor'
              storag_ad.price_id = p.id
+             storag_ad.srok = srok
              storag_ad.count += count_str
              storag_ad.save!
            
@@ -94,6 +95,7 @@ class Good < ActiveRecord::Base
            end  
              storag_ad.location_good = 'stor'
              storag_ad.price_id = p.id
+             storag_ad.srok = srok
              storag_ad.count += count_str
              storag_ad.save!        
          end        
