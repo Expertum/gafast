@@ -42,7 +42,7 @@ class Good < ActiveRecord::Base
            madein    = strg['ProducerName'].to_s
            nds       = nds
            cena      = ((strg['SellPrice'].to_f*(nacenka.to_f/100+1))*(nds.to_f/100+1)).round(2)
-           srok      = strg['BestBefore'].to_date.strftime("%d.%m.%Y")
+           srok      = strg['BestBefore'].to_date._?.strftime("%d.%m.%Y")
            
            storag_ad = Storage.where(:name => name_str, :filial_id => filid, :pr_name => p.name)[0]
            
@@ -82,7 +82,7 @@ class Good < ActiveRecord::Base
            madein    = strg['Производитель'].to_s
            nds       = nds
            cena      = ((strg['Цена'].to_f*(nacenka.to_f/100+1))*(nds.to_f/100+1)).round(2)
-           srok      = strg['Срок годн.']._?.to_date.strftime("%d.%m.%Y")
+           srok      = strg['Срок годн.']._?.to_date._?.strftime("%d.%m.%Y")
            
            storag_ad = Storage.where(:name => name_str, :filial_id => filid, :pr_name => p.name)[0]
            
