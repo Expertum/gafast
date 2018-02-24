@@ -63,12 +63,12 @@
  
           <% unless this.count == 0%>
           
-          <a href="#" onclick="perenac('#@st_all');return confirm('Зробити перенацінку?')">Перенацінка</a><span id="percent" class="btn btn-danger" style="display:none;"></span>
+          <a href="#" onclick="perenac('#@st_all');">Перенацінка</a><span id="percent" class="btn btn-danger" style="display:none;"></span>
           
           <% @j = this.first._?.filial.nacenka %>
                <% button_to " Перенацінка " + @j.to_s + "%", 
-                 perenac_storages_path, 
-                 {confirm: "Перенацінити весь товар?", :method => :put, class: "btn btn-danger", style: 'float:right;' }
+                 perenac_storages_path,
+                 {confirm: "Перенацінити весь товар?", :onclick => "perenac('#@st_all')", :method => :put, class: "btn btn-danger", style: 'float:right;' }
                  %>
           <%= link_to("Змінити перенацінку "+@j.to_s+'%', "/filials/"+params[:filial_name]._?.to_s+"/edit", style: 'float:right;' )%>
 
@@ -263,23 +263,35 @@
                                                                })
                                           });
             function perenac(s_all) {
+              var r = confirm("Зробити перенацінку?");
+              if (r)
+                {
+            	
              var arr = s_all.replace('[','').replace(']','').split(',')
-             var max = arr.length-1;
+             var max = arr.length;
+            console.log('max='+max);
              $('#percent').show();
              $.each(arr, function( index, value ) {
+             	console.log(index)
                $.ajax({url: "/storages/perenac",
                        type: 'PUT',
                        data: {'storage_id': value}
                       }).done(function( data ) {
-                                                 var per = (index/max)*100;
+                                                 var per = ((index+5)/max)*100;
                                                  $('#percent').text(Math.round(per)+'%');
-                                                 if (index >= max ){
-                                                 	 
+                                                 if (index >= max-1 ){
+                                                 	 var rl = confirm("Перезавантажити сторінку?");
+                                                      if (rl)
+                                                       {window.location.reload();}
+                                                       else
+                                                       {}
                                                  	}
                                                });
   
 
              });
+             }
+             else{}
             }
          </script>
 

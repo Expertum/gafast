@@ -34,7 +34,7 @@ class StoragesController < ApplicationController
       search(params[:search], :id, :codeg, :name, :cena, :morion).
       order_by(parse_sort_param(:id, :name, :codeg, :cena, :count))
 
-    @storages.each{|s| @st_all << s.id}
+    @storages.each{|s| if s.location_good == 'stor' then @st_all << s.id end}
 
     @storages = @storages.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
     @storages = @storages.where("location_good like ?", params[:location_good]) unless params[:location_good].blank?
