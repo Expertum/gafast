@@ -277,9 +277,9 @@
                        type: 'PUT',
                        data: {'storage_id': value}
                       }).done(function( data ) {
-                                                 var per = ((index+5)/max)*100;
+                                                 var per = ((index+1)/max)*100;
                                                  $('#percent').text(Math.round(per)+'%');
-                                                 if (index >= max-1 ){
+                                                 if (per >= 100 ){
                                                  	 var rl = confirm("Перезавантажити сторінку?");
                                                       if (rl)
                                                        {window.location.reload();}
