@@ -16,6 +16,7 @@ class StoragesController < ApplicationController
         @dd = 0
         @ci = 0
         @cd = 0
+        @st_all = []
     # FILTERS
       #Save param to session
       %w(location_good filial_name pr_name).each do |key|                                                                                                           
@@ -32,6 +33,8 @@ class StoragesController < ApplicationController
     @storages = Storage.
       search(params[:search], :id, :codeg, :name, :cena, :morion).
       order_by(parse_sort_param(:id, :name, :codeg, :cena, :count))
+
+    @storages.each{|s| @st_all << s.id}
 
     @storages = @storages.where("filial_id like ?", params[:filial_name]) unless params[:filial_name].blank?
     @storages = @storages.where("location_good like ?", params[:location_good]) unless params[:location_good].blank?
@@ -163,8 +166,12 @@ class StoragesController < ApplicationController
   end
 
   def perenac
-    Storage.pernac
-    redirect_to(storages_url)
+    Storage.pernac(params[:storage_id])
+   #redirect_to(storages_url)
+    respond_to do |format|
+      format.js  { render :nothing => true, :notice => 'Update SUCCESSFUL!' }
+      format.html { render :nothing => true, :notice => 'Update SUCCESSFUL!' }
+    end
   end
 
   def chcodeg

@@ -99,17 +99,23 @@ class Storage < ActiveRecord::Base
      end
   end
 
-  def self.pernac
+  def self.pernac(id)
     @p_goods={}
     @prom ={}
-    Storage.all.each{|x| if x.w_cena?
+    #Storage.all.each{|x| if x.w_cena?
                             #x.cena = x.w_cena?[1]
                             #x.save!
-                            @p_goods.merge!(x.id => {'cena' => x.w_cena?[1]})
-                         end}
+     #                       @p_goods.merge!(x.id => {'cena' => x.w_cena?[1]})
+     #                    end}
 #    puts @p_goods
 #    sleep 2.5
-    Storage.update(@p_goods.keys, @p_goods.values)
+    #Storage.update(@p_goods.keys, @p_goods.values)
+    # новая концепція
+    x = Storage.find_by_id(id.to_i)
+    if x.w_cena?
+       x.cena = x.w_cena?[1]
+       x.save!
+    end
   end
 
   def find_good?(good,price)

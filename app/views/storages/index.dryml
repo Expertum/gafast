@@ -62,12 +62,16 @@
            <span class="label label-success"><%= @cd.round(2)%> грн.</span>
  
           <% unless this.count == 0%>
-          <%= link_to("Змінити", "/filials/"+params[:filial_name]._?.to_s+"/edit", style: 'float:right;' )%>
-          <%= @j = this.first._?.filial.nacenka
-               button_to " Перенацінка " + @j.to_s + "%", 
+          
+          <a href="#" onclick="perenac('#@st_all');return confirm('Зробити перенацінку?')">Перенацінка</a><span id="percent" class="btn btn-danger" style="display:none;"></span>
+          
+          <% @j = this.first._?.filial.nacenka %>
+               <% button_to " Перенацінка " + @j.to_s + "%", 
                  perenac_storages_path, 
                  {confirm: "Перенацінити весь товар?", :method => :put, class: "btn btn-danger", style: 'float:right;' }
                  %>
+          <%= link_to("Змінити перенацінку "+@j.to_s+'%', "/filials/"+params[:filial_name]._?.to_s+"/edit", style: 'float:right;' )%>
+
           <%end%>
       <% end %>
 
@@ -258,6 +262,25 @@
                                                          } 
                                                                })
                                           });
+            function perenac(s_all) {
+             var arr = s_all.replace('[','').replace(']','').split(',')
+             var max = arr.length-1;
+             $('#percent').show();
+             $.each(arr, function( index, value ) {
+               $.ajax({url: "/storages/perenac",
+                       type: 'PUT',
+                       data: {'storage_id': value}
+                      }).done(function( data ) {
+                                                 var per = (index/max)*100;
+                                                 $('#percent').text(Math.round(per)+'%');
+                                                 if (index >= max ){
+                                                 	 
+                                                 	}
+                                               });
+  
+
+             });
+            }
          </script>
 
                 <!-- Modal -->
