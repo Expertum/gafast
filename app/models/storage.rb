@@ -112,6 +112,15 @@ class Storage < ActiveRecord::Base
     Storage.update(@p_goods.keys, @p_goods.values)
   end
 
+  def find_good?(good,price)
+    pr_id = Price.find_by_name(price).id
+    if Good.where(:name => good, :price_id => pr_id).size != 0
+      return true
+    else
+      return false
+    end
+  end
+
   def num_plus
       
   end

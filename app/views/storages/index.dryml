@@ -324,6 +324,14 @@
               </span>
            <%else%>
            <%end%>
+           <% 
+             @goodf = this.to_s
+             @pricef = this.pr_name
+           %>
+           
+           <% if this.find_good?(@goodf,@pricef) == false%>
+             <div class="alert alert-danger" role="alert"><strong>!!!ТОВАР ВІДСУТНИЙ У ПОСТАЧАЛЬНИКА!!!</strong></div>
+           <% end %>
          </this-view:>
          <morion-view:><%= this.to_i%></morion-view:>
          <num_plus-view:> <%@i +=1%>
