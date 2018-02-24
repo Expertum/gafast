@@ -113,8 +113,8 @@ class Storage < ActiveRecord::Base
   end
 
   def find_good?(good,price)
-    pr_id = Price.find_by_name(price).id
-    if Good.where(:name => good, :price_id => pr_id).size != 0
+    pr_id = Price.find_by_name(price)._?.id
+    if Good.where(:name => good, :price_id => pr_id).size != 0 && pr_id != nil
       return true
     else
       return false
