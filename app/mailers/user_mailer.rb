@@ -3,13 +3,15 @@ class UserMailer < ActionMailer::Base
 
   def forgot_password(user, key)
     @user, @key = user, key
-    mail( :subject => "#{app_name} -- forgotten password",
+    mail( :from => "no-reply@#{host}",
+          :subject => "#{app_name} -- forgotten password",
           :to      => user.email_address )
   end
 
   def invite(user, key)
     @user, @key = user, key
-    mail( :subject => "Invitation to #{app_name}",
+    mail( :from => "no-reply@#{host}",
+          :subject => "Invitation to #{app_name}",
           :to      => user.email_address )
   end
 
