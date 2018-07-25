@@ -10,7 +10,7 @@ class News < ActiveRecord::Base
 
   attr_accessible :title, :content
 
-  has_many :comments, :dependent => :destroy, :order => 'created_at DESC'
+  has_many :comments, -> { order 'created_at DESC' }, :dependent => :destroy
 
   has_many :read_by_assignments, :dependent => :destroy, :class_name => "NewsRead"
   has_many :read_by, :through => :read_by_assignments, :dependent => :destroy, :source => :user, :class_name => "User"
