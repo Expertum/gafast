@@ -13,8 +13,8 @@ class Price < ActiveRecord::Base
 
   belongs_to :filial
 
-  has_many :comments, :dependent => :destroy, :order => 'created_at DESC'
-  has_many :logs, :as => :logable, :dependent => :destroy, :order => 'created_at DESC'
+  has_many :comments, -> { order 'created_at DESC' }, :dependent => :destroy
+  has_many :logs, -> { order 'created_at DESC' }, :as => :logable, :dependent => :destroy
   has_many :read_by_assignments, :dependent => :destroy, :class_name => "PricesRead"
   has_many :read_by, :through => :read_by_assignments, :dependent => :destroy, :source => :user, :class_name => "User"
 

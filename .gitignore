@@ -12,11 +12,13 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.xz
 /tmp
 app/views/taglibs/auto/**/*
 config/hobo_routes.rb
 config/database.yml
 public/system
+public/assets
 config/initializers/gration-expertise.rb
 Gemfile.lock
 *~

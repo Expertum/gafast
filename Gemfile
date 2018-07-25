@@ -1,29 +1,29 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.18'
+gem 'rails', '~> 4.2.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+#gem 'sqlite3'
 gem 'mysql2'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+#group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
   gem "jquery-fileupload-rails"
-end
+#end
 
 gem 'jquery-rails'
 gem 'spreadsheet'
-gem 'activerecord-import'
+#gem 'activerecord-import'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -39,21 +39,26 @@ gem 'activerecord-import'
 # To use debugger
 # gem 'debugger'
 
-gem "hobo", "~> 2.0.0"
+gem "hobo"
 # Hobo has a lot of assets.   Stop cluttering the log in development mode.
 gem "quiet_assets", :group => :development
 # Hobo's version of will_paginate is required.
-gem "will_paginate", :git => "git://github.com/Hobo/will_paginate.git"
-gem "hobo_bootstrap", "~> 2.0.0"
-gem "hobo_jquery_ui", "~> 2.0.0"
-gem "hobo_bootstrap_ui", "~> 2.0.0"
-gem "jquery-ui-themes", "~> 0.0.4"
-gem 'rails-i18n', '~> 3.0.0' # For 3.x
+gem "hobo_will_paginate"
+gem "hobo_bootstrap"
+gem "hobo_jquery_ui"
+gem "hobo_bootstrap_ui"
+gem "jquery-ui-themes"
+gem 'rails-i18n'
 gem "russian"
 gem "thin"
-gem 'paperclip', '~> 3.0'
+gem 'paperclip'
 gem "ru_propisju"
 gem 'roo'
 gem 'roo-xls'
 gem 'nprogress-rails'
 gem 'test-unit'
+
+gem 'hobo_paperclip', :git => "https://github.com/Hobo/hobo_paperclip.git", :branch => "master"
+gem 'rest-client'
+gem 'responders', '= 2.1.0'
+gem 'protected_attributes'
