@@ -28,7 +28,7 @@
     <title:>Замовлення товару <%= " : GFS"-%></title:>
     <content-header:>
       <% unless current_user.role != 'provizor'%>
-      <a class="btn pull-right" action='new'>Додати прайсовий товар</a>
+      <a class="btn pull-right" href='goods/new'>Додати прайсовий товар</a>
       <% end %>
       <h2>
         Список товарів з прайсів постачальників

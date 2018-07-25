@@ -42,7 +42,7 @@
   <title:>Склад <%= " : GFS"-%></title:>
     <content-header:>
       <% unless current_user.role != 'provizor'%>
-      <a class="btn pull-right" action='new'>Додати на Склад</a>
+      <a class="btn pull-right" href='goods/new'>Додати на Склад</a>
       <% end %>
       <h2>
         Список товарів на складі
