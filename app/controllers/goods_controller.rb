@@ -11,13 +11,12 @@ class GoodsController < ApplicationController
         @asum = 0
     # FILTERS
       #Save param to session
-      %w(filial_name).each do |key|                                                                                                           
+      %w(filial_name).each do |key|
          if not params[key].nil?; session[key] = params[key]
            elsif not session[key].nil?; params[key] = session[key]
            end
          params.delete(key) if params[key].blank?
      end
-      #---
 
     if params[:filial_name].blank? then params[:filial_name] = current_user.filial end
 
