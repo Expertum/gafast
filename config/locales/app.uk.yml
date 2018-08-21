@@ -2,6 +2,10 @@
 # Please , add the specific models and attributes for your application .
 
 uk:
+  will_paginate:
+    previous_label: "Попередня"
+    next_label: "Натсупна"
+    page_gap: "…"
   hobo:
     table_plus:
       submit_label: Пошук

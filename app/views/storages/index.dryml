@@ -456,6 +456,7 @@
                </tr>
              </tfoot:>
       </table-plus>
+      <%= will_paginate(@storages) %>
     </collection:>
     <bottom-page-nav: replace/>
 </index-page>
