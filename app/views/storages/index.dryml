@@ -91,6 +91,15 @@
     <collection: replace>
          <script language="javascript">
          
+         function hidePaginate() {
+         	var loc_g = $('#location_good').val();
+         	if (loc_g === 'defect'){
+         		$('div.pagination').hide();
+         	} else {
+         		$('div.pagination').show();
+         	}
+         }
+         
          function check_chek() {
            var chek_all = document.getElementsByClassName("boolean storage-check");
            $.each(chek_all , function( index, value ){
@@ -293,6 +302,11 @@
              }
              else{}
             }
+         </script>
+         <script language="javascript">
+           $( document ).ready(function(){
+             $('#location_good').attr('onchange','hidePaginate();')
+           });
          </script>
 
                 <!-- Modal -->
