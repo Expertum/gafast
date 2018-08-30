@@ -103,7 +103,7 @@ class Good < ActiveRecord::Base
     else
       #puts "PRICE ****************************************"
 #--- Add Price
-      p = Price.find_or_create_by_name(cena)
+      p = Price.find_or_create_by(name: cena)
       p.filial_id = filid
       p.poster = poster
       p.save!
