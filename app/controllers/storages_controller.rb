@@ -43,7 +43,15 @@ class StoragesController < ApplicationController
 
     @storages.each{|s| if s.count == 0 then s.location_good = 'defect' end; s.save!}
 
-    @storages = @storages.order("srok asc").paginate(:page => params[:page])
+         if params[:location_good] == 'defect'
+            # puts '**************************************'
+              @o_count = @storages.count
+           else
+             @o_count = 30
+            #  puts '-----------------------------------------------------------'
+           end
+
+    @storages = @storages.order("srok asc").paginate(:per_page => @o_count, :page => params[:page])
 
     hobo_index do |format|
       format.html {}
